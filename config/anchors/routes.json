@@ -15,12 +15,6 @@
         "route": "/suscribe",
         "handler": "suscribe"
       }
-    ],
-    "PUT": [
-      {
-        "route": "/update",
-        "handler": "update"
-      }
     ]
   }
 }
