@@ -57,16 +57,12 @@ class News extends React.Component {
     `
     const $menu = document.getElementsByClassName('wrap-news__content');
     window.addEventListener('scroll', (e) => {
-      if (window.scrollY > 100 && $menu) {
-        let y = window.scrollY - 250;
-        if(y > 0) {
-          console.log(y);
-          if(y < 20) {
-            $menu[0].style.top = "188px";
-          } else if(y > 5) {
-            $menu[0].style.top = `${y}px`;
-          }
-        }
+      console.log(window.pageYOffset);
+      if (window.pageYOffset > 100 && $menu) {
+        let y = 20;//window.pageYOffset - 250;
+        $menu[0].style.top = `${y}px`;
+      } else if (window.pageYOffset < 280 || window.pageYOffset < 50 ){
+        $menu[0].style.top = "188px";
       } else {
         $menu[0].style.top = "188px";
       }
