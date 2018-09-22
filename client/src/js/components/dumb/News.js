@@ -55,6 +55,22 @@ class News extends React.Component {
     videoWrapper.innerHTML = `
         <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     `
+    const $menu = document.getElementsByClassName('wrap-news__content');
+    window.addEventListener('scroll', (e) => {
+      if (window.scrollY > 100 && $menu) {
+        let y = window.scrollY - 250;
+        if(y > 0) {
+          console.log(y);
+          if(y < 20) {
+            $menu[0].style.top = "188px";
+          } else if(y > 5) {
+            $menu[0].style.top = `${y}px`;
+          }
+        }
+      } else {
+        $menu[0].style.top = "188px";
+      }
+    });
   }
 
   selectNew(select) {

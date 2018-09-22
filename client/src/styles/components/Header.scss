@@ -43,7 +43,7 @@
           }
           span {
             transition: all 0.25s ease-in-out;
-            color: #091e8c;
+            color: $primary;
           }
           &:hover span {
             color: red;
