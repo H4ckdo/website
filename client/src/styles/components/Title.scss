@@ -1,0 +1,33 @@
+.title{
+  text-align: center;
+  font-family: $global-font-title;
+  padding: 0px;
+  margin: 0px;
+  transition: all .25s ease-in-out;
+  font-size: 40px;
+  .bottom-mark {
+    z-index: -1;
+    top: -15px;
+  }
+  span {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.25s ease-in-out;
+  }
+  &:hover span {
+    color:  red !important;
+  }
+  &:hover .bottom-mark {
+    width: 80%;
+    background: #FFC107;
+  }
+}
+
+.unactive {
+  color: #091e8c !important;
+}
+.active {
+  color: red;
+}
