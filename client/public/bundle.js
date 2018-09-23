@@ -30085,18 +30085,14 @@ var News = function (_React$Component) {
       videoWrapper.innerHTML = '\n        <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\n    ';
       var $menu = document.getElementsByClassName('wrap-news__content');
       window.addEventListener('scroll', function (e) {
-        if (window.scrollY > 100 && $menu) {
-          var y = window.scrollY - 250;
-          if (y > 0) {
-            console.log(y);
-            if (y < 20) {
-              $menu[0].style.top = "188px";
-            } else if (y > 5) {
-              $menu[0].style.top = y + 'px';
-            }
-          }
+        console.log(window.pageYOffset);
+        if (window.pageYOffset > 100 && $menu) {
+          var y = 0; //window.pageYOffset - 250;
+          $menu[0].style.top = y + 'px';
+        } else if (window.pageYOffset < 280 || window.pageYOffset < 50) {
+          $menu[0].style.top = "150px";
         } else {
-          $menu[0].style.top = "188px";
+          $menu[0].style.top = "150px";
         }
       });
     }
@@ -30121,7 +30117,9 @@ var News = function (_React$Component) {
           _this2.setState({ select: select, news: news }, function () {
             if (select === 'conf') {
               var videoWrapper = document.getElementById('videoWrapper');
-              videoWrapper.innerHTML = '\n                <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\n            ';
+              if (videoWrapper) {
+                videoWrapper.innerHTML = '\n                  <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\n              ';
+              }
             }
           });
         }, 500);
