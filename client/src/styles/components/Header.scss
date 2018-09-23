@@ -8,19 +8,21 @@
   margin: 0px auto;
   align-items: center;
   justify-content: center;
+  height: 100px;
+  img {
+    width: 250px;
+  }
   .main-header {
-      padding: 0;
-      height: auto;
-      transition: all .25s ease-in-out;
-      bottom: 16px;
-      display: grid;
-      position: relative;
-      left: 0;
-      margin: 0px auto;
-      padding-top: 30px;
+    padding: 0;
+    height: auto;
+    transition: all .25s ease-in-out;
+    display: grid;
+    position: relative;
+    left: 0;
+    margin: 0 auto;
     nav {
       align-self: end;
-      text-align: right;
+      text-align: left;
       ul {
         padding: 0px;
         padding-left: 40px;
@@ -29,7 +31,7 @@
           list-style: none;
           display: inline-block;
           margin-right: 0px;
-          font-size: 24px;
+          font-size: 16px;
           border: none;
           font-family: $global-font-title;
           font-weight: bold;
