@@ -59,12 +59,12 @@ class News extends React.Component {
     window.addEventListener('scroll', (e) => {
       console.log(window.pageYOffset);
       if (window.pageYOffset > 100 && $menu) {
-        let y = 20;//window.pageYOffset - 250;
+        let y = 0;//window.pageYOffset - 250;
         $menu[0].style.top = `${y}px`;
       } else if (window.pageYOffset < 280 || window.pageYOffset < 50 ){
-        $menu[0].style.top = "188px";
+        $menu[0].style.top = "150px";
       } else {
-        $menu[0].style.top = "188px";
+        $menu[0].style.top = "150px";
       }
     });
   }
