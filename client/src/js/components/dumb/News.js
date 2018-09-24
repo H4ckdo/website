@@ -57,7 +57,7 @@ class News extends React.Component {
     `
     const $menu = document.getElementsByClassName('wrap-news__content');
     window.addEventListener('scroll', (e) => {
-      console.log(window.pageYOffset);
+      //console.log(window.pageYOffset);
       if (window.pageYOffset > 100 && $menu) {
         let y = 0;//window.pageYOffset - 250;
         $menu[0].style.top = `${y}px`;
