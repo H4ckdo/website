@@ -40,7 +40,7 @@
 ################################################
 
 config/local.js
-client/public/bundle.js
+./client/public/bundle.js
 client/public/bundle.js.map
 d.txt
 backups
