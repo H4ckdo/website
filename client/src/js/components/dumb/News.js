@@ -134,7 +134,7 @@ class News extends React.Component {
                     {
                       news[month].map((item, i) => {
                         return (
-                          <li key={i} onClick={this.selectNew.bind(this, item.id)}>
+                          <li key={i} className="appear-right" style={ {animationDelay: `${i*0.35}s` } } onClick={this.selectNew.bind(this, item.id)}>
                             <Title hover={select !== item.id} data={item.title} />
                           </li>
                         )
