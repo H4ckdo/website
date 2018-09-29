@@ -23,7 +23,7 @@ class Gallery extends React.Component {
           dotsDisabled={true}
         >
         <div className="wrap-image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
-        <div className="wrap-image" style={{ backgroundImage: `url(/assets/images/DSC_9350.JPG` }}></div>
+        <div className="wrap-image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
         </AliceCarousel>
       </div>
     )
