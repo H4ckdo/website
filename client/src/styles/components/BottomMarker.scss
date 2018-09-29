@@ -1,0 +1,51 @@
+.title{
+  text-align: center;
+  font-family: $global-font-title;
+  padding: 0px;
+  margin: 0px;
+  transition: all .25s ease-in-out;
+  font-size: 40px;
+  text-align: left;
+  .bottom-mark {
+    z-index: -1;
+    top: -15px;
+  }
+  span {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.25s ease-in-out;
+  }
+  &:hover span {
+    color:  red !important;
+  }
+  &:hover .bottom-mark {
+    width: 80%;
+    background: #FFC107;
+  }
+}
+
+.unactive {
+  color: $primary !important;
+}
+.active {
+  color: red;
+}
+
+.bottom-mark {
+  height: 10px;
+  width: 5%;
+  position: relative;
+  top: -10px;
+  left: 0;
+  background: transparent;
+  margin: 0 auto;
+  padding: 0;
+  transition: all .25s ease-in-out;
+}
+
+.mark-active {
+  width: 80%;
+  background: #FFC107;
+}

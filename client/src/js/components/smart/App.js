@@ -18,7 +18,7 @@ class App extends React.Component {
     let { setup = {}, data = [] } = this.props;
     return (
       <section id="main-content">
-        <Header />
+        <Header/>
         <News/>
       </section>
 

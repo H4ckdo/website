@@ -1,0 +1,23 @@
+.about-container {
+  width: $large;
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+  justify-content: center;
+  grid-gap: 50px;
+  .about-container__gallery {
+    width: 700px;
+    vertical-align: center;
+  }
+  .about-container__text {
+    vertical-align: center;
+    .title {
+      .bottom-mark {
+        top: -24px;
+      }
+      h1 {
+        margin: 0px;
+        padding: 0px;
+      }
+    }
+  }
+}

@@ -27739,10 +27739,1546 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 }
 
 /***/ }),
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSwipeable = __webpack_require__(231);
+
+var _reactSwipeable2 = _interopRequireDefault(_reactSwipeable);
+
+var _propTypes = __webpack_require__(35);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _common = __webpack_require__(233);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AliceCarousel = function (_React$PureComponent) {
+  _inherits(AliceCarousel, _React$PureComponent);
+
+  function AliceCarousel(props) {
+    _classCallCheck(this, AliceCarousel);
+
+    var _this = _possibleConstructorReturn(this, (AliceCarousel.__proto__ || Object.getPrototypeOf(AliceCarousel)).call(this, props));
+
+    _initialiseProps.call(_this);
+
+    _this.state = {
+      clones: [],
+      currentIndex: 1,
+      duration: props.duration,
+      slides: _this._galleryChildren(props),
+      style: { transition: 'transform 0ms ease-out' }
+    };
+
+    _this.swipePosition = {};
+    _this.animationProps = {};
+    _this.touchEventsCallstack = [];
+    _this.preventHorizontalSwiping = false;
+    _this._onTouchMove = _this._onTouchMove.bind(_this);
+    return _this;
+  }
+
+  _createClass(AliceCarousel, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this._allowAnimation();
+      this._setInitialState();
+      window.addEventListener('resize', this._windowResizeHandler);
+
+      if (!this.props.keysControlDisabled) {
+        window.addEventListener('keyup', this._keyUpHandler);
+      }
+
+      if (this.props.autoPlay) {
+        this._play();
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var items = nextProps.items,
+          responsive = nextProps.responsive,
+          slideToIndex = nextProps.slideToIndex,
+          duration = nextProps.duration,
+          startIndex = nextProps.startIndex,
+          keysControlDisabled = nextProps.keysControlDisabled,
+          infinite = nextProps.infinite,
+          autoPlayActionDisabled = nextProps.autoPlayActionDisabled,
+          autoPlayDirection = nextProps.autoPlayDirection,
+          autoPlayInterval = nextProps.autoPlayInterval,
+          autoPlay = nextProps.autoPlay,
+          fadeOutAnimation = nextProps.fadeOutAnimation;
+
+
+      if (this.props.duration !== duration) {
+        this.setState({ duration: duration });
+      }
+
+      if (this.props.fadeOutAnimation !== fadeOutAnimation) {
+        this.setState({ fadeOutAnimation: false }, this._resetAnimationProps);
+      }
+
+      if (slideToIndex !== this.props.slideToIndex) {
+        this._onSlideToIndexChange(this.state.currentIndex, slideToIndex);
+      }
+
+      if (this.props.startIndex !== startIndex && slideToIndex === this.props.slideToIndex) {
+        this._slideToItem(startIndex);
+      }
+
+      if (this.props.keysControlDisabled !== keysControlDisabled) {
+        keysControlDisabled ? window.removeEventListener('keyup', this._keyUpHandler) : window.addEventListener('keyup', this._keyUpHandler);
+      }
+
+      if (this.props.autoPlayActionDisabled !== autoPlayActionDisabled || this.props.autoPlayDirection !== autoPlayDirection || this.props.autoPlayInterval !== autoPlayInterval || this.props.infinite !== infinite || this.props.autoPlay !== autoPlay) {
+        this._pause();
+      }
+
+      if (this.props.items !== items || this.props.responsive !== responsive) {
+        this.setState(this._calculateInitialProps(nextProps));
+      }
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.autoPlayActionDisabled !== prevProps.autoPlayActionDisabled || this.props.autoPlayDirection !== prevProps.autoPlayDirection || this.props.autoPlayInterval !== prevProps.autoPlayInterval || this.props.autoPlay !== prevProps.autoPlay) {
+        if (this.props.autoPlay) {
+          this._play();
+        }
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      window.removeEventListener('resize', this._windowResizeHandler);
+
+      if (!this.props.keysControlDisabled) {
+        window.removeEventListener('keyup', this._keyUpHandler);
+      }
+
+      if (this._autoPlayIntervalId) {
+        window.clearInterval(this._autoPlayIntervalId);
+        this._autoPlayIntervalId = null;
+      }
+    }
+  }, {
+    key: '_onSlideChange',
+    value: function _onSlideChange() {
+      if (this.props.onSlideChange) {
+        this.props.onSlideChange({
+          item: this.state.currentIndex,
+          slide: this._getActiveSlideIndex()
+        });
+      }
+    }
+  }, {
+    key: '_onSlideChanged',
+    value: function _onSlideChanged() {
+      this._allowAnimation();
+      if (this.props.onSlideChanged) {
+        this.props.onSlideChanged({
+          item: this.state.currentIndex,
+          slide: this._getActiveSlideIndex()
+        });
+      }
+    }
+  }, {
+    key: '_calculateInitialProps',
+    value: function _calculateInitialProps(props) {
+      var startIndex = props.startIndex,
+          responsive = props.responsive;
+
+      var children = this._galleryChildren(props);
+      var items = this._setTotalItemsInSlide(responsive, children.length);
+      var currentIndex = this._setStartIndex(children.length, startIndex);
+      var itemWidth = this.stageComponent.getBoundingClientRect().width / items;
+
+      return {
+        items: items,
+        itemWidth: itemWidth,
+        currentIndex: currentIndex,
+        slides: children,
+        clones: this._cloneCarouselItems(children, items),
+        translate3d: -itemWidth * (items + currentIndex)
+      };
+    }
+  }, {
+    key: '_setTotalItemsInSlide',
+    value: function _setTotalItemsInSlide(responsiveConfig, childrenLength) {
+      var items = 1;
+      if (responsiveConfig) {
+        var configKeys = Object.keys(responsiveConfig);
+
+        if (configKeys.length) {
+          configKeys.forEach(function (width) {
+            if (width < window.innerWidth) {
+              items = Math.min(responsiveConfig[width].items, childrenLength) || items;
+            }
+          });
+        }
+      }
+      return items;
+    }
+  }, {
+    key: '_setInitialState',
+    value: function _setInitialState() {
+      this.setState(this._calculateInitialProps(this.props));
+    }
+  }, {
+    key: '_checkSlidePosition',
+    value: function _checkSlidePosition(skip) {
+      this._stopSwipeAnimation();
+      this._resetAnimationProps();
+      this._resetSwipePositionProps();
+      skip ? this._skipSlidePositionRecalculation() : this._updateSlidePosition();
+    }
+  }, {
+    key: '_recalculateSlidePosition',
+    value: function _recalculateSlidePosition() {
+      var _this2 = this;
+
+      var _state = this.state,
+          items = _state.items,
+          itemWidth = _state.itemWidth,
+          slides = _state.slides,
+          currentIndex = _state.currentIndex;
+
+
+      var fadeOutAnimationState = this._allowFadeOutAnimation() ? { fadeOutAnimation: false } : {};
+      currentIndex = currentIndex < 0 ? slides.length - 1 : 0;
+
+      this.setState(_extends({
+        currentIndex: currentIndex
+      }, fadeOutAnimationState, {
+        translate3d: -itemWidth * (currentIndex === 0 ? items : slides.length - 1 + items),
+        style: { transition: 'transform 0ms ease-out' }
+      }), function () {
+        return _this2._onSlideChanged();
+      });
+    }
+  }, {
+    key: '_prevButton',
+    value: function _prevButton() {
+      var _isInactiveItem = this._isInactiveItem(),
+          inactivePrev = _isInactiveItem.inactivePrev;
+
+      var className = 'alice-carousel__prev-btn-item' + (inactivePrev ? ' __inactive' : '');
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'alice-carousel__prev-btn' },
+        _react2.default.createElement(
+          'div',
+          {
+            className: 'alice-carousel__prev-btn-wrapper',
+            onMouseEnter: this._onMouseEnterAutoPlayHandler,
+            onMouseLeave: this._onMouseLeaveAutoPlayHandler
+          },
+          _react2.default.createElement('div', { className: className, onClick: this._slidePrev })
+        )
+      );
+    }
+  }, {
+    key: '_nextButton',
+    value: function _nextButton() {
+      var _isInactiveItem2 = this._isInactiveItem(),
+          inactiveNext = _isInactiveItem2.inactiveNext;
+
+      var className = 'alice-carousel__next-btn-item' + (inactiveNext ? ' __inactive' : '');
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'alice-carousel__next-btn' },
+        _react2.default.createElement(
+          'div',
+          {
+            className: 'alice-carousel__next-btn-wrapper',
+            onMouseEnter: this._onMouseEnterAutoPlayHandler,
+            onMouseLeave: this._onMouseLeaveAutoPlayHandler
+          },
+          _react2.default.createElement('div', { className: className, onClick: this._slideNext })
+        )
+      );
+    }
+  }, {
+    key: '_renderDotsNavigation',
+    value: function _renderDotsNavigation() {
+      var _this3 = this;
+
+      var _state2 = this.state,
+          slides = _state2.slides,
+          items = _state2.items;
+
+      var dotsLength = Math.ceil(slides.length / items);
+
+      return _react2.default.createElement(
+        'ul',
+        { className: 'alice-carousel__dots' },
+        slides.map(function (item, i) {
+          if (i < dotsLength) {
+            var itemIndex = _this3._getItemIndexForDotNavigation(i, dotsLength);
+            return _react2.default.createElement('li', {
+              key: i,
+              onClick: function onClick() {
+                return _this3._onDotClick(itemIndex);
+              },
+              onMouseEnter: _this3._onMouseEnterAutoPlayHandler,
+              onMouseLeave: _this3._onMouseLeaveAutoPlayHandler,
+              className: 'alice-carousel__dots-item' + (_this3._getActiveSlideIndex() === i ? ' __active' : '')
+            });
+          }
+        })
+      );
+    }
+  }, {
+    key: '_renderPlayPauseButton',
+    value: function _renderPlayPauseButton() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'alice-carousel__play-btn' },
+        _react2.default.createElement(
+          'div',
+          { className: 'alice-carousel__play-btn-wrapper', onClick: this._playPauseToggle },
+          _react2.default.createElement('div', { className: 'alice-carousel__play-btn-item' + (this.state.isPlaying ? ' __pause' : '') })
+        )
+      );
+    }
+  }, {
+    key: '_play',
+    value: function _play() {
+      var _this4 = this;
+
+      var duration = this.state.duration;
+      var _props = this.props,
+          autoPlayDirection = _props.autoPlayDirection,
+          autoPlayInterval = _props.autoPlayInterval;
+
+      var playInterval = Math.max(autoPlayInterval || duration, duration);
+
+      this.setState({ isPlaying: true });
+
+      if (!this._autoPlayIntervalId) {
+        this._autoPlayIntervalId = window.setInterval(function () {
+          if (!_this4._isHovered() && _this4._autoPlayIntervalId) {
+            autoPlayDirection === 'rtl' ? _this4._slidePrev(false) : _this4._slideNext(false);
+          }
+        }, playInterval);
+      }
+    }
+  }, {
+    key: '_slideToItem',
+    value: function _slideToItem(index, skip) {
+      var _this5 = this;
+
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.state.duration;
+
+      this._onSlideChange();
+      var _state3 = this.state,
+          items = _state3.items,
+          itemWidth = _state3.itemWidth;
+
+      var translate = (index + items) * itemWidth;
+
+      this.setState(_extends({
+        currentIndex: index,
+        translate3d: -translate
+      }, this._intermediateStateProps(duration)), function () {
+        return _this5._checkSlidePosition(skip);
+      });
+    }
+  }, {
+    key: '_onTouchMove',
+    value: function _onTouchMove(e, deltaX, deltaY) {
+      if (this._isSwipeDisable()) {
+        return;
+      }
+
+      if (this._verticalTouchMoveDetected(deltaX, deltaY)) {
+        this.preventHorizontalSwiping = true;
+        return;
+      } else {
+        this.swipingStarted = true;
+        this.preventHorizontalSwiping = false;
+      }
+
+      this._disableAnimation();
+      this._startSwipeAnimation();
+      this._onMouseEnterAutoPlayHandler();
+
+      var _state4 = this.state,
+          slides = _state4.slides,
+          items = _state4.items,
+          itemWidth = _state4.itemWidth,
+          translate3d = _state4.translate3d;
+
+
+      var maxPosition = (slides.length + items) * itemWidth;
+      var direction = deltaX > 0 ? 'LEFT' : 'RIGHT';
+
+      var startPosition = this.swipePosition.startPosition || translate3d;
+
+      var position = startPosition - deltaX;
+
+      if (this.props.infinite === false) {
+
+        var slideOffset = Math.min(itemWidth / 2, 250);
+        var leftTranslate = items * -itemWidth + slideOffset;
+        var rightTranslate = slides.length * -itemWidth - slideOffset;
+
+        if (position > leftTranslate || position < rightTranslate) {
+          return;
+        }
+      }
+
+      if (position >= 0 || Math.abs(position) >= maxPosition) {
+        recalculatePosition();
+      }
+
+      (0, _common.setTransformAnimation)(this.stageComponent, position);
+
+      this._setSwipePositionProps({ position: position, direction: direction, startPosition: startPosition });
+
+      function recalculatePosition() {
+        direction === 'RIGHT' ? position += -slides.length * itemWidth : position += maxPosition - items * itemWidth;
+
+        if (position >= 0 || Math.abs(position) >= maxPosition) {
+          recalculatePosition();
+        }
+      }
+    }
+  }, {
+    key: '_beforeTouchEnd',
+    value: function _beforeTouchEnd() {
+      var _this6 = this;
+
+      var _state5 = this.state,
+          itemWidth = _state5.itemWidth,
+          items = _state5.items,
+          slides = _state5.slides,
+          duration = _state5.duration;
+
+      var swipeIndex = this._calculateSwipeIndex();
+      var itemIndex = swipeIndex - items;
+      var position = itemWidth * (itemIndex + items);
+      var transformPosition = -swipeIndex * itemWidth;
+
+      if (this.props.infinite === false) {
+        this._isInfiniteModeDisabledBeforeTouchEnd(swipeIndex, itemIndex, position);
+        return;
+      }
+
+      (0, _common.setTransformAnimation)(this.stageComponent, transformPosition, duration);
+
+      setTimeout(function () {
+        _this6._removeTouchEventFromCallstack();
+
+        if (!_this6.swipingStarted && _this6.touchEventsCallstack.length === 0) {
+          var nextItemIndex = _this6._getNextItemIndex(itemIndex, slides.length);
+          (0, _common.setTransformAnimation)(_this6.stageComponent, transformPosition);
+          _this6._slideToItem(nextItemIndex, true, 0);
+        }
+      }, duration);
+    }
+  }, {
+    key: '_isInfiniteModeDisabledBeforeTouchEnd',
+    value: function _isInfiniteModeDisabledBeforeTouchEnd(swipeIndex, currentIndex, position) {
+      var _this7 = this;
+
+      var _state6 = this.state,
+          items = _state6.items,
+          itemWidth = _state6.itemWidth,
+          duration = _state6.duration,
+          slides = _state6.slides;
+
+
+      if (swipeIndex < items) {
+        currentIndex = 0;
+        position = items * itemWidth;
+      }
+
+      if (swipeIndex > slides.length) {
+        currentIndex = slides.length - items;
+        position = slides.length * itemWidth;
+      }
+
+      (0, _common.setTransformAnimation)(this.stageComponent, -position, duration);
+
+      setTimeout(function () {
+        _this7._removeTouchEventFromCallstack();
+
+        if (!_this7.swipingStarted && _this7.touchEventsCallstack.length === 0) {
+          (0, _common.setTransformAnimation)(_this7.stageComponent, -position);
+          _this7._slideToItem(currentIndex, true, 0);
+        }
+      }, duration);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state7 = this.state,
+          style = _state7.style,
+          translate3d = _state7.translate3d,
+          clones = _state7.clones;
+
+      var stageStyle = _extends({}, style, { transform: 'translate3d(' + translate3d + 'px, 0, 0)' });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'alice-carousel' },
+        _react2.default.createElement(
+          _reactSwipeable2.default,
+          {
+            onSwiping: this._onTouchMove,
+            onSwiped: this._onTouchEnd,
+            trackMouse: this.props.mouseDragEnabled
+          },
+          _react2.default.createElement(
+            'div',
+            {
+              className: 'alice-carousel__wrapper',
+              onMouseEnter: this._onMouseEnterAutoPlayHandler,
+              onMouseLeave: this._onMouseLeaveAutoPlayHandler
+            },
+            _react2.default.createElement(
+              'ul',
+              { style: stageStyle, className: 'alice-carousel__stage', ref: this._getStageComponentNode },
+              clones.map(this._renderStageItem)
+            )
+          )
+        ),
+        !this.props.buttonsDisabled ? this._prevButton() : null,
+        !this.props.buttonsDisabled ? this._nextButton() : null,
+        this.props.showSlideIndex ? this._slideIndexInfo() : null,
+        !this.props.dotsDisabled ? this._renderDotsNavigation() : null,
+        this.props.playButtonEnabled ? this._renderPlayPauseButton() : null
+      );
+    }
+  }]);
+
+  return AliceCarousel;
+}(_react2.default.PureComponent);
+
+var _initialiseProps = function _initialiseProps() {
+  var _this8 = this;
+
+  this._galleryChildren = function (props) {
+    return props.children.length ? props.children : props.items;
+  };
+
+  this._onSlideToIndexChange = function (currentIndex, slideToIndex) {
+    if (slideToIndex === currentIndex + 1) {
+      _this8._slideNext();
+    } else if (slideToIndex === currentIndex - 1) {
+      _this8._slidePrev();
+    } else {
+      _this8._onDotClick(slideToIndex);
+    }
+  };
+
+  this._onInactiveItem = function () {
+    _this8._onSlideChange();
+    _this8._onSlideChanged();
+    _this8._allowAnimation();
+    _this8._pause();
+  };
+
+  this._onDotClick = function (itemIndex) {
+    if (_this8.state.currentIndex === itemIndex || !_this8.allowAnimation || _this8.swipeAnimation) {
+      return;
+    }
+    _this8._disableAnimation();
+
+    if (_this8._allowFadeOutAnimation()) {
+      _this8._setAnimationPropsOnDotsClick(itemIndex);
+    }
+
+    if (_this8.props.autoPlayActionDisabled) {
+      _this8._pause();
+    }
+    _this8._slideToItem(itemIndex);
+  };
+
+  this._cloneCarouselItems = function (children, itemsInSlide) {
+    var first = children.slice(0, itemsInSlide);
+    var last = children.slice(children.length - itemsInSlide);
+
+    return last.concat(children, first);
+  };
+
+  this._setStartIndex = function (childrenLength, index) {
+    var startIndex = index ? Math.abs(Math.ceil(index)) : 0;
+    return Math.min(startIndex, childrenLength - 1);
+  };
+
+  this._windowResizeHandler = function () {
+    return _this8._setInitialState();
+  };
+
+  this._getStageComponentNode = function (node) {
+    return _this8.stageComponent = node;
+  };
+
+  this._allowAnimation = function () {
+    return _this8.allowAnimation = true;
+  };
+
+  this._disableAnimation = function () {
+    return _this8.allowAnimation = false;
+  };
+
+  this._isHovered = function () {
+    return _this8.isHovered;
+  };
+
+  this._skipSlidePositionRecalculation = function () {
+    if (_this8._allowFadeOutAnimation()) {
+      _this8._resetFadeOutAnimationState();
+      return;
+    }
+    _this8._onSlideChanged();
+  };
+
+  this._updateSlidePosition = function () {
+    window.setTimeout(function () {
+      if (_this8._shouldRecalculatePosition()) {
+        _this8._recalculateSlidePosition();
+      } else if (_this8._allowFadeOutAnimation()) {
+        _this8._resetFadeOutAnimationState();
+      } else {
+        _this8._onSlideChanged();
+      }
+    }, _this8.state.duration);
+  };
+
+  this._shouldRecalculatePosition = function () {
+    var _state8 = _this8.state,
+        slides = _state8.slides,
+        currentIndex = _state8.currentIndex;
+
+    return currentIndex < 0 || currentIndex >= slides.length;
+  };
+
+  this._resetFadeOutAnimationState = function () {
+    _this8.setState({ fadeOutAnimation: false }, _this8._onSlideChanged);
+  };
+
+  this._isInactiveItem = function () {
+    var infinite = _this8.props.infinite;
+    var _state9 = _this8.state,
+        slides = _state9.slides,
+        items = _state9.items,
+        currentIndex = _state9.currentIndex;
+
+
+    var inactivePrev = infinite === false && currentIndex === 0;
+    var inactiveNext = infinite === false && slides.length - items === currentIndex;
+
+    return { inactivePrev: inactivePrev, inactiveNext: inactiveNext };
+  };
+
+  this._slideIndexInfo = function () {
+    var _state10 = _this8.state,
+        currentIndex = _state10.currentIndex,
+        length = _state10.slides.length;
+
+    var slideIndex = currentIndex + 1;
+
+    if (slideIndex < 1) {
+      slideIndex = length;
+    } else if (slideIndex > length) {
+      slideIndex = 1;
+    }
+
+    return _react2.default.createElement(
+      'div',
+      { className: 'alice-carousel__slide-info' },
+      _react2.default.createElement(
+        'span',
+        { className: 'alice-carousel__slide-info-item' },
+        slideIndex
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'alice-carousel__slide-info-item alice-carousel__slide-info-item--separator' },
+        '/'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'alice-carousel__slide-info-item' },
+        length
+      )
+    );
+  };
+
+  this._getActiveSlideIndex = function () {
+    var _state11 = _this8.state,
+        slides = _state11.slides,
+        items = _state11.items,
+        currentIndex = _state11.currentIndex;
+
+    var slidesLength = slides.length;
+
+    var _isInactiveItem3 = _this8._isInactiveItem(),
+        inactiveNext = _isInactiveItem3.inactiveNext;
+
+    var dotsLength = _this8._getDotsLength(slidesLength, items);
+
+    currentIndex = currentIndex + items;
+
+    if (items === 1) {
+      if (currentIndex < items) {
+        return slidesLength - items;
+      } else if (currentIndex > slidesLength) {
+        return 0;
+      } else {
+        return currentIndex - 1;
+      }
+    } else {
+      if (currentIndex === slidesLength + items) {
+        return 0;
+      } else if (inactiveNext || currentIndex < items && currentIndex !== 0) {
+        return dotsLength;
+      } else if (currentIndex === 0) {
+        return slidesLength % items === 0 ? dotsLength : dotsLength - 1;
+      } else {
+        return Math.floor(currentIndex / items) - 1;
+      }
+    }
+  };
+
+  this._getDotsLength = function (slidesLength, items) {
+    return slidesLength % items === 0 ? Math.floor(slidesLength / items) - 1 : Math.floor(slidesLength / items);
+  };
+
+  this._setAnimationPropsOnDotsClick = function (itemIndex) {
+    var currentIndex = _this8.state.currentIndex;
+
+    var fadeOutIndex = currentIndex + 1;
+    var fadeOutOffset = _this8._fadeOutOffset(itemIndex);
+
+    _this8._setAnimationProps({ fadeOutIndex: fadeOutIndex, fadeOutOffset: fadeOutOffset, allowFadeOutAnimation: true });
+  };
+
+  this._fadeOutOffset = function (itemIndex) {
+    var _state12 = _this8.state,
+        currentIndex = _state12.currentIndex,
+        itemWidth = _state12.itemWidth;
+
+    if (itemIndex < currentIndex) {
+      return (currentIndex - itemIndex) * -itemWidth;
+    } else {
+      return (itemIndex - currentIndex) * itemWidth;
+    }
+  };
+
+  this._getItemIndexForDotNavigation = function (i, dotsLength) {
+    var _state13 = _this8.state,
+        slides = _state13.slides,
+        items = _state13.items;
+
+    var isNotInfinite = _this8.props.infinite === false;
+
+    return isNotInfinite && i === dotsLength - 1 ? slides.length - items : i * items;
+  };
+
+  this._pause = function () {
+    if (_this8._autoPlayIntervalId) {
+      window.clearInterval(_this8._autoPlayIntervalId);
+      _this8._autoPlayIntervalId = null;
+      _this8.setState({ isPlaying: false });
+    }
+  };
+
+  this._playPauseToggle = function () {
+    if (!_this8.allowAnimation) return;
+    _this8.state.isPlaying ? _this8._pause() : _this8._play();
+  };
+
+  this._keyUpHandler = function (e) {
+    switch (e.keyCode) {
+      case 32:
+        _this8._playPauseToggle();
+        break;
+      case 37:
+        _this8._slidePrev();
+        break;
+      case 39:
+        _this8._slideNext();
+        break;
+    }
+  };
+
+  this._intermediateStateProps = function (duration) {
+    return _this8._allowFadeOutAnimation() ? { fadeOutAnimation: true, style: { transition: 'transform 0ms ease-out' } } : { style: { transition: 'transform ' + duration + 'ms ease-out' } };
+  };
+
+  this._allowFadeOutAnimation = function () {
+    return _this8.props.fadeOutAnimation && _this8.state.items === 1;
+  };
+
+  this._isSwipeDisable = function () {
+    return _this8.props.swipeDisabled || _this8.state.fadeOutAnimation;
+  };
+
+  this._verticalTouchMoveDetected = function (deltaX, deltaY) {
+    var gap = 32;
+    var vertical = Math.abs(deltaY);
+    var horizontal = Math.abs(deltaX);
+
+    return vertical > horizontal && horizontal < gap;
+  };
+
+  this._addTouchEventToCallstack = function () {
+    _this8.touchEventsCallstack.push(1);
+  };
+
+  this._removeTouchEventFromCallstack = function () {
+    _this8.touchEventsCallstack.pop();
+  };
+
+  this._startSwipeAnimation = function () {
+    _this8.swipeAnimation = true;
+  };
+
+  this._stopSwipeAnimation = function () {
+    _this8.swipeAnimation = false;
+  };
+
+  this._setAnimationProps = function (newProps) {
+    var prevProps = _this8.animationProps || {};
+    _this8.animationProps = _extends({}, prevProps, newProps);
+  };
+
+  this._resetAnimationProps = function () {
+    _this8.animationProps = {};
+  };
+
+  this._setSwipePositionProps = function (newProps) {
+    var prevProps = _this8.swipePosition || {};
+    _this8.swipePosition = _extends({}, prevProps, newProps);
+  };
+
+  this._resetSwipePositionProps = function () {
+    _this8.swipePosition = {};
+  };
+
+  this._calculateSwipeIndex = function () {
+    var itemWidth = _this8.state.itemWidth;
+
+    var swipePosition = Math.abs(_this8.swipePosition.position);
+
+    return _this8.swipePosition.direction === 'LEFT' ? Math.floor(swipePosition / itemWidth) + 1 : Math.floor(swipePosition / itemWidth);
+  };
+
+  this._getNextItemIndex = function (index, length) {
+    if (index === length) {
+      return 0;
+    }
+    if (index < 0) {
+      return length + index;
+    }
+    return index;
+  };
+
+  this._onTouchEnd = function () {
+    _this8.swipingStarted = false;
+    if (_this8._isSwipeDisable() || _this8.preventHorizontalSwiping) {
+      return;
+    }
+
+    var startPosition = _this8.swipePosition.position;
+
+    _this8._setSwipePositionProps({ startPosition: startPosition });
+    _this8._addTouchEventToCallstack();
+
+    _this8._beforeTouchEnd();
+    _this8._onMouseLeaveAutoPlayHandler();
+  };
+
+  this._onMouseEnterAutoPlayHandler = function () {
+    if (_this8.props.stopAutoPlayOnHover) {
+      _this8.isHovered = true;
+    }
+  };
+
+  this._onMouseLeaveAutoPlayHandler = function () {
+    return _this8.isHovered = false;
+  };
+
+  this._setAnimationPropsOnPrevNextClick = function () {
+    var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'next';
+    var _state14 = _this8.state,
+        currentIndex = _state14.currentIndex,
+        itemWidth = _state14.itemWidth;
+
+
+    var fadeOutIndex = currentIndex === 0 ? 1 : currentIndex + 1;
+    var fadeOutOffset = direction === 'next' ? itemWidth : -itemWidth;
+
+    _this8._setAnimationProps({ fadeOutIndex: fadeOutIndex, fadeOutOffset: fadeOutOffset, allowFadeOutAnimation: true });
+  };
+
+  this._slidePrev = function () {
+    var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+    if (!_this8.allowAnimation || _this8.swipeAnimation) {
+      return;
+    }
+    _this8._disableAnimation();
+
+    var _isInactiveItem4 = _this8._isInactiveItem(),
+        inactivePrev = _isInactiveItem4.inactivePrev;
+
+    if (_this8._allowFadeOutAnimation()) {
+      _this8._setAnimationPropsOnPrevNextClick('prev');
+    }
+
+    if (inactivePrev) {
+      _this8._onInactiveItem();
+      return;
+    }
+
+    if (action && _this8.props.autoPlayActionDisabled) {
+      _this8._pause();
+    }
+
+    _this8._slideToItem(_this8.state.currentIndex - 1);
+  };
+
+  this._slideNext = function () {
+    var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+    if (!_this8.allowAnimation || _this8.swipeAnimation) {
+      return;
+    }
+    _this8._disableAnimation();
+
+    var _isInactiveItem5 = _this8._isInactiveItem(),
+        inactiveNext = _isInactiveItem5.inactiveNext;
+
+    if (inactiveNext) {
+      _this8._onInactiveItem();
+      return;
+    }
+
+    if (action && _this8.props.autoPlayActionDisabled) {
+      _this8._pause();
+    }
+
+    if (_this8._allowFadeOutAnimation()) {
+      _this8._setAnimationPropsOnPrevNextClick();
+    }
+
+    _this8._slideToItem(_this8.state.currentIndex + 1);
+  };
+
+  this._isActiveItem = function (i) {
+    var _state15 = _this8.state,
+        currentIndex = _state15.currentIndex,
+        items = _state15.items;
+
+    return currentIndex + items === i;
+  };
+
+  this._isClonedItem = function (i) {
+    var _state16 = _this8.state,
+        items = _state16.items,
+        slides = _state16.slides;
+
+    return _this8.props.infinite === false && (i < items || i > slides.length + items - 1);
+  };
+
+  this._isAnimatedItem = function (i) {
+    var _animationProps = _this8.animationProps,
+        allowFadeOutAnimation = _animationProps.allowFadeOutAnimation,
+        fadeOutIndex = _animationProps.fadeOutIndex;
+
+    return allowFadeOutAnimation && fadeOutIndex === i;
+  };
+
+  this._setItemStyles = function (i) {
+    var _state17 = _this8.state,
+        itemWidth = _state17.itemWidth,
+        duration = _state17.duration;
+    var fadeOutOffset = _this8.animationProps.fadeOutOffset;
+
+
+    return !_this8._isAnimatedItem(i) ? { width: itemWidth + 'px' } : { transform: 'translateX(' + fadeOutOffset + 'px)', animationDuration: duration + 'ms', width: itemWidth + 'px' };
+  };
+
+  this._setItemClassName = function (i) {
+    var isActive = _this8._isActiveItem(i) ? ' __active' : '';
+    var isCloned = _this8._isClonedItem(i) ? ' __cloned' : '';
+    var isAnimated = _this8._isAnimatedItem(i) ? ' animated animated-out fadeOut' : '';
+
+    return 'alice-carousel__stage-item' + isActive + isCloned + isAnimated;
+  };
+
+  this._renderStageItem = function (item, i) {
+    var itemStyle = _this8._setItemStyles(i);
+    var itemClassName = _this8._setItemClassName(i);
+
+    return _react2.default.createElement(
+      'li',
+      { style: itemStyle, className: itemClassName, key: i },
+      item
+    );
+  };
+};
+
+exports.default = AliceCarousel;
+
+
+AliceCarousel.propTypes = {
+  items: _propTypes2.default.array,
+  children: _propTypes2.default.array,
+  onSlideChange: _propTypes2.default.func,
+  onSlideChanged: _propTypes2.default.func,
+  keysControlDisabled: _propTypes2.default.bool,
+  playButtonEnabled: _propTypes2.default.bool,
+  buttonsDisabled: _propTypes2.default.bool,
+  dotsDisabled: _propTypes2.default.bool,
+  swipeDisabled: _propTypes2.default.bool,
+  responsive: _propTypes2.default.object,
+  duration: _propTypes2.default.number,
+  startIndex: _propTypes2.default.number,
+  slideToIndex: _propTypes2.default.number,
+  autoPlay: _propTypes2.default.bool,
+  infinite: _propTypes2.default.bool,
+  showSlideIndex: _propTypes2.default.bool,
+  mouseDragEnabled: _propTypes2.default.bool,
+  fadeOutAnimation: _propTypes2.default.bool,
+  autoPlayInterval: _propTypes2.default.number,
+  autoPlayDirection: _propTypes2.default.string,
+  autoPlayActionDisabled: _propTypes2.default.bool,
+  stopAutoPlayOnHover: _propTypes2.default.bool
+};
+
+AliceCarousel.defaultProps = {
+  items: [],
+  children: [],
+  responsive: {},
+  duration: 250,
+  startIndex: 0,
+  slideToIndex: 0,
+  autoPlay: false,
+  infinite: true,
+  dotsDisabled: false,
+  showSlideIndex: false,
+  swipeDisabled: false,
+  autoPlayInterval: 250,
+  buttonsDisabled: false,
+  mouseDragEnabled: false,
+  fadeOutAnimation: false,
+  playButtonEnabled: false,
+  autoPlayDirection: 'ltr',
+  keysControlDisabled: false,
+  autoPlayActionDisabled: false,
+  stopAutoPlayOnHover: true
+};
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(5);
+var PropTypes = __webpack_require__(35);
+var DetectPassiveEvents = __webpack_require__(232).default;
+
+function getInitialState() {
+  return {
+    x: null,
+    y: null,
+    swiping: false,
+    start: 0
+  };
+}
+
+function getMovingPosition(e) {
+  return 'changedTouches' in e ? { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY } : { x: e.clientX, y: e.clientY };
+}
+function getPosition(e) {
+  return 'touches' in e ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY };
+}
+
+function rotateByAngle(pos, angle) {
+  if (angle === 0) {
+    return pos;
+  }
+
+  var x = pos.x,
+      y = pos.y;
+
+
+  var angleInRadians = Math.PI / 180 * angle;
+  var rotatedX = x * Math.cos(angleInRadians) + y * Math.sin(angleInRadians);
+  var rotatedY = y * Math.cos(angleInRadians) - x * Math.sin(angleInRadians);
+  return { x: rotatedX, y: rotatedY };
+}
+
+function calculatePos(e, state) {
+  var _rotateByAngle = rotateByAngle(getMovingPosition(e), state.rotationAngle),
+      x = _rotateByAngle.x,
+      y = _rotateByAngle.y;
+
+  var deltaX = state.x - x;
+  var deltaY = state.y - y;
+
+  var absX = Math.abs(deltaX);
+  var absY = Math.abs(deltaY);
+
+  var time = Date.now() - state.start;
+  var velocity = Math.sqrt(absX * absX + absY * absY) / time;
+
+  return { deltaX: deltaX, deltaY: deltaY, absX: absX, absY: absY, velocity: velocity };
+}
+
+var Swipeable = function (_React$Component) {
+  _inherits(Swipeable, _React$Component);
+
+  function Swipeable(props, context) {
+    _classCallCheck(this, Swipeable);
+
+    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
+
+    _this.swipeable = getInitialState();
+
+    _this.eventStart = _this.eventStart.bind(_this);
+    _this.eventMove = _this.eventMove.bind(_this);
+    _this.eventEnd = _this.eventEnd.bind(_this);
+    _this.mouseDown = _this.mouseDown.bind(_this);
+    _this.mouseMove = _this.mouseMove.bind(_this);
+    _this.mouseUp = _this.mouseUp.bind(_this);
+    _this.cleanupMouseListeners = _this.cleanupMouseListeners.bind(_this);
+    _this.setupMouseListeners = _this.setupMouseListeners.bind(_this);
+    _this.elementRef = _this.elementRef.bind(_this);
+    _this.setupTouchmoveEvent = _this.setupTouchmoveEvent.bind(_this);
+    _this.cleanupTouchmoveEvent = _this.cleanupTouchmoveEvent.bind(_this);
+
+    _this.hasPassiveSupport = DetectPassiveEvents.hasSupport;
+    return _this;
+  }
+
+  Swipeable.prototype.componentDidMount = function componentDidMount() {
+    if (this.props.preventDefaultTouchmoveEvent) {
+      this.setupTouchmoveEvent();
+    }
+  };
+
+  Swipeable.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
+    if (prevProps.disabled !== this.props.disabled) {
+      this.cleanupMouseListeners();
+
+      this.swipeable = getInitialState();
+    }
+
+    if (prevProps.preventDefaultTouchmoveEvent && !this.props.preventDefaultTouchmoveEvent) {
+      this.cleanupTouchmoveEvent();
+    } else if (!prevProps.preventDefaultTouchmoveEvent && this.props.preventDefaultTouchmoveEvent) {
+      this.setupTouchmoveEvent();
+    }
+  };
+
+  Swipeable.prototype.componentWillUnmount = function componentWillUnmount() {
+    this.cleanupMouseListeners();
+  };
+
+  Swipeable.prototype.setupTouchmoveEvent = function setupTouchmoveEvent() {
+    if (this.element && this.hasPassiveSupport) {
+      this.element.addEventListener('touchmove', this.eventMove, { passive: false });
+    }
+  };
+
+  Swipeable.prototype.setupMouseListeners = function setupMouseListeners() {
+    document.addEventListener('mousemove', this.mouseMove);
+    document.addEventListener('mouseup', this.mouseUp);
+  };
+
+  Swipeable.prototype.cleanupTouchmoveEvent = function cleanupTouchmoveEvent() {
+    if (this.element && this.hasPassiveSupport) {
+      this.element.removeEventListener('touchmove', this.eventMove, { passive: false });
+    }
+  };
+
+  Swipeable.prototype.cleanupMouseListeners = function cleanupMouseListeners() {
+    document.removeEventListener('mousemove', this.mouseMove);
+    document.removeEventListener('mouseup', this.mouseUp);
+  };
+
+  Swipeable.prototype.mouseDown = function mouseDown(e) {
+    if (!this.props.trackMouse || e.type !== 'mousedown') {
+      return;
+    }
+
+    if (typeof this.props.onMouseDown === 'function') this.props.onMouseDown(e);
+
+    this.setupMouseListeners();
+
+    this.eventStart(e);
+  };
+
+  Swipeable.prototype.mouseMove = function mouseMove(e) {
+    this.eventMove(e);
+  };
+
+  Swipeable.prototype.mouseUp = function mouseUp(e) {
+    this.cleanupMouseListeners();
+    this.eventEnd(e);
+  };
+
+  Swipeable.prototype.eventStart = function eventStart(e) {
+    if (e.touches && e.touches.length > 1) return;
+
+    var rotationAngle = this.props.rotationAngle;
+
+    var _rotateByAngle2 = rotateByAngle(getPosition(e), rotationAngle),
+        x = _rotateByAngle2.x,
+        y = _rotateByAngle2.y;
+
+    if (this.props.stopPropagation) e.stopPropagation();
+
+    this.swipeable = { start: Date.now(), x: x, y: y, swiping: false, rotationAngle: rotationAngle };
+  };
+
+  Swipeable.prototype.eventMove = function eventMove(e) {
+    var _props = this.props,
+        stopPropagation = _props.stopPropagation,
+        delta = _props.delta,
+        onSwiping = _props.onSwiping,
+        onSwiped = _props.onSwiped,
+        onSwipingLeft = _props.onSwipingLeft,
+        onSwipedLeft = _props.onSwipedLeft,
+        onSwipingRight = _props.onSwipingRight,
+        onSwipedRight = _props.onSwipedRight,
+        onSwipingUp = _props.onSwipingUp,
+        onSwipedUp = _props.onSwipedUp,
+        onSwipingDown = _props.onSwipingDown,
+        onSwipedDown = _props.onSwipedDown,
+        preventDefaultTouchmoveEvent = _props.preventDefaultTouchmoveEvent;
+
+
+    if (!this.swipeable.x || !this.swipeable.y || e.touches && e.touches.length > 1) {
+      return;
+    }
+
+    var pos = calculatePos(e, this.swipeable);
+
+    if (pos.absX < delta && pos.absY < delta && !this.swipeable.swiping) return;
+
+    if (stopPropagation) e.stopPropagation();
+
+    if (onSwiping) {
+      onSwiping(e, pos.deltaX, pos.deltaY, pos.absX, pos.absY, pos.velocity);
+    }
+
+    var cancelablePageSwipe = false;
+    if (onSwiping || onSwiped) {
+      cancelablePageSwipe = true;
+    }
+
+    if (pos.absX > pos.absY) {
+      if (pos.deltaX > 0) {
+        if (onSwipingLeft || onSwipedLeft) {
+          onSwipingLeft && onSwipingLeft(e, pos.absX);
+          cancelablePageSwipe = true;
+        }
+      } else if (onSwipingRight || onSwipedRight) {
+        onSwipingRight && onSwipingRight(e, pos.absX);
+        cancelablePageSwipe = true;
+      }
+    } else if (pos.deltaY > 0) {
+      if (onSwipingUp || onSwipedUp) {
+        onSwipingUp && onSwipingUp(e, pos.absY);
+        cancelablePageSwipe = true;
+      }
+    } else if (onSwipingDown || onSwipedDown) {
+      onSwipingDown && onSwipingDown(e, pos.absY);
+      cancelablePageSwipe = true;
+    }
+
+    this.swipeable.swiping = true;
+
+    if (cancelablePageSwipe && preventDefaultTouchmoveEvent) e.preventDefault();
+  };
+
+  Swipeable.prototype.eventEnd = function eventEnd(e) {
+    var _props2 = this.props,
+        stopPropagation = _props2.stopPropagation,
+        flickThreshold = _props2.flickThreshold,
+        onSwiped = _props2.onSwiped,
+        onSwipedLeft = _props2.onSwipedLeft,
+        onSwipedRight = _props2.onSwipedRight,
+        onSwipedUp = _props2.onSwipedUp,
+        onSwipedDown = _props2.onSwipedDown,
+        onTap = _props2.onTap;
+
+
+    if (this.swipeable.swiping) {
+      var pos = calculatePos(e, this.swipeable);
+
+      if (stopPropagation) e.stopPropagation();
+
+      var isFlick = pos.velocity > flickThreshold;
+
+      onSwiped && onSwiped(e, pos.deltaX, pos.deltaY, isFlick, pos.velocity);
+
+      if (pos.absX > pos.absY) {
+        if (pos.deltaX > 0) {
+          onSwipedLeft && onSwipedLeft(e, pos.deltaX, isFlick);
+        } else {
+          onSwipedRight && onSwipedRight(e, pos.deltaX, isFlick);
+        }
+      } else if (pos.deltaY > 0) {
+        onSwipedUp && onSwipedUp(e, pos.deltaY, isFlick);
+      } else {
+        onSwipedDown && onSwipedDown(e, pos.deltaY, isFlick);
+      }
+    } else {
+      onTap && onTap(e);
+    }
+
+    this.swipeable = getInitialState();
+  };
+
+  Swipeable.prototype.elementRef = function elementRef(element) {
+    this.element = element;
+    this.props.innerRef && this.props.innerRef(element);
+  };
+
+  Swipeable.prototype.render = function render() {
+    var newProps = _extends({}, this.props);
+    if (!this.props.disabled) {
+      newProps.onTouchStart = this.eventStart;
+
+      if (!this.props.preventDefaultTouchmoveEvent || !this.hasPassiveSupport) {
+        newProps.onTouchMove = this.eventMove;
+      }
+
+      newProps.onTouchEnd = this.eventEnd;
+      newProps.onMouseDown = this.mouseDown;
+    }
+
+    newProps.ref = this.elementRef;
+
+    delete newProps.onSwiped;
+    delete newProps.onSwiping;
+    delete newProps.onSwipingUp;
+    delete newProps.onSwipingRight;
+    delete newProps.onSwipingDown;
+    delete newProps.onSwipingLeft;
+    delete newProps.onSwipedUp;
+    delete newProps.onSwipedRight;
+    delete newProps.onSwipedDown;
+    delete newProps.onSwipedLeft;
+    delete newProps.onTap;
+    delete newProps.flickThreshold;
+    delete newProps.delta;
+    delete newProps.preventDefaultTouchmoveEvent;
+    delete newProps.stopPropagation;
+    delete newProps.nodeName;
+    delete newProps.children;
+    delete newProps.trackMouse;
+    delete newProps.disabled;
+    delete newProps.innerRef;
+    delete newProps.rotationAngle;
+
+    return React.createElement(this.props.nodeName, newProps, this.props.children);
+  };
+
+  return Swipeable;
+}(React.Component);
+
+Swipeable.propTypes = {
+  onSwiped: PropTypes.func,
+  onSwiping: PropTypes.func,
+  onSwipingUp: PropTypes.func,
+  onSwipingRight: PropTypes.func,
+  onSwipingDown: PropTypes.func,
+  onSwipingLeft: PropTypes.func,
+  onSwipedUp: PropTypes.func,
+  onSwipedRight: PropTypes.func,
+  onSwipedDown: PropTypes.func,
+  onSwipedLeft: PropTypes.func,
+  onTap: PropTypes.func,
+  flickThreshold: PropTypes.number,
+  delta: PropTypes.number,
+  preventDefaultTouchmoveEvent: PropTypes.bool,
+  stopPropagation: PropTypes.bool,
+  nodeName: PropTypes.string,
+  trackMouse: PropTypes.bool,
+  disabled: PropTypes.bool,
+  innerRef: PropTypes.func,
+  children: PropTypes.node,
+  rotationAngle: PropTypes.number
+};
+
+Swipeable.defaultProps = {
+  flickThreshold: 0.6,
+  delta: 10,
+  preventDefaultTouchmoveEvent: false,
+  stopPropagation: false,
+  nodeName: 'div',
+  disabled: false,
+  rotationAngle: 0
+};
+
+module.exports = Swipeable;
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// adapted from https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+var detectPassiveEvents = {
+  update: function update() {
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      var passive = false;
+      var options = Object.defineProperty({}, 'passive', {
+        get: function get() {
+          passive = true;
+        }
+      });
+      // note: have to set and remove a no-op listener instead of null
+      // (which was used previously), becasue Edge v15 throws an error
+      // when providing a null callback.
+      // https://github.com/rafrex/detect-passive-events/pull/3
+      var noop = function noop() {};
+      window.addEventListener('testPassiveEventSupport', noop, options);
+      window.removeEventListener('testPassiveEventSupport', noop, options);
+      detectPassiveEvents.hasSupport = passive;
+    }
+  }
+};
+
+detectPassiveEvents.update();
+exports.default = detectPassiveEvents;
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setTransformAnimation = setTransformAnimation;
+exports.throttle = throttle;
+exports.primitiveEquals = primitiveEquals;
+exports.childrenKeysHaveChanged = childrenKeysHaveChanged;
+function setTransformAnimation(element, position) {
+  var durationMs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+  var prefixes = ['Webkit', 'Moz', 'ms', 'O', ''];
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = prefixes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var value = _step.value;
+
+      element.style[value + 'Transition'] = 'transform ' + durationMs + 'ms ease-out';
+      element.style[value + 'Transform'] = position ? 'translate3d(' + position + 'px, 0, 0)' : null;
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+}
+
+function throttle(func) {
+  var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+  var savedArgs = void 0,
+      savedThis = void 0,
+      isThrottled = false;
+
+  function wrapper() {
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments);
+    isThrottled = true;
+
+    setTimeout(function () {
+      isThrottled = false;
+
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+  return wrapper;
+}
+
+function primitiveEquals(obj1, obj2) {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
+function childrenKeysHaveChanged(currentChildren, nextChildren) {
+  return currentChildren.length === currentChildren.length && currentChildren.every(function (item, index) {
+    return item.key === nextChildren[index].key;
+  });
+}
+
+/***/ }),
 /* 234 */,
 /* 235 */,
 /* 236 */,
@@ -29972,11 +31508,41 @@ exports.default = Main;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _BottomMarker = __webpack_require__(334);
+
+var _BottomMarker2 = _interopRequireDefault(_BottomMarker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   setup: {
     loadingNews: true
   },
-  data: []
+  data: {
+    news: {
+      'Septiembre 2018': [{
+        id: "conf",
+        active: true,
+        title: 'Hackdó Conf',
+        body: _react2.default.createElement(
+          'article',
+          { className: 'appear', id: 'conf' },
+          _react2.default.createElement(_BottomMarker2.default, { data: 'Hackd\xF3 Conf' }),
+          _react2.default.createElement(
+            'p',
+            { className: 'wrap-news__content-text' },
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+          ),
+          _react2.default.createElement('div', { id: 'videoWrapper' })
+        )
+      }]
+    }
+  }
 };
 
 /***/ }),
@@ -29989,6 +31555,10 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _keys = __webpack_require__(331);
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _getPrototypeOf = __webpack_require__(29);
 
@@ -30014,9 +31584,17 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Title = __webpack_require__(330);
+var _BottomMarker = __webpack_require__(334);
 
-var _Title2 = _interopRequireDefault(_Title);
+var _BottomMarker2 = _interopRequireDefault(_BottomMarker);
+
+var _ListBar = __webpack_require__(335);
+
+var _ListBar2 = _interopRequireDefault(_ListBar);
+
+var _Gallery = __webpack_require__(340);
+
+var _Gallery2 = _interopRequireDefault(_Gallery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30029,51 +31607,108 @@ var News = function (_React$Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (News.__proto__ || (0, _getPrototypeOf2.default)(News)).call(this));
 
     _this.state = {
-      select: "conf",
-      news: [{
-        id: "conf",
-        active: true,
-        title: 'Hackdó Conf',
-        body: _react2.default.createElement(
-          'article',
-          { className: 'appear', id: 'conf' },
-          _react2.default.createElement(_Title2.default, { data: 'Hackd\xF3 Conf' }),
-          _react2.default.createElement(
-            'p',
-            { className: 'wrap-news__content-text' },
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
-          ),
-          _react2.default.createElement('div', { id: 'videoWrapper' })
-        )
-      }, {
-        id: "bootcamp",
-        active: false,
-        title: "Bootcamp",
-        body: _react2.default.createElement(
-          'article',
-          { className: 'appear', id: 'bootcamp' },
-          _react2.default.createElement(_Title2.default, { data: 'Bootcamp' }),
-          _react2.default.createElement(
-            'p',
-            { className: 'wrap-news__content-text' },
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+      currentSelected: "conf",
+      news: {
+        'Actividades': [{
+          id: "conf",
+          active: true,
+          title: 'Eventos',
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'conf' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Hackd\xF3 Conf' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            ),
+            _react2.default.createElement('div', { id: 'videoWrapper' }),
+            _react2.default.createElement(_BottomMarker2.default, { data: "Asistentes" }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'wrap-news__content-gallery' },
+              _react2.default.createElement(_Gallery2.default, null)
+            )
           )
-        )
-      }, {
-        id: "quibdojs-meetup",
-        active: false,
-        title: "Meetup Quibdojs",
-        body: _react2.default.createElement(
-          'article',
-          { className: 'appear', id: 'quibdo-js' },
-          _react2.default.createElement(_Title2.default, { data: 'Quibdojs' }),
-          _react2.default.createElement(
-            'p',
-            { className: 'wrap-news__content-text' },
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+        }, {
+          id: "courses",
+          active: false,
+          title: "Cursos",
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'courses' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Cursos' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            )
           )
-        )
-      }]
+        }],
+        'Proyectos': [{
+          id: "gendo",
+          active: false,
+          title: "Gen Dó",
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'gendo' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Gen D\xF3' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            )
+          )
+        }, {
+          id: "investigación",
+          active: false,
+          title: "Investigación",
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'quibdo-js' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Investigaci\xF3n' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            )
+          )
+        }],
+        'Conocenos': [{
+          id: "mision",
+          active: false,
+          title: "Mision y Visión",
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'mision' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Mision y Visi\xF3n' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            )
+          )
+        }, {
+          id: "team",
+          active: false,
+          title: "Equipo Hackdó",
+          body: _react2.default.createElement(
+            'article',
+            { className: 'appear', id: 'team' },
+            _react2.default.createElement(_BottomMarker2.default, { data: 'Equipo Hackd\xF3' }),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-news__content-text' },
+              'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?'
+            )
+          )
+        }]
+      }
     };
     return _this;
   }
@@ -30082,10 +31717,13 @@ var News = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var videoWrapper = document.getElementById('videoWrapper');
-      videoWrapper.innerHTML = '\n        <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\n    ';
-      var $menu = document.getElementsByClassName('wrap-news__content');
+      if (videoWrapper) {
+        videoWrapper.innerHTML = '\n          <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\n      ';
+      }
+
+      var $menu = document.getElementsByClassName('wrap-listbar__content');
       window.addEventListener('scroll', function (e) {
-        console.log(window.pageYOffset);
+        //console.log(window.pageYOffset);
         if (window.pageYOffset > 100 && $menu) {
           var y = 0; //window.pageYOffset - 250;
           $menu[0].style.top = y + 'px';
@@ -30103,11 +31741,13 @@ var News = function (_React$Component) {
 
       var news = this.state.news;
 
-      news = news.map(function (item) {
-        item.active = item.id === select;
-        return item;
+      (0, _keys2.default)(news).forEach(function (month, index) {
+        news[month] = news[month].map(function (item) {
+          item.active = item.id === select;
+          return item;
+        });
       });
-      var $element = document.getElementsByClassName('wrap-news__body')[0];
+      var $element = document.querySelector('.wrap-news__body');
       if ($element) {
         $element.classList.add('disappear');
         $element.classList.remove('appear');
@@ -30128,50 +31768,28 @@ var News = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
-
       var _state = this.state,
           select = _state.select,
-          news = _state.news;
+          news = _state.news,
+          currentSelected = _state.currentSelected;
 
       return _react2.default.createElement(
         'article',
         { className: 'wrap-news' },
-        _react2.default.createElement(
-          'aside',
-          { className: 'wrap-news__content' },
-          _react2.default.createElement(
-            'div',
-            { className: 'title-news' },
-            _react2.default.createElement(_Title2.default, { data: 'Noticias' })
-          ),
-          _react2.default.createElement(
-            'nav',
-            null,
-            _react2.default.createElement(
-              'ol',
-              null,
-              news.map(function (item, i) {
-                return _react2.default.createElement(
-                  'li',
-                  { key: i, onClick: _this3.selectNew.bind(_this3, item.id) },
-                  _react2.default.createElement(_Title2.default, { hover: select !== item.id, data: item.title })
-                );
-              })
-            )
-          )
-        ),
+        _react2.default.createElement(_ListBar2.default, { title: "Hackdó", data: news, selected: currentSelected, onSelect: this.selectNew.bind(this) }),
         _react2.default.createElement(
           'section',
           { className: 'wrap-news__body' },
-          news.filter(function (item) {
-            return item.active;
-          }).map(function (item, i) {
-            return _react2.default.createElement(
-              'div',
-              { key: i },
-              item.body
-            );
+          (0, _keys2.default)(news).map(function (month, index) {
+            return news[month].filter(function (item) {
+              return item.active;
+            }).map(function (item, i) {
+              return _react2.default.createElement(
+                'div',
+                { className: 'wrap-news__body-content', key: i },
+                item.body
+              );
+            });
           })
         )
       );
@@ -30183,7 +31801,37 @@ var News = function (_React$Component) {
 exports.default = News;
 
 /***/ }),
-/* 330 */
+/* 330 */,
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(332), __esModule: true };
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(333);
+module.exports = __webpack_require__(34).Object.keys;
+
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 Object.keys(O)
+var toObject = __webpack_require__(75);
+var $keys = __webpack_require__(59);
+
+__webpack_require__(178)('keys', function () {
+  return function keys(it) {
+    return $keys(toObject(it));
+  };
+});
+
+
+/***/ }),
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30199,13 +31847,13 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Title(props) {
+function BottomMarker(props) {
   var data = props.data,
       _props$hover = props.hover,
       hover = _props$hover === undefined ? false : _props$hover;
 
   return _react2.default.createElement(
-    "h1",
+    "div",
     { className: "title" },
     _react2.default.createElement(
       "span",
@@ -30215,7 +31863,313 @@ function Title(props) {
     )
   );
 }
-exports.default = Title;
+exports.default = BottomMarker;
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getIterator2 = __webpack_require__(336);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+var _keys = __webpack_require__(331);
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _getPrototypeOf = __webpack_require__(29);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(30);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(31);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(32);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(33);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _BottomMarker = __webpack_require__(334);
+
+var _BottomMarker2 = _interopRequireDefault(_BottomMarker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListBar = function (_React$Component) {
+  (0, _inherits3.default)(ListBar, _React$Component);
+
+  function ListBar() {
+    (0, _classCallCheck3.default)(this, ListBar);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ListBar.__proto__ || (0, _getPrototypeOf2.default)(ListBar)).call(this));
+
+    _this.state = {};
+    return _this;
+  }
+
+  (0, _createClass3.default)(ListBar, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var selected = this.props.selected;
+
+      this.setState({ selected: selected });
+    }
+  }, {
+    key: 'setSelected',
+    value: function setSelected() {
+      var data = this.props.data;
+
+      var keys = (0, _keys2.default)(data);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = (0, _getIterator3.default)(keys), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+
+          var found = false;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = (0, _getIterator3.default)(data[key]), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var item = _step2.value;
+
+              if (item.active) {
+                this.setState({ selected: item.id });
+                found = true;
+              }
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+
+          if (found) break;
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+  }, {
+    key: 'selectItem',
+    value: function selectItem(id) {
+      if (this.props.onSelect) this.props.onSelect(id);
+      this.setSelected();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          _props$title = _props.title,
+          title = _props$title === undefined ? '' : _props$title,
+          data = _props.data;
+      var _state$selected = this.state.selected,
+          selected = _state$selected === undefined ? '' : _state$selected;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'listbar-container' },
+        _react2.default.createElement(
+          'aside',
+          { className: 'wrap-listbar__content' },
+          _react2.default.createElement(
+            'div',
+            { className: 'title-listbar' },
+            _react2.default.createElement(_BottomMarker2.default, { data: _react2.default.createElement(
+                'h1',
+                null,
+                title
+              ) })
+          ),
+          (0, _keys2.default)(data).map(function (group, index) {
+            return _react2.default.createElement(
+              'div',
+              { className: 'wrap-listbar__content-group', key: index },
+              _react2.default.createElement(
+                'span',
+                { className: 'wrap-listbar__content-listbar-date' },
+                group
+              ),
+              _react2.default.createElement(
+                'nav',
+                null,
+                _react2.default.createElement(
+                  'ol',
+                  null,
+                  data[group].map(function (item, i) {
+                    return _react2.default.createElement(
+                      'li',
+                      { key: i, className: 'appear-right', style: { animationDelay: i * 0.35 + 's' }, onClick: _this2.selectItem.bind(_this2, item.id) },
+                      _react2.default.createElement(_BottomMarker2.default, { hover: selected !== item.id, data: _react2.default.createElement(
+                          'span',
+                          null,
+                          item.title
+                        ) })
+                    );
+                  })
+                )
+              )
+            );
+          })
+        )
+      );
+    }
+  }]);
+  return ListBar;
+}(_react2.default.Component);
+
+exports.default = ListBar;
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(337), __esModule: true };
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(97);
+__webpack_require__(88);
+module.exports = __webpack_require__(338);
+
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(40);
+var get = __webpack_require__(167);
+module.exports = __webpack_require__(34).getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+
+/***/ }),
+/* 339 */,
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _getPrototypeOf = __webpack_require__(29);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(30);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(31);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(32);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(33);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _reactAliceCarousel = __webpack_require__(230);
+
+var _reactAliceCarousel2 = _interopRequireDefault(_reactAliceCarousel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var React = __webpack_require__(5);
+
+var _require = __webpack_require__(54),
+    Link = _require.Link;
+
+var Gallery = function (_React$Component) {
+  (0, _inherits3.default)(Gallery, _React$Component);
+
+  function Gallery() {
+    (0, _classCallCheck3.default)(this, Gallery);
+    return (0, _possibleConstructorReturn3.default)(this, (Gallery.__proto__ || (0, _getPrototypeOf2.default)(Gallery)).call(this));
+  }
+
+  (0, _createClass3.default)(Gallery, [{
+    key: 'render',
+    value: function render() {
+      var responsive = {
+        1300: {
+          items: 1
+        }
+      };
+
+      return React.createElement(
+        'div',
+        { className: 'wrap-gallery-header' },
+        React.createElement(
+          _reactAliceCarousel2.default,
+          {
+            responsive: responsive,
+            autoPlay: false,
+            duration: 1000,
+            dotsDisabled: true
+          },
+          React.createElement('div', { className: 'wrap-image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } }),
+          React.createElement('div', { className: 'wrap-image', style: { backgroundImage: 'url(/assets/images/DSC_9350.JPG' } })
+        )
+      );
+    }
+  }]);
+  return Gallery;
+}(React.Component);
+
+module.exports = Gallery;
 
 /***/ })
 /******/ ]);

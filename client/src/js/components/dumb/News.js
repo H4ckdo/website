@@ -1,46 +1,44 @@
 import React from 'react';
-import Title from './Title.js';
+import BottomMarker from './BottomMarker.js'
+import ListBar from './ListBar.js'
+import Gallery from './Gallery.js'
+
 class News extends React.Component {
   constructor() {
     super();
     this.state = {
-      select: "conf",
+      currentSelected: "conf",
       news: {
-        'Septiembre 2018': [
+        'Actividades': [
           {
             id: "conf",
             active: true,
-            title: 'Hackdó Conf',
+            title: 'Eventos',
             body: (
               <article className="appear" id="conf">
-                <Title data="Hackdó Conf" />
+                <BottomMarker data="Hackdó Conf" />
                 <p className="wrap-news__content-text">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
-             </p>
+                </p>
                 <div id="videoWrapper"></div>
-              </article>
-            )
-          },
-          {
-            id: "bootcamp",
-            active: false,
-            title: "Bootcamp",
-            body: (
-              <article className="appear" id="bootcamp">
-                <Title data="Bootcamp" />
+
+                <BottomMarker data={"Asistentes"} />
                 <p className="wrap-news__content-text">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
-             </p>
+                </p>
+                <div className="wrap-news__content-gallery">
+                  <Gallery />
+                </div>
               </article>
             )
           },
           {
-            id: "quibdojs-meetup",
+            id: "courses",
             active: false,
-            title: "Meetup Quibdojs",
+            title: "Cursos",
             body: (
-              <article className="appear" id="quibdo-js">
-                <Title data="Quibdojs" />
+              <article className="appear" id="courses">
+                <BottomMarker data="Cursos" />
                 <p className="wrap-news__content-text">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
              </p>
@@ -48,21 +46,61 @@ class News extends React.Component {
             )
           }
         ],
-        'Octubre 2018': [
+        'Proyectos': [
           {
-            id: "endo",
-            active: true,
+            id: "gendo",
+            active: false,
             title: "Gen Dó",
             body: (
-              <article className="appear" id="conf">
-                <Title data="Gen Dó" />
+              <article className="appear" id="gendo">
+                <BottomMarker data="Gen Dó" />
                 <p className="wrap-news__content-text">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
-             </p>
-                <div id="videoWrapper"></div>
+                </p>
               </article>
             )
           },
+          {
+            id: "investigación",
+            active: false,
+            title: "Investigación",
+            body: (
+              <article className="appear" id="quibdo-js">
+                <BottomMarker data="Investigación" />
+                <p className="wrap-news__content-text">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
+             </p>
+              </article>
+            )
+          }
+        ],
+        'Conocenos': [
+          {
+            id: "mision",
+            active: false,
+            title: "Mision y Visión",
+            body: (
+              <article className="appear" id="mision">
+                <BottomMarker data="Mision y Visión" />
+                <p className="wrap-news__content-text">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
+                </p>
+              </article>
+            )
+          },
+          {
+            id: "team",
+            active: false,
+            title: "Equipo Hackdó",
+            body: (
+              <article className="appear" id="team">
+                <BottomMarker data="Equipo Hackdó" />
+                <p className="wrap-news__content-text">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum enim modi sapiente tempore eaque, ut deserunt incidunt voluptates sequi dolor, similique id qui saepe hic voluptatem asperiores possimus necessitatibus accusantium?
+                </p>
+              </article>
+            )
+          }
         ]
       }
     }
@@ -75,7 +113,8 @@ class News extends React.Component {
           <iframe src="https://www.youtube.com/embed/n7ytI8lE3o4" height="100%" width="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       `
     }
-    const $menu = document.getElementsByClassName('wrap-news__content');
+
+    const $menu = document.getElementsByClassName('wrap-listbar__content');
     window.addEventListener('scroll', (e) => {
       //console.log(window.pageYOffset);
       if (window.pageYOffset > 100 && $menu) {
@@ -119,46 +158,14 @@ class News extends React.Component {
   }
 
   render() {
-    let { select, news } = this.state;
+    let { select, news, currentSelected } = this.state;
     return (
       <article className="wrap-news">
-        <aside className="wrap-news__content">
-          <div className="title-news"><Title data="Noticias" /></div>
-          {
-
-            Object.keys(news).map((month, index) => {
-              return (<div key={index}>
-                <span className="wrap-news__content-news-date">{month}</span>
-                <nav>
-                  <ol>
-                    {
-                      news[month].map((item, i) => {
-                        return (
-                          <li key={i} className="appear-right" style={ {animationDelay: `${i*0.35}s` } } onClick={this.selectNew.bind(this, item.id)}>
-                            <Title hover={select !== item.id} data={item.title} />
-                          </li>
-                        )
-                      })
-                    }
-                  </ol>
-                </nav>
-              </div>
-              )
-            })
-          }
-          <div className="wrap-news__content-news-controls">
-            <div className="wrap-news__content-news-controls-back">
-              <i className="material-icons">arrow_back</i> <span>Atras</span>
-            </div>
-            <div className="wrap-news__content-news-controls-next">
-              <span>Adelante</span> <i className="material-icons">arrow_forward</i>
-            </div>
-          </div>
-        </aside>
+        <ListBar title={"Hackdó"} data={news} selected={currentSelected} onSelect={this.selectNew.bind(this)} />
         <section className="wrap-news__body">
           {
             Object.keys(news).map((month, index) => {
-              return news[month].filter(item => item.active).map((item, i) => <div key={i}>{item.body}</div>);
+              return news[month].filter(item => item.active).map((item, i) => <div className="wrap-news__body-content" key={i}>{item.body}</div>);
             })
           }
         </section>

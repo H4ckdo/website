@@ -6,7 +6,6 @@ import generateStore from './stores/index.js'
 const store = generateStore();
 
 ReactDOM.render(
-
   <Provider store={store}>
     <AppRouter />
   </Provider>,

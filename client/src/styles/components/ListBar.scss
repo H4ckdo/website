@@ -1,0 +1,126 @@
+.listbar-container {
+    .wrap-listbar__content {
+      grid-area: 1/1;
+      position: fixed;
+      top: 150px;
+      width: 300px;
+      margin-left: 0px;
+      transition: all 0.25s ease-in-out;
+      .title-listbar {
+        position: relative;
+        left: 12px;
+        .title {
+          h1, h2, h3 {
+            font-size: 65px;
+            margin: 0px;
+            padding: 0px;
+            position: relative;
+            left: 0px;
+          }
+          .bottom-mark {
+            top: -20px;
+          }
+          span {
+            font-size: 65px;
+          }
+        }
+      }
+      .wrap-listbar__content-listbar-controls {
+        width: 100%;
+        margin: 0px auto;
+        margin-top: 20px;
+        position: relative;
+        text-align: center;
+        .disabled {
+          cursor: default !important;
+          pointer-events:none !important;
+          &:hover {
+            background: transparent !important;
+            color: red !important;
+          }
+        }
+        .wrap-listbar__content-listbar-controls-back {
+          text-align: left;
+          i {
+            padding-right: 8px;
+            transition: all 0.25s ease-in-out;
+          }
+          &:hover i {
+            padding-right: 4px;
+            color: white;
+          }
+        }
+        .wrap-listbar__content-listbar-controls-next {
+          text-align: right;
+          i {
+            padding-left: 4px;
+            padding-right: 2px;
+            transition: all 0.25s ease-in-out;
+          }
+          &:hover i {
+            padding-left: 0px;
+            color: white;
+          }
+        }
+        .wrap-listbar__content-listbar-controls-back,
+        .wrap-listbar__content-listbar-controls-next {
+          width: 111px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          color:red;
+          vertical-align: middle;
+          cursor: pointer;
+          display: inline-block;
+          transition: all 0.25s ease-in-out;
+          span, i {
+            vertical-align: middle;
+          }
+          &:hover {
+            background: $primary;
+            color: white;
+          }
+        }
+      }
+      .wrap-listbar__content-group {
+        position: relative;
+        right: 25px;
+      }
+      .wrap-listbar__content-listbar-date {
+        text-align: left;
+        margin: 0px auto;
+        position: relative;
+        display: block;
+        width: 100%;
+        color: #ccc;
+        position: relative;
+        left: 40px;
+      }
+
+      li {
+        list-style: none;
+        cursor: pointer;
+        transition: all 0.25s ease-in-out;
+        position: relative;
+        &:hover {
+          margin-left: 10px;
+        }
+        &:focus {
+          margin-left: 10px;
+        }
+        .title {
+          font-size: 25px;
+          text-align: left !important;
+          .bottom-mark {
+            top: -10px;
+          }
+        }
+      }
+    }
+    .wrap-listbar__content-text {
+      text-align: center;
+      line-height: 1.5;
+      font-family: $global-font-family;
+      color: black;
+      padding-bottom: 20px;
+    }
+}
