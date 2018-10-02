@@ -18,7 +18,7 @@ function Header(props) {
                   <div className="bottom-mark"></div>
                 </li>
                 <li>
-                  <span>Conocenos</span>
+                  <span>Conócenos</span>
                   <div className="bottom-mark"></div>
                 </li>
                 <li>

@@ -6,6 +6,7 @@ import Header from '../dumb/Header.js'
 import News from '../dumb/News.js'
 import Gallery from '../dumb/Gallery.js'
 import About from '../dumb/About.js'
+import KnowUs from '../dumb/KnowUs.js'
 
 @connect(store => {
   let { setup, data } = store.Main;
@@ -21,6 +22,7 @@ class App extends React.Component {
     return (
       <div id="main-content">
         <About/>
+        <KnowUs/>
         {/*<Gallery/>*/}
         {/*<News/>*/}
       </div>

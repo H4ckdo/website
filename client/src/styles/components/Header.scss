@@ -1,7 +1,10 @@
 .header-background {
-  position: absolute;
+  position: fixed;
   width: 100%;
   z-index: 10;
+  top: 0px;
+  left: 0px;
+  background: rgba(0,0,0,0.4);
 }
 .wrap-header {
   max-width: $large;
@@ -36,8 +39,7 @@
           margin-right: 0px;
           font-size: 18px;
           border: none;
-          font-family: $global-font-family-light;
-          font-weight: 100;
+          font-family: $global-font-family;
           margin-right: 25px;
           cursor: pointer;
           transition: all 0.25s ease-in-out;
@@ -58,8 +60,8 @@
           &:hover .bottom-mark {
             width: 80%;
             height: 8px;
-            top: -12px !important;
-            background: transparent;
+            top: -8px !important;
+            background: $third;
           }
         }
       }
