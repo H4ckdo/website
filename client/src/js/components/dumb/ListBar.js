@@ -38,6 +38,13 @@ class ListBar extends React.Component {
     return (
       <div className="listbar-container">
         <aside className="wrap-listbar__content">
+          {
+            /*
+            <div className="wrap-logo">
+              <img id="logo" src="/assets/images/logo.png" alt="" />
+            </div>
+            */
+          }
           <div className="title-listbar"><BottomMarker data={<h1>{title}</h1>} /></div>
           {
             Object.keys(data).map((group, index) => {

@@ -1,16 +1,20 @@
 .header-background {
-  background: #FFEB3B;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
 }
 .wrap-header {
-  max-width: $large+150px;
+  max-width: $large;
   display: grid;
-  grid-template-columns: 0.1fr 0.9fr;
-  margin: 0px auto;
+  grid-template-columns: .1fr 1fr;
+  margin: 0 auto;
   align-items: center;
   justify-content: center;
-  height: 110px;
   img {
-    width: 265px;
+    width: 290px;
+    text-align: center;
+    padding-top:5px;
+    padding-bottom:5px;
   }
   .main-header {
     padding: 0;
@@ -19,22 +23,21 @@
     display: grid;
     position: relative;
     left: 0;
+    bottom: -9px;
     margin: 0 auto;
     nav {
       align-self: end;
       text-align: right;
       ul {
         padding: 0px;
-        padding-left: 40px;
-        padding-top: 40px;
         li {
           list-style: none;
           display: inline-block;
           margin-right: 0px;
-          font-size: 16px;
+          font-size: 18px;
           border: none;
-          font-family: $global-font-title;
-          font-weight: bold;
+          font-family: $global-font-family-light;
+          font-weight: 100;
           margin-right: 25px;
           cursor: pointer;
           transition: all 0.25s ease-in-out;
@@ -45,7 +48,7 @@
           }
           span {
             transition: all 0.25s ease-in-out;
-            color: $primary;
+            color: white;
           }
           &:hover span {
             color: red;
@@ -54,7 +57,9 @@
           }
           &:hover .bottom-mark {
             width: 80%;
-            background: #FFC107;
+            height: 8px;
+            top: -12px !important;
+            background: transparent;
           }
         }
       }

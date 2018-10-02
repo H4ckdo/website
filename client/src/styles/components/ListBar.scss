@@ -2,9 +2,11 @@
     .wrap-listbar__content {
       grid-area: 1/1;
       position: fixed;
-      top: 150px;
+      top: 0px;
+      padding-top: 25px;
       width: 300px;
-      margin-left: 0px;
+      height: 100%;
+      margin-left: 20px;
       transition: all 0.25s ease-in-out;
       .title-listbar {
         position: relative;

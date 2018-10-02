@@ -1,6 +1,7 @@
 import React from 'react';
 import BottomMarker from './BottomMarker.js'
 import Gallery from './Gallery.js'
+import Header from './Header.js'
 
 class About extends React.Component {
   constructor() {
@@ -9,17 +10,15 @@ class About extends React.Component {
   }
   render() {
     return (
-      <article className="about-container">
-        <section className="about-container__gallery">
-          <Gallery/>
-        </section>
-        <section className="about-container__text">
-          <BottomMarker data={<h1>Conócenos</h1>}/>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum cupiditate magni illum sapiente! Consequuntur minus doloremque deserunt. Numquam officiis mollitia unde, obcaecati architecto quidem. Ab architecto dolores nam neque voluptatem?
-            </p>
-        </section>
-      </article>
+      <div className="about-container">
+        <Header />
+        <div className="about-container-content">
+          <BottomMarker data="Fundacion Hackdó" />
+          <p className="about-container-content__text">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, quasi sit! Non nemo corporis voluptates amet itaque, repellendus odio inventore hic rerum in praesentium eveniet totam perspiciatis provident deleniti! Repudiandae!
+          </p>
+        </div>
+      </div>
     )
   }
 
