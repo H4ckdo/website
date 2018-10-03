@@ -41,7 +41,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|eot|woff|svg)$/,
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
         use: {
           loader: 'url-loader',
           query: 'limit=1000000000&mimetype=font/svg+xml&name=/[path][name].[ext]'

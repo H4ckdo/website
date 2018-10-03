@@ -5,9 +5,11 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(common, {
   plugins: [
+    new BundleAnalyzerPlugin(),
     new LiveReloadPlugin(),
     new WebpackNotifierPlugin({ alwaysNotify: true }),
     new HardSourceWebpackPlugin()

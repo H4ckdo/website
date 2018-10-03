@@ -1,11 +1,11 @@
 import React from 'react';
 import BottomMarker from './BottomMarker.js'
-import member1 from '../../../images/member_1.jpeg'
-import member2 from '../../../images/member_2.jpeg'
-import member3 from '../../../images/member_3.jpeg'
-import member4 from '../../../images/member_4.jpeg'
-import member5 from '../../../images/member_5.jpg'
-import member6 from '../../../images/member_6.jpg'
+//import member1 from '../../../images/member_1.jpeg'
+//import member2 from '../../../images/member_2.jpeg'
+//import member3 from '../../../images/member_3.jpeg'
+//import member4 from '../../../images/member_4.jpeg'
+//import member5 from '../../../images/member_5.jpg'
+//import member6 from '../../../images/member_6.jpg'
 
 class KnowUs extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={ {backgroundImage: `url(${member1})`} }></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Esneyder Amin Palacios Mena"}/>
                 <p className="member-text">
@@ -28,7 +28,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={{ backgroundImage: `url(${member2})` }}></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Miguel Casas Perea"} />
                 <p className="member-text">
@@ -42,7 +42,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={{ backgroundImage: `url(${member3})` }}></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Luis Delaskar"} />
                 <p className="member-text">
@@ -55,7 +55,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={{ backgroundImage: `url(${member4})` }}></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Yerlin Matu"} />
                 <p className="member-text">
@@ -68,7 +68,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={{ backgroundImage: `url(${member5})` }}></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Fredy Enrique Andrade"} />
                 <p className="member-text">
@@ -81,7 +81,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" style={{ backgroundImage: `url(${member6})` }}></div>
+              <div className="member-image" ></div>
               <div className="member-bio">
                 <BottomMarker data={"Luis Fernando Moreno"} />
                 <p className="member-text">

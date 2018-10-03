@@ -1,7 +1,7 @@
 import React from 'react';
 import BottomMarker from './BottomMarker.js'
 import ListBar from './ListBar.js'
-import Gallery from './Gallery.js'
+//import Gallery from './Gallery.js'
 import About from './About.js'
 
 class News extends React.Component {

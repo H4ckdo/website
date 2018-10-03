@@ -1,34 +1,13 @@
-@keyframes change-background {
-  0% {
-    background-image: url("/assets/images/portada.jpg");
-    background-color: rgb(54, 71, 160);
-  }
-  50% {
-    background-image: url("/assets/images/portada-2.jpg");
-  }
-  75% {
-    background-image: url("/assets/images/portada-3.jpg");
-  }
-  100% {
-    background-image: url("/assets/images/portada-4.jpg");
-    background-color: green;
-  }
-}
-
 .about-container {
-  animation-name: change-background;
-  animation-duration: 25s;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  background-image: url("/assets/images/portada.jpg");
+  background-image: url("/assets/images/portada.webp");
+  background-color: #009688;
   background-position: center bottom;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-blend-mode: multiply;
   background-size: cover;
   width: 100%;
   height: 550px;
-  background-color: rgb(54, 71, 160);
-  background-blend-mode: multiply;
   margin: 0px auto;
   .about-container-content {
     text-align: center;
@@ -40,7 +19,7 @@
     .about-container-content__text {
       color: white;
       font-size: 35px;
-      font-family: Raleway;
+      font-family: "Raleway";
       font-weight: 100;
       text-align: left;
       margin-top: 0px;

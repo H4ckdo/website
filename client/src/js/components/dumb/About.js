@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomMarker from './BottomMarker.js'
-import Gallery from './Gallery.js'
+//import Gallery from './Gallery.js'
 import Header from './Header.js'
 
 class About extends React.Component {

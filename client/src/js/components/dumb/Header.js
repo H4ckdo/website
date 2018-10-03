@@ -6,7 +6,7 @@ function Header(props) {
       <div className="wrap-header">
         <div>
           <div className="wrap-logo">
-            <img id="logo" src="/assets/images/logo.png" alt="" />
+            <img id="logo" src="/assets/images/logo.webp" alt="" />
           </div>
         </div>
         <div>
