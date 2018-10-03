@@ -15,7 +15,9 @@ class About extends React.Component {
         <div className="about-container-content">
           <BottomMarker data={<h1>Fundación Hackdó</h1>} />
           <p className="about-container-content__text">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, quasi sit! Non nemo corporis voluptates amet itaque, repellendus odio inventore hic rerum in praesentium eveniet totam perspiciatis provident deleniti! Repudiandae!
+            Comunidad de desarrolladores del Chocó (EL Africa dentro de Colombia).
+            Somos un grupo emprendedor conformado por estudiantes y profesionales, comprometidos
+            con la transformación social por medio del software, emprendimiento y la investigación.
           </p>
         </div>
       </div>
