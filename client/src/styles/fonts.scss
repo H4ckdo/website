@@ -13,15 +13,14 @@
   font-style: normal;
   font-weight: bold;
   src: local('Raleway Bold'),
-  url('./../fonts/Raleway/raleway-bold-webfont.woff') format('woff');
+  url('./../fonts/Raleway/raleway-bold-webfont.woff2') format('woff2');
 }
-/*
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: local('Material Icons'),
-  url('./../fonts/MaterialIcons/Material Design.ttf') format('truetype');
+  url('./../fonts/MaterialIcons/Material Design.woff2') format('woff2');
 }
 
 .material-icons {
@@ -39,4 +38,4 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
-*/
+

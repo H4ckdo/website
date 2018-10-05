@@ -20,33 +20,37 @@
 
 @keyframes appear-smoothly-bottom {
   from {
-    bottom: 20px;
+    padding-bottom: 20px;
     opacity: 0;
   }
   to {
-    bottom: 0px;
+    padding-bottom: 0px;
     opacity: 1;
   }
 }
 
 @keyframes appear-smoothly-left {
-  from {
-    left: 20px;
+  0% {
     opacity: 0;
   }
-  to {
-    left: 0px;
+  50% {
+    padding-left: 10px;
+  }
+  100% {
+    padding-left: 0px;
     opacity: 1;
   }
 }
 
 @keyframes appear-smoothly-right {
-  from {
-    left: -20px;
+  0% {
     opacity: 0;
   }
-  to {
-    left: 0px;
+  50% {
+    padding-right: 10px;
+  }
+  100% {
+    padding-right: 0px;
     opacity: 1;
   }
 }
@@ -75,6 +79,28 @@
   }
 }
 
+@keyframes appear-smoothly-aside {
+  from {
+    left: -90%;
+    opacity: 0;
+  }
+  to {
+    left: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes disappear-smoothly-aside {
+  from {
+    left: 0px;
+    opacity: 1;
+  }
+  to {
+    left: -90%;
+    opacity: 0;
+  }
+}
+
 @keyframes disappear-smoothly {
   from {
     opacity: 1;
@@ -95,21 +121,40 @@
 
 .appear-left {
   animation-name: appear-smoothly-left;
-  animation-duration: .4s;
-  animation-timing-function: ease;
+  animation-duration: 1.7s;
+  animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   opacity: 0;
+}
+.appear-bottom {
+  animation-name: appear-smoothly-bottom;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
 }
 
 .appear-right {
   animation-name: appear-smoothly-right;
-  animation-duration: .4s;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.menu-appear-aside {
+  animation-name: appear-smoothly-aside;
+  animation-duration: 0.25s;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
   opacity: 0;
 }
 
-.disappear {
-  @extend .appear;
-  animation-name: disappear-smoothly;
+.menu-disappear-aside {
+  animation-name: disappear-smoothly-aside;
+  animation-duration: 0.25s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }

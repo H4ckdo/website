@@ -1,3 +1,29 @@
+@media (max-width: $medium) {
+  .main-header__desktop {
+    display: none !important;
+  }
+  .wrap-logo {
+    padding-left: 42px;
+    .wrap-logo__menu-select {
+      display: inline-block !important;
+      position: absolute;
+      left: 0px;
+      color: white;
+      z-index: 100;
+      i {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 375px) {
+  #logo {
+    width: 268px;
+  }
+}
+
 .header-background {
   position: fixed;
   width: 100%;
@@ -13,6 +39,9 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+  .wrap-logo__menu-select {
+    display: none;
+  }
   img {
     width: 290px;
     text-align: center;
@@ -28,7 +57,53 @@
     left: 0;
     bottom: -9px;
     margin: 0 auto;
-    nav {
+    .main-header__mobile {
+      width: 90%;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      left: -90%;
+      transition: all 1s ease-in-out;
+      background: $third;
+      ul {
+        padding: 0;
+        padding-top: 35px;
+        li {
+          list-style: none;
+          display: block;
+          margin-right: 0px;
+          font-size: 25px;
+          border: none;
+          font-family: $global-font-title;
+          margin-bottom: 25px;
+          margin-left: 25px;
+          text-align: left;
+          cursor: pointer;
+          transition: all 0.25s ease-in-out;
+          position: relative;
+          top: 0px;
+          color: $primary;
+          .menu-text {
+            z-index: 100;
+            position: relative;
+          }
+          &:hover span {
+            color: red;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+          }
+          &:hover .bottom-mark {
+            margin-left: 0px;
+            width: 60%;
+            top: -10px !important;
+            left: 0px;
+            background: $secondary;
+          }
+        }
+      }
+    }
+    .main-header__desktop {
       align-self: end;
       text-align: right;
       ul {
@@ -69,3 +144,6 @@
   }
 }
 
+.menu-active {
+  color: $primary !important;
+}
