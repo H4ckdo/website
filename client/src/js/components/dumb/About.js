@@ -11,13 +11,11 @@ class About extends React.Component {
   render() {
     return (
       <div className="about-container">
-        <Header />
+        <Header onSelect={this.props.onSelect}/>
         <div className="about-container-content appear-left">
           <BottomMarker data={<h1>Fundación Hackdó</h1>} />
           <p className="about-container-content__text">
-            Comunidad de desarrolladores del Chocó (EL Africa dentro de Colombia).
-            Somos un grupo emprendedor conformado por estudiantes y profesionales, comprometidos
-            con la transformación social por medio del software, emprendimiento y la investigación.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus officia odit enim? Cumque repudiandae voluptatem quas perferendis nesciunt, dicta soluta! Nesciunt delectus.
           </p>
         </div>
       </div>

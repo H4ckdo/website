@@ -1,12 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import scrollToElement from 'scroll-to-element'
 
 class Header extends React.Component {
   constructor() {
     super();
     this.state = {
-      isOpen: false
+      isOpen: false,
+      changeBackground: false
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', (e) => {
+      let y = window.pageYOffset;
+      let container = document.querySelector('.about-container-content');
+      //console.log(y ,' ', container.clientHeight);
+      let changeBackground = y > container.clientHeight;
+      this.setState({ changeBackground });
+    })
   }
 
   handleMenu() {
@@ -22,10 +34,22 @@ class Header extends React.Component {
     });
   }
 
+  closeMenu() {
+    let isOpen = false;
+    let menuControl = ReactDOM.findDOMNode(this.refs.menuControl);
+    this.setState({ isOpen }, () => {
+      menuControl.innerHTML = "menu";
+    });
+  }
+
+  goTo(link) {
+    window.location.href = link;
+  }
+
   render(props) {
-    let { isOpen } = this.state;
+    let { isOpen, changeBackground } = this.state;
     return (
-      <div className="header-background">
+      <div className={`header-background ${changeBackground ? "background-contrast" : ""}`}>
         <div className="wrap-header">
           <div>
             <div className="wrap-logo">
@@ -35,16 +59,16 @@ class Header extends React.Component {
           </div>
           <div>
             <header className="main-header">
-              <nav className={`main-header__mobile ${isOpen ? "menu-appear-aside" : "menu-disappear-aside"}`}>
+              <nav className={`main-header__mobile ${isOpen ? "menu-appear-aside" : "menu-disappear-aside hide"}`}>
                 <ul>
-                  <li className="appear-bottom">
+                  <li className="appear-bottom" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
                     <span>
                       <div className="menu-text">Articulos</div>
                       <div className="bottom-mark"></div>
                     </span>
 
                   </li>
-                  <li className="appear-bottom">
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#KnowUs', this.closeMenu.bind(this))}>
                     <span>
                       <div className="menu-text">Conócenos</div>
                       <div className="bottom-mark"></div>
@@ -64,7 +88,7 @@ class Header extends React.Component {
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Investigacion</div>
+                      <div className="menu-text">Investigación</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
@@ -73,11 +97,11 @@ class Header extends React.Component {
 
               <nav className="main-header__desktop">
                 <ul>
-                  <li className="appear-left">
+                  <li className="appear-left" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
                     <span>Articulos</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left">
+                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#KnowUs')}>
                     <span>Conócenos</span>
                     <div className="bottom-mark"></div>
                   </li>
@@ -90,7 +114,7 @@ class Header extends React.Component {
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left">
-                    <span>Investigacion</span>
+                    <span>Investigación</span>
                     <div className="bottom-mark"></div>
                   </li>
                 </ul>

@@ -15,7 +15,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage:"url(/assets/images/member_1.jpeg)" } } ></div>
               <div className="member-bio">
                 <BottomMarker data={"Esneyder Amin Palacios Mena"}/>
                 <p className="member-text">
@@ -28,7 +28,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_2.jpeg)" }}></div>
               <div className="member-bio">
                 <BottomMarker data={"Miguel Casas Perea"} />
                 <p className="member-text">
@@ -42,7 +42,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_3.jpeg)" }}></div>
               <div className="member-bio">
                 <BottomMarker data={"Luis Delaskar"} />
                 <p className="member-text">
@@ -55,7 +55,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_4.jpeg)" }}></div>
               <div className="member-bio">
                 <BottomMarker data={"Yerlin Matu"} />
                 <p className="member-text">
@@ -68,7 +68,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_5.jpg)" }}></div>
               <div className="member-bio">
                 <BottomMarker data={"Fredy Enrique Andrade"} />
                 <p className="member-text">
@@ -81,7 +81,7 @@ class KnowUs extends React.Component {
         {
           body: (
             <div className="member">
-              <div className="member-image" ></div>
+              <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_6.jpg)" }}></div>
               <div className="member-bio">
                 <BottomMarker data={"Luis Fernando Moreno"} />
                 <p className="member-text">
@@ -105,7 +105,7 @@ class KnowUs extends React.Component {
           </div>
           <p className="know-us-container-text">
             Somos un grupo emprendedor conformado por estudiantes y profesionales, comprometidos
-            con la <BottomMarker data={"transformación social"} /> por medio del software, emprendimiento y la investigación.
+            con la <b>transformación social</b> por medio del software, emprendimiento y la investigación.
           </p>
           <ul>
             {

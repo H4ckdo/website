@@ -7,6 +7,7 @@ import News from '../dumb/News.js'
 //import Gallery from '../dumb/Gallery.js'
 import About from '../dumb/About.js'
 import KnowUs from '../dumb/KnowUs.js'
+import scrollToElement from 'scroll-to-element'
 
 @connect(store => {
   let { setup, data } = store.Main;
@@ -17,12 +18,28 @@ class App extends React.Component {
     super();
   }
 
+  componentDidMount() {
+    if (window.location.hash === "#knowus") {
+      scrollToElement("#KnowUs", {
+        duration: 200
+      });
+    }
+  }
+
+  goTo(id, done) {
+    //console.log('id ', id);
+    scrollToElement(id, {
+      duration: 200
+    });
+    if(done) setTimeout(done, 300);
+  }
+
   render() {
     let { setup = {}, data = [] } = this.props;
     return (
       <div id="main-content">
-        <About/>
-        {/*<KnowUs/>*/}
+        <About onSelect={this.goTo.bind(this)}/>
+        <KnowUs/>
         {/*<Gallery/>*/}
         {/*<News/>*/}
       </div>

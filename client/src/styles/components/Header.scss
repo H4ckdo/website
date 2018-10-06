@@ -20,7 +20,9 @@
 
 @media (max-width: 375px) {
   #logo {
-    width: 268px;
+    width: 287px;
+    position: relative;
+    left: -6px;
   }
 }
 
@@ -31,6 +33,7 @@
   top: 0px;
   left: 0px;
   background: rgba(0,0,0,0.4);
+  transition: all 0.25s ease-in-out;
 }
 .wrap-header {
   max-width: $large;
@@ -64,7 +67,7 @@
       top: 0px;
       left: -90%;
       transition: all 1s ease-in-out;
-      background: $third;
+      background: transparent;
       ul {
         padding: 0;
         padding-top: 35px;
@@ -146,4 +149,26 @@
 
 .menu-active {
   color: $primary !important;
+}
+
+.menu-appear-aside {
+  background: $third !important;
+}
+
+.background-contrast {
+  background: $third !important;
+  .wrap-logo__menu-select  {
+    color: $primary !important;
+  }
+  ul {
+    li {
+      span {
+        color: $primary !important;
+      }
+      font-family: $global-font-title !important;
+      &:hover .bottom-mark {
+        background: $secondary !important;
+      }
+    }
+  }
 }
