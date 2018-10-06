@@ -16,7 +16,7 @@ class Header extends React.Component {
       let y = window.pageYOffset;
       let container = document.querySelector('.about-container-content');
       //console.log(y ,' ', container.clientHeight);
-      let changeBackground = y > container.clientHeight;
+      let changeBackground = y > 50//container.clientHeight;
       this.setState({ changeBackground });
     })
   }
