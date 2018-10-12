@@ -32,13 +32,13 @@
   z-index: 10;
   top: 0px;
   left: 0px;
-  background: rgba(0,0,0,0.4);
+  background: $secondary;
   transition: all 0.25s ease-in-out;
 }
 .wrap-header {
   max-width: $large;
   display: grid;
-  grid-template-columns: .1fr 1fr;
+  grid-template-columns: 1fr;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
@@ -131,15 +131,15 @@
             color: white;
           }
           &:hover span {
-            color: white;
+            color: $third;
             position: relative;
             z-index: 1;
           }
           &:hover .bottom-mark {
             width: 80%;
             height: 8px;
-            top: -8px !important;
-            background: #cddc396e;
+            top: -5px !important;
+            background: transparent;
           }
         }
       }
@@ -167,7 +167,7 @@
       }
       font-family: $global-font-title !important;
       &:hover .bottom-mark {
-        background: $secondary !important;
+        background: $fourth !important;
       }
     }
   }

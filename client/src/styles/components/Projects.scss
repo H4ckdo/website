@@ -1,0 +1,105 @@
+#Projects {
+  background: $primary;
+  padding: 40px;
+  .projects-title {
+    color: #fff;
+    text-align: center;
+    font-size: 57px;
+    font-family: $global-font-title;
+  }
+  .wrap-projects {
+    width: $large;
+    display: grid;
+    margin: 0px auto;
+    grid-auto-columns: 0.5fr 1fr;
+    grid-gap: 80px;
+    font-family: $global-font-title;
+    text-align: left;
+    .wrap-projects__unactive {
+      font-size: 20px;
+      grid-area: 1/2;
+      .wrap-projects__unactive-title {
+        color: white;
+        font-size: 45px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+      ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px
+      }
+      .wrap-projects__unactive-item {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .wrap-projects__unactive-item-image {
+          width: 180px;
+          height: 130px;
+          background: #fff;
+          display: inline-block;
+          vertical-align: top;
+          position: relative;
+          overflow: hidden;
+          .wrap-projects__unactive-item-image__tag {
+            background: $fourth;
+            color: $primary;
+            font-family: $global-font-title;
+            font-size: 18px;
+            height: 25px;
+            width: 100%;
+            padding-top: 5px;
+            padding-left: 10px;
+            display: block;
+            position: absolute;
+            bottom: 0px;
+          }
+        }
+        .wrap-projects__unactive-item-content {
+          display: inline-block;
+          width: 400px;
+          vertical-align: middle;
+          margin-left: 20px;
+          .wrap-projects__unactive-item-name {
+            font-family: $global-font-title;
+            text-align: left;
+            color: white;
+          }
+          .wrap-projects__unactive-item-text {
+            font-family: $global-font-family;
+            text-align: left;
+            color: white;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+    .wrap-projects__active {
+      font-size: 20px;
+      grid-area: 1/1;
+      .wrap-projects__active-title {
+        color: white;
+        font-size: 40px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+      .wrap-projects__active-subtitle {
+        color: $fourth;
+        font-size: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .wrap-projects__active-current-text {
+        font-family: $global-font-family;
+        text-align: left;
+        margin-top: 8px;
+      }
+      .wrap-projects__active-current {
+        color: $primary;
+        background: $fourth;
+        padding: 10px;
+        display: block;
+        font-size: 30px;
+      }
+    }
+  }
+}

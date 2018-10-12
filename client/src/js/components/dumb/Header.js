@@ -51,12 +51,17 @@ class Header extends React.Component {
     return (
       <div className={`header-background ${changeBackground ? "background-contrast" : ""}`}>
         <div className="wrap-header">
-          <div>
-            <div className="wrap-logo">
-              <span className={`wrap-logo__menu-select ${isOpen ? "menu-active" : ""}`} onClick={this.handleMenu.bind(this)}><i ref="menuControl" className="material-icons">menu</i></span>
-              <img id="logo" src="/assets/images/logo.webp" alt="" />
+          {
+            /*
+            <div>
+              <div className="wrap-logo">
+                <span className={`wrap-logo__menu-select ${isOpen ? "menu-active" : ""}`} onClick={this.handleMenu.bind(this)}><i ref="menuControl" className="material-icons">menu</i></span>
+                <img id="logo" src="/assets/images/logo.webp" alt="" />
+              </div>
             </div>
-          </div>
+            */
+          }
+
           <div>
             <header className="main-header">
               <nav className={`main-header__mobile ${isOpen ? "menu-appear-aside" : "menu-disappear-aside hide"}`}>
@@ -70,13 +75,13 @@ class Header extends React.Component {
                   </li>
                   <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#KnowUs', this.closeMenu.bind(this))}>
                     <span>
-                      <div className="menu-text">Conócenos</div>
+                      <div className="menu-text">Equipo</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Cursos</div>
+                      <div className="menu-text">Cursos/Bootcamps</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
@@ -88,7 +93,7 @@ class Header extends React.Component {
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Investigación</div>
+                      <div className="menu-text">Proyectos</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
@@ -102,11 +107,11 @@ class Header extends React.Component {
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left" onClick={this.props.onSelect.bind(this, '#KnowUs')}>
-                    <span>Conócenos</span>
+                    <span>Equipo</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left">
-                    <span>Cursos</span>
+                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
+                    <span>Cursos/Bootcamps</span>
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left">
@@ -114,7 +119,7 @@ class Header extends React.Component {
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left">
-                    <span>Investigación</span>
+                    <span>Proyectos</span>
                     <div className="bottom-mark"></div>
                   </li>
                 </ul>

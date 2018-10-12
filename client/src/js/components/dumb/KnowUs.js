@@ -17,8 +17,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage:"url(/assets/images/member_1.jpeg)" } } ></div>
               <div className="member-bio">
-                <BottomMarker data={"Esneyder Amin Palacios Mena"}/>
-                <p className="member-text">
+                <span className="member-name">Esneyder Amin Palacios Mena</span>
+                {/*<BottomMarker data={"Esneyder Amin Palacios Mena"}/>*/}
+                <p className="member-text hide">
                   Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs
                 </p>
               </div>
@@ -30,8 +31,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_2.jpeg)" }}></div>
               <div className="member-bio">
-                <BottomMarker data={"Miguel Casas Perea"} />
-                <p className="member-text">
+                <span className="member-name">Miguel Casas Perea</span>
+                {/*<BottomMarker data={"Miguel Casas Perea"} />*/}
+                <p className="member-text hide">
                   DEVELOPER POR PASION
                   #Researcher | #Engineer | #SoftwareDeveloper | #HackerPorPasion
                 </p>
@@ -44,8 +46,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_3.jpeg)" }}></div>
               <div className="member-bio">
-                <BottomMarker data={"Luis Delaskar"} />
-                <p className="member-text">
+                <span className="member-name">Luis Delaskar</span>
+                {/*<BottomMarker data={"Luis Delaskar"} />*/}
+                <p className="member-text hide">
                   Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática
                 </p>
               </div>
@@ -57,8 +60,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_4.jpeg)" }}></div>
               <div className="member-bio">
-                <BottomMarker data={"Yerlin Matu"} />
-                <p className="member-text">
+                <span className="member-name">Yerlin Matu</span>
+                {/*<BottomMarker data={"Yerlin Matu"} />*/}
+                <p className="member-text hide">
                   👨🏾‍💻 I'm a cool software developer, Multitalented, self-taught and passionate about technology, graphic arts and free knowledge.
                 </p>
               </div>
@@ -70,8 +74,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_5.jpg)" }}></div>
               <div className="member-bio">
-                <BottomMarker data={"Fredy Enrique Andrade"} />
-                <p className="member-text">
+                <span className="member-name">Fredy Enrique Andrade</span>
+                {/*<BottomMarker data={"Fredy Enrique Andrade"} />*/}
+                <p className="member-text hide">
                   Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor
                 </p>
               </div>
@@ -83,8 +88,9 @@ class KnowUs extends React.Component {
             <div className="member">
               <div className="member-image" style={{ backgroundImage: "url(/assets/images/member_6.jpg)" }}></div>
               <div className="member-bio">
-                <BottomMarker data={"Luis Fernando Moreno"} />
-                <p className="member-text">
+                <span className="member-name">Luis Fernando Moreno</span>
+                {/*<BottomMarker data={"Luis Fernando Moreno"} />*/}
+                <p className="member-text hide">
                   #Researcher | #Engineer | #SoftwareDeveloper | #Teacher | fdomoreno.com
                 </p>
               </div>
@@ -100,13 +106,6 @@ class KnowUs extends React.Component {
     return (
       <section id="KnowUs">
         <article className="know-us-container">
-          <div className="know-us-container-title">
-            <BottomMarker data={<h1>Conócenos</h1>} />
-          </div>
-          <p className="know-us-container-text">
-            Somos un grupo emprendedor conformado por estudiantes y profesionales, comprometidos
-            con la <b>transformación social</b> por medio del software, emprendimiento y la investigación.
-          </p>
           <ul>
             {
               data.map((item, index) => {

@@ -6,7 +6,9 @@ import Header from '../dumb/Header.js'
 import News from '../dumb/News.js'
 //import Gallery from '../dumb/Gallery.js'
 import About from '../dumb/About.js'
-import KnowUs from '../dumb/KnowUs.js'
+import Team from '../dumb/Team.js'
+import Projects from '../dumb/Projects.js'
+import Events from '../dumb/Events.js'
 import scrollToElement from 'scroll-to-element'
 
 @connect(store => {
@@ -39,7 +41,9 @@ class App extends React.Component {
     return (
       <div id="main-content">
         <About onSelect={this.goTo.bind(this)}/>
-        <KnowUs/>
+        <Team/>
+        <Projects/>
+        <Events/>
         {/*<Gallery/>*/}
         {/*<News/>*/}
       </div>
