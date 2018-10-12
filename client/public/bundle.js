@@ -5459,9 +5459,9 @@ var _inherits2 = __webpack_require__(10);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _toConsumableArray2 = __webpack_require__(198);
+var _assign = __webpack_require__(62);
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _assign2 = _interopRequireDefault(_assign);
 
 var _dec, _class;
 //import Gallery from '../dumb/Gallery.js'
@@ -5510,11 +5510,10 @@ var _scrollToElement2 = _interopRequireDefault(_scrollToElement);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = (_dec = (0, _reactRedux.connect)(function (store) {
-  var _store$Main = store.Main,
-      setup = _store$Main.setup,
-      data = _store$Main.data;
-
-  return { data: [].concat((0, _toConsumableArray3.default)(data)), setup: setup };
+  return {
+    MainStore: (0, _assign2.default)(store.Main, {}),
+    TeamStore: (0, _assign2.default)(store.Team, {})
+  };
 }), _dec(_class = function (_React$Component) {
   (0, _inherits3.default)(App, _React$Component);
 
@@ -5524,6 +5523,12 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   }
 
   (0, _createClass3.default)(App, [{
+    key: 'setSelected',
+    value: function setSelected(index) {
+      var payload = { setup: { selected: index } };
+      this.props.dispatch({ type: "SET_TEAM", payload: payload });
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (window.location.hash === "#knowus") {
@@ -5544,17 +5549,13 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          _props$setup = _props.setup,
-          setup = _props$setup === undefined ? {} : _props$setup,
-          _props$data = _props.data,
-          data = _props$data === undefined ? [] : _props$data;
+      var TeamStore = this.props.TeamStore;
 
       return _react2.default.createElement(
         'div',
         { id: 'main-content' },
         _react2.default.createElement(_About2.default, { onSelect: this.goTo.bind(this) }),
-        _react2.default.createElement(_Team2.default, null),
+        _react2.default.createElement(_Team2.default, { setup: TeamStore.setup, data: TeamStore.data, onSelect: this.setSelected.bind(this) }),
         _react2.default.createElement(_Projects2.default, null),
         _react2.default.createElement(_Events2.default, null)
       );
@@ -29603,139 +29604,13 @@ var substr = 'ab'.substr(-1) === 'b'
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(199);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-/* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(200), __esModule: true };
-
-/***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(53);
-__webpack_require__(201);
-module.exports = __webpack_require__(3).Array.from;
-
-
-/***/ }),
-/* 201 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ctx = __webpack_require__(51);
-var $export = __webpack_require__(12);
-var toObject = __webpack_require__(25);
-var call = __webpack_require__(202);
-var isArrayIter = __webpack_require__(203);
-var toLength = __webpack_require__(93);
-var createProperty = __webpack_require__(204);
-var getIterFn = __webpack_require__(109);
-
-$export($export.S + $export.F * !__webpack_require__(206)(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-
-/***/ }),
-/* 202 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// call something on iterator step with safe closing on error
-var anObject = __webpack_require__(16);
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-
-/***/ }),
-/* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// check on default Array iterator
-var Iterators = __webpack_require__(27);
-var ITERATOR = __webpack_require__(9)('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-
-/***/ }),
-/* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $defineProperty = __webpack_require__(13);
-var createDesc = __webpack_require__(26);
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-
-/***/ }),
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29765,34 +29640,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ITERATOR = __webpack_require__(9)('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-
-/***/ }),
+/* 206 */,
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30717,10 +30565,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BottomMarker = __webpack_require__(30);
-
-var _BottomMarker2 = _interopRequireDefault(_BottomMarker);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //import member1 from '../../../images/member_1.jpeg'
@@ -30735,154 +30579,50 @@ var KnowUs = function (_React$Component) {
 
   function KnowUs() {
     (0, _classCallCheck3.default)(this, KnowUs);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (KnowUs.__proto__ || (0, _getPrototypeOf2.default)(KnowUs)).call(this));
-
-    _this.state = {
-      data: [{
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_1.jpeg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Esneyder Amin Palacios Mena'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              'Full stack javascript developer \u200D\uD83D\uDCBB, member founder and contributor at @H4ckdo and @quibdojs'
-            )
-          )
-        )
-      }, {
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_2.jpeg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Miguel Casas Perea'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              'DEVELOPER POR PASION #Researcher | #Engineer | #SoftwareDeveloper | #HackerPorPasion'
-            )
-          )
-        )
-      }, {
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_3.jpeg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Luis Delaskar'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              'Ingeniero Teleinform\xE1tico. Estudiante de M\xE1ster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislaci\xF3n inform\xE1tica'
-            )
-          )
-        )
-      }, {
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_4.jpeg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Yerlin Matu'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              '\uD83D\uDC68\uD83C\uDFFE\u200D\uD83D\uDCBB I\'m a cool software developer, Multitalented, self-taught and passionate about technology, graphic arts and free knowledge.'
-            )
-          )
-        )
-      }, {
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_5.jpg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Fredy Enrique Andrade'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              'Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor'
-            )
-          )
-        )
-      }, {
-        body: _react2.default.createElement(
-          'div',
-          { className: 'member' },
-          _react2.default.createElement('div', { className: 'member-image', style: { backgroundImage: "url(/assets/images/member_6.jpg)" } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'member-bio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'member-name' },
-              'Luis Fernando Moreno'
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'member-text hide' },
-              '#Researcher | #Engineer | #SoftwareDeveloper | #Teacher | fdomoreno.com'
-            )
-          )
-        )
-      }]
-    };
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (KnowUs.__proto__ || (0, _getPrototypeOf2.default)(KnowUs)).call(this));
   }
 
   (0, _createClass3.default)(KnowUs, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      var data = this.state.data;
+      var _this2 = this;
+
+      var _props = this.props,
+          data = _props.data,
+          selected = _props.selected;
 
       return _react2.default.createElement(
-        'section',
-        { id: 'KnowUs' },
+        "section",
+        { id: "KnowUs" },
         _react2.default.createElement(
-          'article',
-          { className: 'know-us-container' },
+          "article",
+          { className: "know-us-container" },
           _react2.default.createElement(
-            'ul',
+            "ul",
             null,
             data.map(function (item, index) {
               return _react2.default.createElement(
-                'li',
-                { key: index },
-                item.body
+                "li",
+                { onMouseEnter: _this2.props.onSelect.bind(_this2, index), key: index },
+                _react2.default.createElement(
+                  "div",
+                  { className: "member " + (index === selected ? "member-selected" : "") + " " },
+                  _react2.default.createElement("div", { className: "member-image", style: { backgroundImage: "url(" + item.image + ")" } }),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "member-bio" },
+                    _react2.default.createElement(
+                      "span",
+                      { className: "member-name" },
+                      item.name
+                    ),
+                    _react2.default.createElement(
+                      "p",
+                      { className: "member-text hide" },
+                      item.bio
+                    )
+                  )
+                )
               );
             })
           )
@@ -30922,9 +30662,13 @@ var _Main = __webpack_require__(230);
 
 var _Main2 = _interopRequireDefault(_Main);
 
+var _Team = __webpack_require__(248);
+
+var _Team2 = _interopRequireDefault(_Team);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = { Main: _Main2.default };
+var initialState = { Main: _Main2.default, Team: _Team2.default };
 
 function generateStore() {
   var preloadState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30958,10 +30702,15 @@ var _Main = __webpack_require__(229);
 
 var _Main2 = _interopRequireDefault(_Main);
 
+var _Team = __webpack_require__(247);
+
+var _Team2 = _interopRequireDefault(_Team);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-  Main: _Main2.default
+  Main: _Main2.default,
+  Team: _Team2.default
 });
 
 /***/ }),
@@ -33274,8 +33023,11 @@ var Team = function (_React$Component) {
   (0, _createClass3.default)(Team, [{
     key: 'render',
     value: function render() {
-      var data = this.state.data;
+      var _props = this.props,
+          data = _props.data,
+          setup = _props.setup;
 
+      var selected = data[setup.selected];
       return _react2.default.createElement(
         'section',
         { id: 'Team' },
@@ -33296,25 +33048,25 @@ var Team = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'wrap-member-selected' },
-                _react2.default.createElement('div', { className: 'wrap-member-selected__image', style: { backgroundImage: "url(/assets/images/member_5.jpg)" } }),
+                _react2.default.createElement('div', { className: 'wrap-member-selected__image', style: { backgroundImage: 'url(' + selected.image + ')' } }),
                 _react2.default.createElement(
                   'div',
                   { className: 'wrap-member-selected__bio' },
                   _react2.default.createElement(
                     'span',
                     { className: 'wrap-member-selected__name' },
-                    'Fredy Enrique Andrade'
+                    selected.name
                   ),
                   _react2.default.createElement('br', null),
                   _react2.default.createElement(
                     'span',
                     { className: 'wrap-member-selected__status' },
-                    'PRESIDENTE'
+                    selected.status
                   ),
                   _react2.default.createElement(
                     'p',
                     { className: 'wrap-member-selected__text' },
-                    'Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor'
+                    selected.bio
                   )
                 )
               )
@@ -33322,7 +33074,7 @@ var Team = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'team-container__wrap-list__items' },
-              _react2.default.createElement(_KnowUs2.default, null)
+              _react2.default.createElement(_KnowUs2.default, { selected: setup.selected, data: data, onSelect: this.props.onSelect.bind(this) })
             )
           )
         )
@@ -33564,6 +33316,95 @@ var Events = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Events;
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(62);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var takeSnapshot = function takeSnapshot(state) {
+  return (0, _assign2.default)({}, state);
+};
+
+/**
+ * @function Team
+ * @param  {type} state   {description}
+ * @param  {type} options {description}
+ * @return {type} {description}
+ */
+var Team = function Team(state) {
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var payload = action.payload,
+      type = action.type;
+
+  if (type === "SET_TEAM") {
+    var snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    //console.log('snapshot ', snapshot);
+    return (0, _assign2.default)({}, state, snapshot);
+  }
+  return (0, _assign2.default)({}, state);
+};
+
+exports.default = Team;
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  setup: {
+    selected: 0
+  },
+  data: [{
+    name: "Fredy Enrique Andrade",
+    status: "PRESIDENTE",
+    image: "/assets/images/member_5.jpg",
+    bio: "Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor"
+  }, {
+    name: "Luis Fernando Moreno",
+    status: "LÍDER ACADÉMICO Y DE DESARROLLO DE CONTENIDOS.",
+    image: "/assets/images/member_6.jpg",
+    bio: "#Researcher | #Engineer | #SoftwareDeveloper | #Teacher | fdomoreno.com"
+  }, {
+    name: "Miguel Casas Perea",
+    status: "VOCAL",
+    bio: "DEVELOPER POR PASION #Researcher | #Engineer | #SoftwareDeveloper | #HackerPorPasion",
+    image: "/assets/images/member_2.jpeg"
+  }, {
+    name: "Luis Delaskar",
+    status: "LÍDER SEGURIDAD & BIG DATA",
+    image: "/assets/images/member_3.jpeg",
+    bio: "Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática"
+  }, {
+    name: "Yerlin Matu",
+    status: "VOCAL",
+    image: "/assets/images/member_4.jpeg",
+    bio: "👨🏾‍💻 I'm a cool software developer, Multitalented, self-taught and passionate about technology, graphic arts and free knowledge."
+  }, {
+    name: "Esneyder Amin Palacios Mena",
+    status: "VOCAL",
+    image: "/assets/images/member_1.jpeg",
+    bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs"
+  }]
+};
 
 /***/ })
 /******/ ]);

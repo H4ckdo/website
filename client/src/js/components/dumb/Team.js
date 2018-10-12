@@ -8,7 +8,8 @@ class Team extends React.Component {
   }
 
   render() {
-    let { data } = this.state;
+    let { data, setup } = this.props;
+    let selected = data[setup.selected];
     return (
       <section id="Team">
         <article className="team-container">
@@ -16,20 +17,20 @@ class Team extends React.Component {
           <div className="team-container__wrap-list">
             <div className="team-container__wrap-list__main">
               <div className="wrap-member-selected">
-                <div className="wrap-member-selected__image" style={{ backgroundImage: "url(/assets/images/member_5.jpg)" }}></div>
+                <div className="wrap-member-selected__image" style={{ backgroundImage: `url(${selected.image})` }}></div>
                 <div className="wrap-member-selected__bio">
-                  <span className="wrap-member-selected__name">Fredy Enrique Andrade</span>
-                  <br/>
-                  <span className="wrap-member-selected__status">PRESIDENTE</span>
+                  <span className="wrap-member-selected__name">{selected.name}</span>
+                  <br />
+                  <span className="wrap-member-selected__status">{selected.status}</span>
                   <p className="wrap-member-selected__text">
-                    Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor
+                    {selected.bio}
                 </p>
                 </div>
 
               </div>
             </div>
             <div className="team-container__wrap-list__items">
-              <KnowUs />
+              <KnowUs selected={setup.selected} data={data} onSelect={this.props.onSelect.bind(this)} />
             </div>
           </div>
         </article>

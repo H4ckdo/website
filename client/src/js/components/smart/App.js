@@ -12,12 +12,19 @@ import Events from '../dumb/Events.js'
 import scrollToElement from 'scroll-to-element'
 
 @connect(store => {
-  let { setup, data } = store.Main;
-  return { data: [...data], setup }
+  return {
+    MainStore: Object.assign(store.Main, {}),
+    TeamStore: Object.assign(store.Team, {}),
+  }
 })
 class App extends React.Component {
   constructor() {
     super();
+  }
+
+  setSelected(index) {
+    let payload = { setup: { selected: index } };
+    this.props.dispatch({ type: "SET_TEAM", payload })
   }
 
   componentDidMount() {
@@ -33,17 +40,17 @@ class App extends React.Component {
     scrollToElement(id, {
       duration: 200
     });
-    if(done) setTimeout(done, 300);
+    if (done) setTimeout(done, 300);
   }
 
   render() {
-    let { setup = {}, data = [] } = this.props;
+    let { TeamStore } = this.props;
     return (
       <div id="main-content">
-        <About onSelect={this.goTo.bind(this)}/>
-        <Team/>
-        <Projects/>
-        <Events/>
+        <About onSelect={this.goTo.bind(this)} />
+        <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
+        <Projects />
+        <Events />
         {/*<Gallery/>*/}
         {/*<News/>*/}
       </div>
