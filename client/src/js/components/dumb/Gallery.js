@@ -10,22 +10,40 @@ class Gallery extends React.Component {
   render() {
     const responsive = {
       1300: {
-        items: 1
+        items: 2,
+        stagePadding: {
+          paddingLeft: 30,
+          paddingRight: 30
+        }
       }
     }
 
     return (
-      <div className="wrap-gallery-header">
-        <AliceCarousel
-          responsive={responsive}
-          autoPlay={false}
-          duration={1000}
-          dotsDisabled={true}
-        >
-        <div className="wrap-image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
-        <div className="wrap-image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
-        </AliceCarousel>
-      </div>
+      <section id="Gallery">
+        <article className="wrap-gallery">
+          <div className="wrap-gallery__tag">
+            <span>GALERÍA</span>
+          </div>
+          <AliceCarousel
+            responsive={responsive}
+            autoPlay={false}
+            duration={800}
+            dotsDisabled={true}
+          >
+            <div className="wrap-image">
+              <div className="wrap-image__image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
+            </div>
+
+            <div className="wrap-image">
+              <div className="wrap-image__image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
+            </div>
+
+            <div className="wrap-image">
+              <div className="wrap-image__image" style={{ backgroundImage: `url(/assets/images/portada.jpg)` }}></div>
+            </div>
+          </AliceCarousel>
+        </article>
+      </section>
     )
   }
 }

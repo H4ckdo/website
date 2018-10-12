@@ -5464,8 +5464,6 @@ var _assign = __webpack_require__(62);
 var _assign2 = _interopRequireDefault(_assign);
 
 var _dec, _class;
-//import Gallery from '../dumb/Gallery.js'
-
 
 var _react = __webpack_require__(0);
 
@@ -5486,6 +5484,10 @@ var _Header2 = _interopRequireDefault(_Header);
 var _News = __webpack_require__(218);
 
 var _News2 = _interopRequireDefault(_News);
+
+var _Gallery = __webpack_require__(251);
+
+var _Gallery2 = _interopRequireDefault(_Gallery);
 
 var _About = __webpack_require__(115);
 
@@ -5512,7 +5514,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = (_dec = (0, _reactRedux.connect)(function (store) {
   return {
     MainStore: (0, _assign2.default)(store.Main, {}),
-    TeamStore: (0, _assign2.default)(store.Team, {})
+    TeamStore: (0, _assign2.default)(store.Team, {}),
+    EventsStore: (0, _assign2.default)(store.Events, {})
   };
 }), _dec(_class = function (_React$Component) {
   (0, _inherits3.default)(App, _React$Component);
@@ -5549,7 +5552,9 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   }, {
     key: 'render',
     value: function render() {
-      var TeamStore = this.props.TeamStore;
+      var _props = this.props,
+          TeamStore = _props.TeamStore,
+          EventsStore = _props.EventsStore;
 
       return _react2.default.createElement(
         'div',
@@ -5557,7 +5562,8 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
         _react2.default.createElement(_About2.default, { onSelect: this.goTo.bind(this) }),
         _react2.default.createElement(_Team2.default, { setup: TeamStore.setup, data: TeamStore.data, onSelect: this.setSelected.bind(this) }),
         _react2.default.createElement(_Projects2.default, null),
-        _react2.default.createElement(_Events2.default, null)
+        _react2.default.createElement(_Events2.default, { setup: EventsStore.setup, data: EventsStore.data }),
+        _react2.default.createElement(_Gallery2.default, null)
       );
     }
   }]);
@@ -6039,7 +6045,7 @@ var Header = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left' },
+                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#Events') },
                     _react2.default.createElement(
                       'span',
                       null,
@@ -6049,7 +6055,7 @@ var Header = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left' },
+                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#Projects') },
                     _react2.default.createElement(
                       'span',
                       null,
@@ -30666,9 +30672,13 @@ var _Team = __webpack_require__(248);
 
 var _Team2 = _interopRequireDefault(_Team);
 
+var _Events = __webpack_require__(250);
+
+var _Events2 = _interopRequireDefault(_Events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = { Main: _Main2.default, Team: _Team2.default };
+var initialState = { Main: _Main2.default, Team: _Team2.default, Events: _Events2.default };
 
 function generateStore() {
   var preloadState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30706,11 +30716,16 @@ var _Team = __webpack_require__(247);
 
 var _Team2 = _interopRequireDefault(_Team);
 
+var _Events = __webpack_require__(249);
+
+var _Events2 = _interopRequireDefault(_Events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
   Main: _Main2.default,
-  Team: _Team2.default
+  Team: _Team2.default,
+  Events: _Events2.default
 });
 
 /***/ }),
@@ -33286,6 +33301,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactAliceCarousel = __webpack_require__(239);
+
+var _reactAliceCarousel2 = _interopRequireDefault(_reactAliceCarousel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Events = function (_React$Component) {
@@ -33301,14 +33320,123 @@ var Events = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Events, [{
-    key: "render",
+    key: 'render',
     value: function render() {
-      var data = this.state.data;
+      var _props = this.props,
+          data = _props.data,
+          setup = _props.setup;
+
+      var current = data[setup.current];
+      var responsive = {
+        1300: {
+          items: 2
+        }
+      };
 
       return _react2.default.createElement(
-        "section",
-        { id: "Events" },
-        _react2.default.createElement("article", { className: "wrap-events" })
+        'section',
+        { id: 'Events' },
+        _react2.default.createElement(
+          'article',
+          { className: 'wrap-events' },
+          _react2.default.createElement(
+            'h1',
+            { className: 'wrap-events__title' },
+            'EVENTOS'
+          ),
+          _react2.default.createElement(
+            'section',
+            { className: 'wrap-events__content' },
+            _react2.default.createElement(
+              'article',
+              { className: 'wrap-events__content__speaker' },
+              _react2.default.createElement(
+                'div',
+                { className: 'wrap-events__content__speaker__next' },
+                'PROXIMO'
+              ),
+              _react2.default.createElement('div', { className: 'wrap-events__content__speaker__image', style: { backgroundImage: 'url(' + current.speaker.image + ')' } }),
+              _react2.default.createElement(
+                'span',
+                { className: 'wrap-events__content__speaker__name' },
+                current.speaker.name
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'wrap-events__content__speaker__ponente' },
+                'PONENTE'
+              )
+            ),
+            _react2.default.createElement(
+              'article',
+              { className: 'wrap-events__content__about' },
+              _react2.default.createElement(
+                'h1',
+                { className: 'wrap-events__content__about__title' },
+                current.title
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'wrap-events__content__about__text' },
+                current.text
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'wrap-events__content__about__register' },
+                'INSCRIBETE'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'section',
+            { className: 'wrap-events__content-before' },
+            _react2.default.createElement(
+              'div',
+              { className: 'wrap-events__content-before-title' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'ANTERIORES'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'wrap-events__content-before__gallery' },
+              _react2.default.createElement(
+                _reactAliceCarousel2.default,
+                {
+                  responsive: responsive,
+                  autoPlay: false,
+                  duration: 1000,
+                  dotsDisabled: true
+                },
+                data.filter(function (element, index) {
+                  return setup.current !== index;
+                }).map(function (element, index) {
+                  return _react2.default.createElement(
+                    'div',
+                    { className: 'wrap-events__content-before__gallery__content', key: index },
+                    _react2.default.createElement('div', { className: 'wrap-events__content-before__gallery__content__image', style: { backgroundImage: 'url(' + element.image + ')' } }),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'wrap-events__content-before__gallery__content__image__text' },
+                      _react2.default.createElement(
+                        'h1',
+                        null,
+                        element.title
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        element.text
+                      )
+                    )
+                  );
+                })
+              )
+            )
+          )
+        )
       );
     }
   }]);
@@ -33405,6 +33533,187 @@ exports.default = {
     bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs"
   }]
 };
+
+/***/ }),
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(62);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var takeSnapshot = function takeSnapshot(state) {
+  return (0, _assign2.default)({}, state);
+};
+
+/**
+ * @function Events
+ * @param  {type} state   {description}
+ * @param  {type} options {description}
+ * @return {type} {description}
+ */
+var Events = function Events(state) {
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var payload = action.payload,
+      type = action.type;
+
+  if (type === "SET_EVENTS") {
+    var snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    //console.log('snapshot ', snapshot);
+    return (0, _assign2.default)({}, state, snapshot);
+  }
+  return (0, _assign2.default)({}, state);
+};
+
+exports.default = Events;
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  setup: {
+    current: 0
+  },
+  data: [{
+    speaker: { name: "FREDY MENA ANDRADE", image: "/assets/images/member_5.jpg" },
+    title: "QuibdóJs",
+    image: "/assets/images/member_5.jpg",
+    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus tenetur architecto"
+  }, {
+    speaker: { name: "FREDY MENA ANDRADE", image: "/assets/images/member_5.jpg" },
+    title: "HACKATHON DE ROBOTICA",
+    image: "/assets/images/member_5.jpg",
+    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus tenetur architecto"
+  }, {
+    speaker: { name: "FREDY MENA ANDRADE", image: "/assets/images/member_5.jpg" },
+    title: "HACKADÓ CONF",
+    image: "/assets/images/member_5.jpg",
+    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus"
+  }]
+};
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(6);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(8);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(10);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _reactAliceCarousel = __webpack_require__(239);
+
+var _reactAliceCarousel2 = _interopRequireDefault(_reactAliceCarousel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var React = __webpack_require__(0);
+
+var _require = __webpack_require__(110),
+    Link = _require.Link;
+
+var Gallery = function (_React$Component) {
+  (0, _inherits3.default)(Gallery, _React$Component);
+
+  function Gallery() {
+    (0, _classCallCheck3.default)(this, Gallery);
+    return (0, _possibleConstructorReturn3.default)(this, (Gallery.__proto__ || (0, _getPrototypeOf2.default)(Gallery)).call(this));
+  }
+
+  (0, _createClass3.default)(Gallery, [{
+    key: 'render',
+    value: function render() {
+      var responsive = {
+        1300: {
+          items: 2,
+          stagePadding: {
+            paddingLeft: 30,
+            paddingRight: 30
+          }
+        }
+      };
+
+      return React.createElement(
+        'section',
+        { id: 'Gallery' },
+        React.createElement(
+          'article',
+          { className: 'wrap-gallery' },
+          React.createElement(
+            'div',
+            { className: 'wrap-gallery__tag' },
+            React.createElement(
+              'span',
+              null,
+              'GALER\xCDA'
+            )
+          ),
+          React.createElement(
+            _reactAliceCarousel2.default,
+            {
+              responsive: responsive,
+              autoPlay: false,
+              duration: 800,
+              dotsDisabled: true
+            },
+            React.createElement(
+              'div',
+              { className: 'wrap-image' },
+              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+            ),
+            React.createElement(
+              'div',
+              { className: 'wrap-image' },
+              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+            ),
+            React.createElement(
+              'div',
+              { className: 'wrap-image' },
+              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+            )
+          )
+        )
+      );
+    }
+  }]);
+  return Gallery;
+}(React.Component);
+
+module.exports = Gallery;
 
 /***/ })
 /******/ ]);

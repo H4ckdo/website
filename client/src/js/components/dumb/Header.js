@@ -114,11 +114,11 @@ class Header extends React.Component {
                     <span>Cursos/Bootcamps</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left">
+                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Events')}>
                     <span>Eventos</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left">
+                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
                     <span>Proyectos</span>
                     <div className="bottom-mark"></div>
                   </li>

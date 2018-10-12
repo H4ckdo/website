@@ -2,7 +2,8 @@ import { createStore } from 'redux'
 import reducers from '../reducers'
 import Main from './Main.js'
 import Team from './Team.js'
-const initialState = { Main, Team };
+import Events from './Events.js'
+const initialState = { Main, Team, Events };
 
 function generateStore(preloadState = initialState) {
   let devtool = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

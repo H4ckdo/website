@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Header from '../dumb/Header.js'
 import News from '../dumb/News.js'
-//import Gallery from '../dumb/Gallery.js'
+import Gallery from '../dumb/Gallery.js'
 import About from '../dumb/About.js'
 import Team from '../dumb/Team.js'
 import Projects from '../dumb/Projects.js'
@@ -15,6 +15,7 @@ import scrollToElement from 'scroll-to-element'
   return {
     MainStore: Object.assign(store.Main, {}),
     TeamStore: Object.assign(store.Team, {}),
+    EventsStore: Object.assign(store.Events, {})
   }
 })
 class App extends React.Component {
@@ -44,15 +45,14 @@ class App extends React.Component {
   }
 
   render() {
-    let { TeamStore } = this.props;
+    let { TeamStore, EventsStore } = this.props;
     return (
       <div id="main-content">
         <About onSelect={this.goTo.bind(this)} />
         <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
         <Projects />
-        <Events />
-        {/*<Gallery/>*/}
-        {/*<News/>*/}
+        <Events setup={EventsStore.setup} data={EventsStore.data}   />
+        <Gallery/>
       </div>
 
     )
