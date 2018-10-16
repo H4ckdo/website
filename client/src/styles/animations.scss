@@ -101,6 +101,25 @@
   }
 }
 
+@keyframes disappear-title-smoothly {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes appear-title-smoothly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
 @keyframes disappear-smoothly {
   from {
     opacity: 1;
@@ -159,6 +178,40 @@
   opacity: 0;
 }
 
+.appear-letter {
+  animation-name: appear-smoothly;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.disappear-title {
+  animation-name: disappear-title-smoothly;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+.appear-title {
+  animation-name: appear-title-smoothly;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+.hidden {
+  opacity: 0;
+}
+
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
 .delay-1 {
   animation-delay: 1s;
 }
@@ -173,4 +226,16 @@
 }
 .delay-5 {
   animation-delay: 5s;
+}
+.delay-6 {
+  animation-delay: 6s;
+}
+.delay-7 {
+  animation-delay: 7s;
+}
+.delay-8 {
+  animation-delay: 8s;
+}
+.delay-9 {
+  animation-delay: 9s;
 }

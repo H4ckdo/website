@@ -5878,7 +5878,9 @@ var Header = function (_React$Component) {
         var container = document.querySelector('.about-container-content');
         //console.log(y ,' ', container.clientHeight);
         var changeBackground = y > 50; //container.clientHeight;
-        _this2.setState({ changeBackground: changeBackground });
+        _this2.setState({ changeBackground: changeBackground }, function () {
+          _this2.props.onScroll(changeBackground);
+        });
       });
     }
   }, {
@@ -5923,6 +5925,24 @@ var Header = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'wrap-header' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: (changeBackground ? "appear-logo" : "hidden") + ' wrap-logo' },
+              _react2.default.createElement(
+                'span',
+                { className: 'wrap-logo__menu-select ' + (isOpen ? "menu-active" : ""), onClick: this.handleMenu.bind(this) },
+                _react2.default.createElement(
+                  'i',
+                  { ref: 'menuControl', className: 'material-icons' },
+                  'menu'
+                )
+              ),
+              _react2.default.createElement('img', { id: 'logo', src: '/assets/images/logo.webp', alt: '' })
+            )
+          ),
           _react2.default.createElement(
             'div',
             null,
@@ -6140,121 +6160,135 @@ var About = function (_React$Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (About.__proto__ || (0, _getPrototypeOf2.default)(About)).call(this));
 
-    _this.state = {};
+    _this.state = { hideLogo: false };
     return _this;
   }
 
   (0, _createClass3.default)(About, [{
+    key: 'playAnimation',
+    value: function playAnimation() {
+      var counter = 0;
+      var reset = false;
+      var $titles = document.querySelectorAll(".portada-title");
+      $titles[0].classList.remove("hidden");
+      setInterval(function () {
+        if (reset) {
+          $titles[$titles.length - 1].classList.add("hidden");
+          $titles[$titles.length - 1].classList.add("disappear-title");
+          $titles[$titles.length - 1].classList.remove("appear-title");
+          reset = false;
+          counter = 0;
+          setTimeout(function () {
+            $titles.forEach(function ($item) {
+              $item.classList.remove("appear-title");
+              $item.classList.remove("disappear-title");
+              $item.classList.add("hidden");
+            });
+            $titles[0].classList.remove("hidden");
+            $titles[0].classList.add("appear-title");
+          }, 1500);
+        } else {
+          $titles[counter].classList.add("hidden");
+          $titles[counter].classList.add("disappear-title");
+          $titles[counter].classList.remove("appear-title");
+          //console.log("siguiente animacion");
+          setTimeout(function () {
+            $titles[counter + 1].classList.remove("hidden");
+            $titles[counter + 1].classList.add("appear-title");
+            counter++;
+            if (counter === $titles.length - 1) reset = true;
+          }, 1000);
+        }
+      }, 4000);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.playAnimation();
+    }
+  }, {
+    key: 'changeLogoState',
+    value: function changeLogoState(hideLogo) {
+      this.setState({ hideLogo: hideLogo });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var isOpen = false;
-      var responsive = {
-        1300: {
-          items: 1
-        }
-      };
       return _react2.default.createElement(
         'div',
         { className: 'about-container' },
-        _react2.default.createElement(_Header2.default, { onSelect: this.props.onSelect }),
+        _react2.default.createElement('div', { className: 'about-container-filter' }),
+        _react2.default.createElement(_Header2.default, { onScroll: this.changeLogoState.bind(this), onSelect: this.props.onSelect }),
         _react2.default.createElement(
-          'section',
-          { id: 'sectionAbout' },
+          'div',
+          { className: 'wrap-section-about' },
           _react2.default.createElement(
-            'div',
-            { className: 'wrap-logo' },
-            _react2.default.createElement('img', { id: 'logo', src: '/assets/images/logo2.png', alt: '' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'about-container__wrap-carousel' },
+            'section',
+            { id: 'sectionAbout' },
             _react2.default.createElement(
-              _reactAliceCarousel2.default,
-              {
-                responsive: responsive,
-                duration: 1000,
-                dotsDisabled: false,
-                autoPlay: false,
-                arrows: false
-              },
+              'div',
+              { className: (this.state.hideLogo ? "hide-logo" : "appear") + ' wrap-logo' },
+              _react2.default.createElement('img', { id: 'logo', src: '/assets/images/logo2.png', alt: '' })
+            ),
+            _react2.default.createElement(
+              'article',
+              { className: 'about-container-content' },
               _react2.default.createElement(
                 'div',
-                { className: 'about-container-content' },
+                { className: 'about-container-content__text' },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'about-container-content__text' },
+                  'i',
+                  { className: 'about-container-content__text__title' },
+                  'TRABAJAMOS PARA CONSTRUIR'
+                ),
+                _react2.default.createElement(
+                  'h1',
+                  { className: ' about-container-content__text__subtitle' },
                   _react2.default.createElement(
-                    'i',
-                    { className: 'about-container-content__text__title' },
-                    'TRABAJAMOS PARA CONSTRUIR'
-                  ),
-                  _react2.default.createElement(
-                    'h1',
-                    { className: 'about-container-content__text__subtitle appear delay-1' },
-                    'COMUNIDADES & CONOCIMIENTO'
-                  ),
-                  _react2.default.createElement(
-                    'h2',
-                    { className: 'about-container-content__text__phrases' },
+                    'div',
+                    { className: 'portada-title hidden' },
                     _react2.default.createElement(
                       'span',
-                      { className: 'appear delay-2' },
+                      null,
+                      'COMUNIDADES & CONOCIMIENTO'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'portada-title hidden' },
+                    _react2.default.createElement(
+                      'span',
+                      null,
                       'ECOSISTEMAS TECNOL\xD3GICOS'
-                    ),
-                    _react2.default.createElement('br', null),
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'portada-title hidden' },
                     _react2.default.createElement(
                       'span',
-                      { className: 'appear delay-3' },
+                      null,
                       'PROYECTOS CON IMPACTO SOCIAL'
-                    ),
-                    _react2.default.createElement('br', null),
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'portada-title hidden' },
                     _react2.default.createElement(
                       'span',
-                      { className: 'appear delay-4' },
-                      'PROYECTOS INTERALATIVOS (NARRATIVAS)'
-                    ),
-                    _react2.default.createElement('br', null),
+                      null,
+                      'PROYECTOS INTERACTIVOS (NARRATIVAS)'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'portada-title hidden' },
                     _react2.default.createElement(
                       'span',
-                      { className: 'appear delay-5' },
+                      null,
                       'INVESTIGACI\xD3N APLICADA'
                     )
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'about-container-content' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'about-container-content__text' },
-                  _react2.default.createElement(
-                    'h1',
-                    { className: 'about-container-content__text__subtitle appear delay-1' },
-                    'MISI\xD3N'
-                  ),
-                  _react2.default.createElement(
-                    'p',
-                    { className: 'about-container-content__text__copy' },
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias animi mollitia minima ad unde quidem illo voluptatem explicabo fuga. Asperiores voluptatem quod omnis maxime! Voluptates consectetur temporibus nam non. Iure.'
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'about-container-content' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'about-container-content__text' },
-                  _react2.default.createElement(
-                    'h1',
-                    { className: 'about-container-content__text__subtitle appear delay-1' },
-                    'VISI\xD3N'
-                  ),
-                  _react2.default.createElement(
-                    'p',
-                    { className: 'about-container-content__text__copy' },
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias animi mollitia minima ad unde quidem illo voluptatem explicabo fuga. Asperiores voluptatem quod omnis maxime! Voluptates consectetur temporibus nam non. Iure.'
                   )
                 )
               )
@@ -33048,12 +33082,16 @@ var Team = function (_React$Component) {
         { id: 'Team' },
         _react2.default.createElement(
           'article',
-          { className: 'team-container' },
+          { className: 'team-title' },
           _react2.default.createElement(
             'h1',
             { className: 'team-container__title' },
             'EQUIPO HACKD\xD3'
-          ),
+          )
+        ),
+        _react2.default.createElement(
+          'article',
+          { className: 'team-container' },
           _react2.default.createElement(
             'div',
             { className: 'team-container__wrap-list' },

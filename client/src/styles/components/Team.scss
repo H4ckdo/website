@@ -1,13 +1,45 @@
 #Team {
   background: $fourth;
-  padding: 40px;
+  padding: 0px;
+  grid-auto-columns: 0fr 1fr;
+  grid-auto-rows: 1fr;
+  width: 100%;
+  display: grid;
+  overflow: hidden;
+  .team-title {
+    width: 400px;
+    height: 100%;
+    grid-area: 1/1;
+    .team-container__title {
+      color:$third;
+      text-align: left;
+      font-size: 57px;
+      font-family: $global-font-title;
+      font-weight: bold;
+      padding-left: 40px;
+    }
+  }
+  .team-container {
+    background: white;
+    width: 100%;
+    height: 100%;
+    grid-area: 1/2;
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .team-container__wrap-list {
     display: grid;
-    grid-auto-columns: 0.7fr 1fr;
+    background: white;
+    grid-auto-columns: 0fr 1fr;
     grid-gap: 40px;
-    margin-top: 60px;
+    margin-top: 0px;
+    padding: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
     .team-container__wrap-list__main {
       grid-area: 1/1;
+      width: 325px;
       .wrap-member-selected {
         .wrap-member-selected__image {
           width: 250px;
@@ -17,32 +49,38 @@
           background-repeat: no-repeat;
           border-radius: 100%;
           margin: 30px auto;
-          margin-top: -10px;
+          margin-top: 0px;
           transition: all 0.25s ease-in-out;
         }
         .wrap-member-selected__name {
-          text-align: center;
+          text-align: left;
           font-family: $global-font-title;
           font-size: 25px;
           transition: all 0.5s ease-in-out;
+          display: block;
+          padding-left: 23px;
         }
         .wrap-member-selected__text {
-          text-align: center;
+          text-align: left;
           font-family: $global-font-family;
           font-size: 20px;
           line-height: 1.3;
           transition: all 0.5s ease-in-out;
+          padding-left: 20px;
+          padding-right: 10px;
         }
         .wrap-member-selected__status {
           color: $primary;
-          background: #ffffff;
+          background: $fourth;
           padding: 10px;
           display: block;
-          width: 50%;
+          width: 80%;
           margin: 0px auto;
-          margin-top: 10px;
+          margin-top: 0px;
           padding-top: 12px;
-          transition: all 5s ease-in-out;
+          padding-left: 20px;
+          transition: all 0.5s ease-in-out;
+          text-align: left;
         }
         .wrap-member-selected__bio {
           text-align: center;
@@ -53,17 +91,6 @@
     }
     .team-container__wrap-list__items {
       grid-area: 1/2;
-    }
-  }
-  .team-container {
-    width: $large;
-    margin: 0px auto;
-    .team-container__title {
-      color:$third;
-      text-align: center;
-      font-size: 57px;
-      font-family: $global-font-title;
-      font-weight: bold;
     }
   }
 }

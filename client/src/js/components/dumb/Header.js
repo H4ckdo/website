@@ -17,7 +17,9 @@ class Header extends React.Component {
       let container = document.querySelector('.about-container-content');
       //console.log(y ,' ', container.clientHeight);
       let changeBackground = y > 50//container.clientHeight;
-      this.setState({ changeBackground });
+      this.setState({ changeBackground }, () => {
+        this.props.onScroll(changeBackground);
+      });
     })
   }
 
@@ -51,16 +53,12 @@ class Header extends React.Component {
     return (
       <div className={`header-background ${changeBackground ? "background-contrast" : ""}`}>
         <div className="wrap-header">
-          {
-            /*
-            <div>
-              <div className="wrap-logo">
-                <span className={`wrap-logo__menu-select ${isOpen ? "menu-active" : ""}`} onClick={this.handleMenu.bind(this)}><i ref="menuControl" className="material-icons">menu</i></span>
-                <img id="logo" src="/assets/images/logo.webp" alt="" />
-              </div>
+          <div>
+            <div className={`${changeBackground ? "appear-logo" : "hidden"} wrap-logo`}>
+              <span className={`wrap-logo__menu-select ${isOpen ? "menu-active" : ""}`} onClick={this.handleMenu.bind(this)}><i ref="menuControl" className="material-icons">menu</i></span>
+              <img id="logo" src="/assets/images/logo.webp" alt="" />
             </div>
-            */
-          }
+          </div>
 
           <div>
             <header className="main-header">

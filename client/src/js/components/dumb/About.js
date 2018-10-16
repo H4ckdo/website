@@ -8,69 +8,88 @@ import AliceCarousel from 'react-alice-carousel';
 class About extends React.Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = { hideLogo: false }
   }
+
+  playAnimation() {
+    let counter = 0;
+    let reset = false;
+    let $titles = document.querySelectorAll(".portada-title");
+    $titles[0].classList.remove("hidden");
+    setInterval(() => {
+      if (reset) {
+        $titles[$titles.length - 1].classList.add("hidden");
+        $titles[$titles.length - 1].classList.add("disappear-title");
+        $titles[$titles.length - 1].classList.remove("appear-title");
+        reset = false;
+        counter = 0;
+        setTimeout(() => {
+          $titles.forEach($item => {
+            $item.classList.remove("appear-title");
+            $item.classList.remove("disappear-title");
+            $item.classList.add("hidden");
+          })
+          $titles[0].classList.remove("hidden");
+          $titles[0].classList.add("appear-title");
+        }, 1500)
+      } else {
+        $titles[counter].classList.add("hidden");
+        $titles[counter].classList.add("disappear-title");
+        $titles[counter].classList.remove("appear-title");
+        //console.log("siguiente animacion");
+        setTimeout(() => {
+          $titles[counter + 1].classList.remove("hidden");
+          $titles[counter + 1].classList.add("appear-title");
+          counter++;
+          if (counter === $titles.length - 1) reset = true;
+        }, 1000);
+      }
+    }, 4000);
+  }
+
+  componentDidMount() {
+    this.playAnimation();
+  }
+
+  changeLogoState(hideLogo) {
+    this.setState({ hideLogo });
+  }
+
   render() {
     let isOpen = false;
-    const responsive = {
-      1300: {
-        items: 1
-      }
-    }
     return (
       <div className="about-container">
-        <Header onSelect={this.props.onSelect} />
-        <section id="sectionAbout">
-          <div className="wrap-logo">
-            <img id="logo" src="/assets/images/logo2.png" alt="" />
-          </div>
-          <div className="about-container__wrap-carousel">
-            <AliceCarousel
-              responsive={responsive}
-              duration={1000}
-              dotsDisabled={false}
-              autoPlay={false}
-              arrows={false}
-            >
-              <div className="about-container-content">
-                <div className="about-container-content__text">
-                  <i className="about-container-content__text__title">TRABAJAMOS PARA CONSTRUIR</i>
-                  <h1 className="about-container-content__text__subtitle appear delay-1">COMUNIDADES & CONOCIMIENTO</h1>
-                  <h2 className="about-container-content__text__phrases">
-                    <span className="appear delay-2">ECOSISTEMAS TECNOLÓGICOS</span>
-                    <br />
-                    <span className="appear delay-3">PROYECTOS CON IMPACTO SOCIAL</span>
-                    <br />
-                    <span className="appear delay-4">PROYECTOS INTERALATIVOS (NARRATIVAS)</span>
-                    <br />
-                    <span className="appear delay-5">INVESTIGACIÓN APLICADA</span>
-                  </h2>
-                </div>
+        <div className="about-container-filter"></div>
+        <Header onScroll={this.changeLogoState.bind(this)} onSelect={this.props.onSelect} />
+        <div className="wrap-section-about">
+          <section id="sectionAbout">
+            <div className={`${this.state.hideLogo ? "hide-logo" : "appear"} wrap-logo`}>
+              <img id="logo" src="/assets/images/logo2.png" alt="" />
+            </div>
+            <article className="about-container-content">
+              <div className="about-container-content__text">
+                <i className="about-container-content__text__title">TRABAJAMOS PARA CONSTRUIR</i>
+                <h1 className=" about-container-content__text__subtitle">
+                  <div className="portada-title hidden">
+                    <span>COMUNIDADES & CONOCIMIENTO</span>
+                  </div>
+                  <div className="portada-title hidden">
+                    <span>ECOSISTEMAS TECNOLÓGICOS</span>
+                  </div>
+                  <div className="portada-title hidden">
+                    <span>PROYECTOS CON IMPACTO SOCIAL</span>
+                  </div>
+                  <div className="portada-title hidden">
+                    <span>PROYECTOS INTERACTIVOS (NARRATIVAS)</span>
+                  </div>
+                  <div className="portada-title hidden">
+                    <span>INVESTIGACIÓN APLICADA</span>
+                  </div>
+                </h1>
               </div>
-
-              <div className="about-container-content">
-                <div className="about-container-content__text">
-                  <h1 className="about-container-content__text__subtitle appear delay-1">MISIÓN</h1>
-                  <p className="about-container-content__text__copy">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias animi mollitia minima ad unde quidem illo voluptatem explicabo fuga. Asperiores voluptatem quod omnis maxime! Voluptates consectetur temporibus nam non. Iure.
-                  </p>
-                </div>
-              </div>
-
-              <div className="about-container-content">
-                <div className="about-container-content__text">
-                  <h1 className="about-container-content__text__subtitle appear delay-1">VISIÓN</h1>
-                  <p className="about-container-content__text__copy">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias animi mollitia minima ad unde quidem illo voluptatem explicabo fuga. Asperiores voluptatem quod omnis maxime! Voluptates consectetur temporibus nam non. Iure.
-                  </p>
-                </div>
-              </div>
-
-            </AliceCarousel>
-
-          </div>
-        </section>
-
+            </article>
+          </section>
+        </div>
       </div>
     )
   }

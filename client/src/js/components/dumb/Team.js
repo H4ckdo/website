@@ -12,8 +12,10 @@ class Team extends React.Component {
     let selected = data[setup.selected];
     return (
       <section id="Team">
-        <article className="team-container">
+        <article className="team-title">
           <h1 className="team-container__title">EQUIPO HACKDÓ</h1>
+        </article>
+        <article className="team-container">
           <div className="team-container__wrap-list">
             <div className="team-container__wrap-list__main">
               <div className="wrap-member-selected">
@@ -34,6 +36,7 @@ class Team extends React.Component {
             </div>
           </div>
         </article>
+
       </section>
     )
   }

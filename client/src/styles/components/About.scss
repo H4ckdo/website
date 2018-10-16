@@ -2,32 +2,45 @@
   width: $large;
   display: grid;
   grid-template-columns: 0.25fr 1fr;
-  grid-gap: 40px;
+  grid-gap: 10px;
   position: relative;
-  top: 85px;
+  top: 130px;
   margin: 0px auto;
   .wrap-logo {
     text-align: center;
-    align-self: top;
+    transition: all 0.25s ease-in-out;
     img {
       width: 170px;
     }
   }
 }
+#portada-title {
+  transition: all 0.5s ease-in-out;
+}
 
 .about-container {
   background-color: $primary;
+  background-image: url('/assets/images/portada.webp');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
   width: 100%;
   height: 450px;
   margin: 0px auto;
   padding-top: 30px;
   padding-bottom: 30px;
-  .about-container__wrap-carousel {
-    width: 800px;
-    margin: 0px auto;
-    padding-top: 0px;
-    position: relative;
-    left: 0px;
+  .about-container-filter{
+    background-color: $primary;
+    mix-blend-mode: multiply;
+    height: 480px;
+  }
+  .wrap-section-about {
+    position: absolute;
+    left: 0;
+    margin: 0 auto;
+    top: 0px;
+    width: 100%;
   }
   .about-container-content {
     text-align: left;
@@ -36,8 +49,8 @@
     padding: 20px;
     margin: 0px auto;
     .about-container-content__text {
-      padding-left: 30px;
-      padding-right: 30px;
+      padding-left: 0px;
+      padding-right: 0px;
       .about-container-content__text__copy {
         color: $third;
         font-size: 25px;
@@ -50,9 +63,9 @@
       }
       .about-container-content__text__title {
         color: white;
-        font-size: 25px;
+        font-size: 18px;
         font-family: $global-font-family-light;
-        font-weight: 100;
+        font-weight: 600;
         text-align: left;
         margin: 0px;
         line-height: 1.4;
@@ -60,7 +73,7 @@
       }
       .about-container-content__text__subtitle {
         color: $third;
-        font-size: 57px;
+        font-size: 68px;
         font-family: $global-font-title;
         font-weight: bold;
         text-align: left;
@@ -68,6 +81,10 @@
         position: relative;
         margin: 0px;
         padding-top: 10px;
+        .portada-title {
+          position: absolute;
+          transition: all 3s ease-in-out;
+        }
       }
       .about-container-content__text__phrases {
         color: $third;
@@ -97,3 +114,12 @@
   }
 }
 
+.hide-logo {
+  padding-top: 80px;
+  position: relative;
+  animation-name: disappear-smoothly;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
