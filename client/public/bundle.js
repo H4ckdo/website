@@ -5562,8 +5562,7 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
         _react2.default.createElement(_About2.default, { onSelect: this.goTo.bind(this) }),
         _react2.default.createElement(_Team2.default, { setup: TeamStore.setup, data: TeamStore.data, onSelect: this.setSelected.bind(this) }),
         _react2.default.createElement(_Projects2.default, null),
-        _react2.default.createElement(_Events2.default, { setup: EventsStore.setup, data: EventsStore.data }),
-        _react2.default.createElement(_Gallery2.default, null)
+        _react2.default.createElement(_Events2.default, { setup: EventsStore.setup, data: EventsStore.data })
       );
     }
   }]);
@@ -33087,6 +33086,34 @@ var Team = function (_React$Component) {
             'h1',
             { className: 'team-container__title' },
             'EQUIPO HACKD\xD3'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'wrap-mision' },
+            _react2.default.createElement(
+              'h1',
+              { className: 'wrap-mision__title' },
+              'MISION'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-mision__text' },
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, beatae sequi ducimus distinctio ipsa consectetur, ipsum assumenda dolor aperiam iure nemo iste dicta corrupti eveniet quos laborum nisi tempora ad?'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'wrap-vision' },
+            _react2.default.createElement(
+              'h1',
+              { className: 'wrap-vision__title' },
+              'VISION'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'wrap-vision__text' },
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, beatae sequi ducimus distinctio ipsa consectetur, ipsum assumenda dolor aperiam iure nemo iste dicta corrupti eveniet quos laborum nisi tempora ad?'
+            )
           )
         ),
         _react2.default.createElement(
@@ -33197,9 +33224,13 @@ var Projects = function (_React$Component) {
         "section",
         { id: "Projects" },
         _react2.default.createElement(
-          "h1",
-          { className: "projects-title" },
-          "PROYECTOS"
+          "article",
+          { className: "wrap-project-aside" },
+          _react2.default.createElement(
+            "h1",
+            { className: "wrap-project-aside__title" },
+            "PROYECTOS"
+          )
         ),
         _react2.default.createElement(
           "article",
@@ -33376,12 +33407,16 @@ var Events = function (_React$Component) {
         { id: 'Events' },
         _react2.default.createElement(
           'article',
-          { className: 'wrap-events' },
+          { className: 'wrap-events-aside' },
           _react2.default.createElement(
             'h1',
-            { className: 'wrap-events__title' },
+            { className: 'wrap-events-aside__title' },
             'EVENTOS'
-          ),
+          )
+        ),
+        _react2.default.createElement(
+          'article',
+          { className: 'wrap-events' },
           _react2.default.createElement(
             'section',
             { className: 'wrap-events__content' },
@@ -33422,55 +33457,6 @@ var Events = function (_React$Component) {
                 'div',
                 { className: 'wrap-events__content__about__register' },
                 'INSCRIBETE'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'section',
-            { className: 'wrap-events__content-before' },
-            _react2.default.createElement(
-              'div',
-              { className: 'wrap-events__content-before-title' },
-              _react2.default.createElement(
-                'span',
-                null,
-                'ANTERIORES'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'wrap-events__content-before__gallery' },
-              _react2.default.createElement(
-                _reactAliceCarousel2.default,
-                {
-                  responsive: responsive,
-                  autoPlay: false,
-                  duration: 1000,
-                  dotsDisabled: true
-                },
-                data.filter(function (element, index) {
-                  return setup.current !== index;
-                }).map(function (element, index) {
-                  return _react2.default.createElement(
-                    'div',
-                    { className: 'wrap-events__content-before__gallery__content', key: index },
-                    _react2.default.createElement('div', { className: 'wrap-events__content-before__gallery__content__image', style: { backgroundImage: 'url(' + element.image + ')' } }),
-                    _react2.default.createElement(
-                      'div',
-                      { className: 'wrap-events__content-before__gallery__content__image__text' },
-                      _react2.default.createElement(
-                        'h1',
-                        null,
-                        element.title
-                      ),
-                      _react2.default.createElement(
-                        'p',
-                        null,
-                        element.text
-                      )
-                    )
-                  );
-                })
               )
             )
           )

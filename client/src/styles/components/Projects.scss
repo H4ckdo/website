@@ -1,6 +1,24 @@
 #Projects {
   background: $primary;
-  padding: 40px;
+  display: grid;
+  grid-auto-columns: 0fr 1fr;
+  grid-auto-rows: 1fr;
+  padding: 0px;
+  .wrap-project-aside {
+    width: 400px;
+    height: 100%;
+    grid-area: 1/1;
+    .wrap-project-aside__title {
+      color: white;
+      text-align: left;
+      font-size: 57px;
+      font-family: $global-font-title;
+      font-weight: 700;
+      margin: 0px;
+      padding: 20px;
+      padding-top: 30px;
+    }
+  }
   .projects-title {
     color: #fff;
     text-align: center;
@@ -8,21 +26,31 @@
     font-family: $global-font-title;
   }
   .wrap-projects {
-    width: $large;
+    background: whitesmoke;
+    width: 100%;
+    height: 100%;
+    grid-area: 1/2;
+    margin: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     display: grid;
-    margin: 0px auto;
     grid-auto-columns: 0.5fr 1fr;
-    grid-gap: 80px;
+    grid-gap: 25px;
     font-family: $global-font-title;
     text-align: left;
     .wrap-projects__unactive {
       font-size: 20px;
       grid-area: 1/2;
+      padding-top: 30px;
       .wrap-projects__unactive-title {
         color: white;
+        background: $primary;
         font-size: 45px;
         margin-top: 0px;
         margin-bottom: 0px;
+        padding-left: 10px;
+        padding-top: 5px;
+        width: 300px;
       }
       ul {
         list-style: none;
@@ -56,19 +84,22 @@
         }
         .wrap-projects__unactive-item-content {
           display: inline-block;
-          width: 400px;
+          width: 340px;
           vertical-align: middle;
           margin-left: 20px;
+          grid-area: 1/2;
           .wrap-projects__unactive-item-name {
             font-family: $global-font-title;
             text-align: left;
-            color: white;
+            color: $primary;
           }
           .wrap-projects__unactive-item-text {
             font-family: $global-font-family;
             text-align: left;
-            color: white;
+            color: $primary;
             margin-top: 10px;
+            color: black;
+            font-size: 18px;
           }
         }
       }
@@ -76,14 +107,21 @@
     .wrap-projects__active {
       font-size: 20px;
       grid-area: 1/1;
+      padding-left: 25px;
+      padding-top: 30px;
+      padding-bottom: 20px;
       .wrap-projects__active-title {
         color: white;
+        background: $primary;
         font-size: 45px;
         margin-top: 0px;
         margin-bottom: 0px;
+        padding-left: 10px;
+        padding-top: 5px;
+        width: 300px;
       }
       .wrap-projects__active-subtitle {
-        color: $fourth;
+        color: $primary;
         font-size: 40px;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -92,6 +130,8 @@
         font-family: $global-font-family;
         text-align: left;
         margin-top: 8px;
+        font-size: 18px;
+        line-height: 1.5;
       }
       .wrap-projects__active-current {
         color: $primary;

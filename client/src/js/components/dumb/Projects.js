@@ -10,7 +10,9 @@ class Projects extends React.Component {
     let { data } = this.state;
     return (
       <section id="Projects">
-          <h1 className="projects-title">PROYECTOS</h1>
+        <article className="wrap-project-aside">
+          <h1 className="wrap-project-aside__title">PROYECTOS</h1>
+        </article>
         <article className="wrap-projects">
           <div className="wrap-projects__active">
             <h1 className="wrap-projects__active-title">EN CURSO</h1>
@@ -46,7 +48,6 @@ class Projects extends React.Component {
                   </p>
                 </div>
               </li>
-
             </ul>
           </div>
         </article>

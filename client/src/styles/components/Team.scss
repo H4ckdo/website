@@ -5,18 +5,66 @@
   grid-auto-rows: 1fr;
   width: 100%;
   display: grid;
-  overflow: hidden;
   .team-title {
     width: 400px;
     height: 100%;
     grid-area: 1/1;
+    padding-bottom: 30px;
+    .wrap-vision {
+     padding-left: 20px;
+      .wrap-vision__text {
+        text-align: left;
+        font-family: $global-font-family;
+        font-size: 20px;
+        line-height: 1.3;
+        padding-right: 10px;
+        margin-top: 0px;
+     }
+     .wrap-vision__title {
+        color: $third;
+        text-align: left;
+        font-size: 45px;
+        font-family: $global-font-title;
+        font-weight: 700;
+        margin: 0px;
+        padding-right: 10px;
+     }
+    }
+    .wrap-mision {
+      padding-left: 20px;
+     .wrap-mision__title {
+        color: $third;
+        text-align: left;
+        font-size: 45px;
+        font-family: $global-font-title;
+        font-weight: 700;
+        margin: 0px;
+        padding-right: 10px;
+     }
+      .wrap-mision__text {
+        text-align: left;
+        font-family: $global-font-family;
+        font-size: 20px;
+        line-height: 1.3;
+        padding-right: 10px;
+        margin-top: 0px;
+     }
+     .wrap-mision__title {
+        color: $third;
+        text-align: left;
+        font-size: 45px;
+        font-family: $global-font-title;
+        font-weight: 700;
+        margin: 0px;
+      }
+    }
     .team-container__title {
       color:$third;
       text-align: left;
       font-size: 57px;
       font-family: $global-font-title;
       font-weight: bold;
-      padding-left: 40px;
+      padding-left: 20px;
     }
   }
   .team-container {
@@ -25,8 +73,8 @@
     height: 100%;
     grid-area: 1/2;
     margin: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   .team-container__wrap-list {
     display: grid;
