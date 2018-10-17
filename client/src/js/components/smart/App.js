@@ -52,7 +52,6 @@ class App extends React.Component {
         <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
         <Projects />
         <Events setup={EventsStore.setup} data={EventsStore.data}   />
-        {/*<Gallery/>*/}
       </div>
 
     )

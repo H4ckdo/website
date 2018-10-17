@@ -10,16 +10,15 @@ class Gallery extends React.Component {
   render() {
     const responsive = {
       1300: {
-        items: 2,
+        items: 3,
         stagePadding: {
-          paddingLeft: 30,
-          paddingRight: 30
+          paddingLeft: 0,
+          paddingRight: 0
         }
       }
     }
 
     return (
-      <section id="Gallery">
         <article className="wrap-gallery">
           <div className="wrap-gallery__tag">
             <span>GALERÍA</span>
@@ -43,7 +42,7 @@ class Gallery extends React.Component {
             </div>
           </AliceCarousel>
         </article>
-      </section>
+
     )
   }
 }

@@ -21,8 +21,9 @@
   }
   .wrap-events {
     margin: 0px auto;
+    background: white;
     width: 100%;
-    height: 100%;
+    height: auto;
     grid-area: 1/2;
     .wrap-events__title {
       font-size: 57px;
@@ -32,7 +33,6 @@
     }
     .wrap-events__content {
       display: grid;
-      background: white;
       grid-auto-columns: 0fr 1fr;
       padding: 20px;
       .wrap-events__content__about {
@@ -98,25 +98,30 @@
       }
     }
   }
-  .alice-carousel__prev-btn {
-    left: -50px !important;
+  .wrap-events__content-before__gallery {
+    .alice-carousel__prev-btn {
+      left: -50px !important;
+    }
+    .alice-carousel__next-btn {
+      right: -32px !important;
+    }
   }
 
-  .alice-carousel__next-btn {
-    right: -25px !important;
-  }
 }
 
 .wrap-events__content-before {
-  margin-top: 40px;
-  width: 100%;
+  background: white;
+  width: 850px;
   height: 100%;
   grid-area: 1/2;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   .wrap-events__content-before-title {
     font-size: 20px;
     font-family: $global-font-title;
-    background: $primary;
-    color: #fff;
+    background: $fifth;
+    color: $primary;
     width: 240px;
     height: 25px;
     padding: 8px;
@@ -127,11 +132,15 @@
     .wrap-events__content-before__gallery__content {
       width: auto;
       height: auto;
+      display: grid;
+      grid-auto-columns: 0fr 1fr;
+      grid-auto-rows: 1fr;
       .wrap-events__content-before__gallery__content__image__text {
-        width: 295px;
+        width: 92%;
         vertical-align: top;
         padding-left: 10px;
         display: inline-block;
+        grid-area: 1/2;
         h1 {
           font-size: 21px;
           font-family: $global-font-title;
@@ -146,12 +155,13 @@
         }
       }
       .wrap-events__content-before__gallery__content__image {
-        width: 200px;
+        width: 150px;
         height: 140px;
         background-size: cover;
-        background-position: center;
+        background-position: 50%;
         background-repeat: no-repeat;
         display: inline-block;
+        grid-area: 1/1;
       }
     }
   }

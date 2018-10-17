@@ -1,5 +1,6 @@
-import React from 'react';
-import AliceCarousel from 'react-alice-carousel';
+import React from 'react'
+import AliceCarousel from 'react-alice-carousel'
+import Gallery from './Gallery.js'
 
 class Events extends React.Component {
   constructor() {
@@ -38,8 +39,6 @@ class Events extends React.Component {
               </div>
             </article>
           </section>
-          {
-            /*
           <section className="wrap-events__content-before">
             <div className="wrap-events__content-before-title">
               <span>ANTERIORES</span>
@@ -66,13 +65,12 @@ class Events extends React.Component {
                     )
                   })
                 }
-
               </AliceCarousel>
             </div>
           </section>
-            */
-          }
-
+          <section id="Gallery">
+           <Gallery/>
+          </section>
         </article>
       </section>
     )

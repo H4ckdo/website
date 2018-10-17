@@ -33374,6 +33374,10 @@ var _reactAliceCarousel = __webpack_require__(239);
 
 var _reactAliceCarousel2 = _interopRequireDefault(_reactAliceCarousel);
 
+var _Gallery = __webpack_require__(251);
+
+var _Gallery2 = _interopRequireDefault(_Gallery);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Events = function (_React$Component) {
@@ -33459,6 +33463,60 @@ var Events = function (_React$Component) {
                 'INSCRIBETE'
               )
             )
+          ),
+          _react2.default.createElement(
+            'section',
+            { className: 'wrap-events__content-before' },
+            _react2.default.createElement(
+              'div',
+              { className: 'wrap-events__content-before-title' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'ANTERIORES'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'wrap-events__content-before__gallery' },
+              _react2.default.createElement(
+                _reactAliceCarousel2.default,
+                {
+                  responsive: responsive,
+                  autoPlay: false,
+                  duration: 1000,
+                  dotsDisabled: true
+                },
+                data.filter(function (element, index) {
+                  return setup.current !== index;
+                }).map(function (element, index) {
+                  return _react2.default.createElement(
+                    'div',
+                    { className: 'wrap-events__content-before__gallery__content', key: index },
+                    _react2.default.createElement('div', { className: 'wrap-events__content-before__gallery__content__image', style: { backgroundImage: 'url(' + element.image + ')' } }),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'wrap-events__content-before__gallery__content__image__text' },
+                      _react2.default.createElement(
+                        'h1',
+                        null,
+                        element.title
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        element.text
+                      )
+                    )
+                  );
+                })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'section',
+            { id: 'Gallery' },
+            _react2.default.createElement(_Gallery2.default, null)
           )
         )
       );
@@ -33683,52 +33741,48 @@ var Gallery = function (_React$Component) {
     value: function render() {
       var responsive = {
         1300: {
-          items: 2,
+          items: 3,
           stagePadding: {
-            paddingLeft: 30,
-            paddingRight: 30
+            paddingLeft: 0,
+            paddingRight: 0
           }
         }
       };
 
       return React.createElement(
-        'section',
-        { id: 'Gallery' },
+        'article',
+        { className: 'wrap-gallery' },
         React.createElement(
-          'article',
-          { className: 'wrap-gallery' },
+          'div',
+          { className: 'wrap-gallery__tag' },
+          React.createElement(
+            'span',
+            null,
+            'GALER\xCDA'
+          )
+        ),
+        React.createElement(
+          _reactAliceCarousel2.default,
+          {
+            responsive: responsive,
+            autoPlay: false,
+            duration: 800,
+            dotsDisabled: true
+          },
           React.createElement(
             'div',
-            { className: 'wrap-gallery__tag' },
-            React.createElement(
-              'span',
-              null,
-              'GALER\xCDA'
-            )
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
           ),
           React.createElement(
-            _reactAliceCarousel2.default,
-            {
-              responsive: responsive,
-              autoPlay: false,
-              duration: 800,
-              dotsDisabled: true
-            },
-            React.createElement(
-              'div',
-              { className: 'wrap-image' },
-              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
-            ),
-            React.createElement(
-              'div',
-              { className: 'wrap-image' },
-              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
-            ),
-            React.createElement(
-              'div',
-              { className: 'wrap-image' },
-              React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
-            )
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+          ),
+          React.createElement(
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
           )
         )
       );
