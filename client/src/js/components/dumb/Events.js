@@ -18,7 +18,7 @@ class Events extends React.Component {
       })
       .on("leave", () => {
         //console.log("leave")
-        document.getElementById("Events").classList.add("hidden");
+        //document.getElementById("Events").classList.add("hidden");
       })
       //.addIndicators() // add indicators (requires plugin)
       .addTo(EVENTS)
