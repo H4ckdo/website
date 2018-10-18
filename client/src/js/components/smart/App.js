@@ -9,6 +9,7 @@ import About from '../dumb/About.js'
 import Team from '../dumb/Team.js'
 import Projects from '../dumb/Projects.js'
 import Events from '../dumb/Events.js'
+import Courses from '../dumb/Courses.js'
 import scrollToElement from 'scroll-to-element'
 
 @connect(store => {
@@ -24,8 +25,8 @@ class App extends React.Component {
   }
 
   setSelected(index) {
-    let payload = { setup: { selected: index } };
-    this.props.dispatch({ type: "SET_TEAM", payload })
+    let payload = { selected: index };
+    this.props.dispatch({ type: "SETUP_TEAM", payload })
   }
 
   componentDidMount() {
@@ -34,6 +35,48 @@ class App extends React.Component {
         duration: 200
       });
     }
+
+    let TEAM = new ScrollMagic.Controller();
+    let PORTADA = new ScrollMagic.Controller();
+    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 250, offset: 200 })
+      .setPin("#sectionAbout")
+      .on("enter", () => {
+        //console.log("enter");
+        let container = document.querySelector(".wrap-indicator-bottom");
+        if (container) {
+          container.classList.toggle("hidden");
+        }
+      })
+      .on("leave", () => {
+        //console.log("enter");
+        let container = document.querySelector(".wrap-indicator-bottom");
+        if (container) {
+          //container.classList.toggle("hidden");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(PORTADA)
+
+    new ScrollMagic.Scene({ triggerElement: "#Team", duration: 450, offset: 0 })
+      //.setClassToggle(".team-container", "team-push-down")
+      .on("enter", () => {
+        //console.log("enter");
+        let container = document.querySelector(".team-container");
+        if(container) {
+          container.classList.add("push-up");
+        }
+      })
+      .on("leave", () => {
+        //console.log("leave")
+        let container = document.querySelector(".team-container");
+        if (container) {
+          container.classList.remove("push-up");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(TEAM)
+
+
   }
 
   goTo(id, done) {
@@ -51,7 +94,8 @@ class App extends React.Component {
         <About onSelect={this.goTo.bind(this)} />
         <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
         <Projects />
-        <Events setup={EventsStore.setup} data={EventsStore.data}   />
+        <Courses />
+        <Events setup={EventsStore.setup} data={EventsStore.data} />
       </div>
 
     )

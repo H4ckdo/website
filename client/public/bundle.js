@@ -5505,6 +5505,10 @@ var _Events = __webpack_require__(246);
 
 var _Events2 = _interopRequireDefault(_Events);
 
+var _Courses = __webpack_require__(252);
+
+var _Courses2 = _interopRequireDefault(_Courses);
+
 var _scrollToElement = __webpack_require__(232);
 
 var _scrollToElement2 = _interopRequireDefault(_scrollToElement);
@@ -5528,8 +5532,8 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   (0, _createClass3.default)(App, [{
     key: 'setSelected',
     value: function setSelected(index) {
-      var payload = { setup: { selected: index } };
-      this.props.dispatch({ type: "SET_TEAM", payload: payload });
+      var payload = { selected: index };
+      this.props.dispatch({ type: "SETUP_TEAM", payload: payload });
     }
   }, {
     key: 'componentDidMount',
@@ -5539,6 +5543,42 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
           duration: 200
         });
       }
+
+      var TEAM = new ScrollMagic.Controller();
+      var PORTADA = new ScrollMagic.Controller();
+      new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 250, offset: 200 }).setPin("#sectionAbout").on("enter", function () {
+        //console.log("enter");
+        var container = document.querySelector(".wrap-indicator-bottom");
+        if (container) {
+          container.classList.toggle("hidden");
+        }
+      }).on("leave", function () {
+        //console.log("enter");
+        var container = document.querySelector(".wrap-indicator-bottom");
+        if (container) {
+          //container.classList.toggle("hidden");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(PORTADA);
+
+      new ScrollMagic.Scene({ triggerElement: "#Team", duration: 450, offset: 0 })
+      //.setClassToggle(".team-container", "team-push-down")
+      .on("enter", function () {
+        //console.log("enter");
+        var container = document.querySelector(".team-container");
+        if (container) {
+          container.classList.add("push-up");
+        }
+      }).on("leave", function () {
+        //console.log("leave")
+        var container = document.querySelector(".team-container");
+        if (container) {
+          container.classList.remove("push-up");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(TEAM);
     }
   }, {
     key: 'goTo',
@@ -5562,6 +5602,7 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
         _react2.default.createElement(_About2.default, { onSelect: this.goTo.bind(this) }),
         _react2.default.createElement(_Team2.default, { setup: TeamStore.setup, data: TeamStore.data, onSelect: this.setSelected.bind(this) }),
         _react2.default.createElement(_Projects2.default, null),
+        _react2.default.createElement(_Courses2.default, null),
         _react2.default.createElement(_Events2.default, { setup: EventsStore.setup, data: EventsStore.data })
       );
     }
@@ -5963,7 +6004,7 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
-                        'Articulos'
+                        'ARTICULOS'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
@@ -5977,7 +6018,7 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
-                        'Equipo'
+                        'EQUIPO'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
@@ -5991,7 +6032,7 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
-                        'Cursos/Bootcamps'
+                        'CURSOS/BOOTCAMPS'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
@@ -6005,7 +6046,7 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
-                        'Eventos'
+                        'EVENTOS'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
@@ -6019,7 +6060,7 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
-                        'Proyectos'
+                        'PROYECTOS'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
@@ -6038,7 +6079,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       null,
-                      'Articulos'
+                      'ARTICULOS'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   ),
@@ -6048,7 +6089,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       null,
-                      'Equipo'
+                      'EQUIPO'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   ),
@@ -6058,7 +6099,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       null,
-                      'Cursos/Bootcamps'
+                      'CURSOS/BOOTCAMPS'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   ),
@@ -6068,7 +6109,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       null,
-                      'Eventos'
+                      'EVENTOS'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   ),
@@ -6078,7 +6119,7 @@ var Header = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       null,
-                      'Proyectos'
+                      'PROYECTOS'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   )
@@ -6216,7 +6257,7 @@ var About = function (_React$Component) {
       var isOpen = false;
       return _react2.default.createElement(
         'div',
-        { className: 'about-container' },
+        { className: 'about-container', id: 'About' },
         _react2.default.createElement('div', { className: 'about-container-filter' }),
         _react2.default.createElement(_Header2.default, { onScroll: this.changeLogoState.bind(this), onSelect: this.props.onSelect }),
         _react2.default.createElement(
@@ -6291,6 +6332,15 @@ var About = function (_React$Component) {
                   )
                 )
               )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'wrap-indicator-bottom' },
+            _react2.default.createElement(
+              'i',
+              { className: 'material-icons' },
+              'keyboard_arrow_down'
             )
           )
         )
@@ -33118,7 +33168,7 @@ var Team = function (_React$Component) {
         ),
         _react2.default.createElement(
           'article',
-          { className: 'team-container' },
+          { className: 'team-container team-push-down' },
           _react2.default.createElement(
             'div',
             { className: 'team-container__wrap-list' },
@@ -33237,36 +33287,7 @@ var Projects = function (_React$Component) {
           { className: "wrap-projects" },
           _react2.default.createElement(
             "div",
-            { className: "wrap-projects__active" },
-            _react2.default.createElement(
-              "h1",
-              { className: "wrap-projects__active-title" },
-              "EN CURSO"
-            ),
-            _react2.default.createElement(
-              "h2",
-              { className: "wrap-projects__active-subtitle" },
-              "DESARROLLO DE PLATAFORMAS WEB."
-            ),
-            _react2.default.createElement(
-              "span",
-              { className: "wrap-projects__active-current" },
-              "BOOTCAMP"
-            ),
-            _react2.default.createElement(
-              "p",
-              { className: "wrap-projects__active-current-text" },
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?"
-            )
-          ),
-          _react2.default.createElement(
-            "div",
             { className: "wrap-projects__unactive" },
-            _react2.default.createElement(
-              "h1",
-              { className: "wrap-projects__unactive-title" },
-              "OTROS"
-            ),
             _react2.default.createElement(
               "ul",
               null,
@@ -33559,10 +33580,17 @@ var Team = function Team(state) {
   var payload = action.payload,
       type = action.type;
 
-  if (type === "SET_TEAM") {
-    var snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+  if (type === "SETUP_TEAM") {
+    var snapshot = (0, _assign2.default)({}, takeSnapshot(state));
+    snapshot.setup = (0, _assign2.default)({}, snapshot.setup, payload);
     //console.log('snapshot ', snapshot);
     return (0, _assign2.default)({}, state, snapshot);
+  }
+
+  if (type === "SET_DATA_TEAM") {
+    var _snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    //console.log('snapshot ', snapshot);
+    return (0, _assign2.default)({}, state, _snapshot);
   }
   return (0, _assign2.default)({}, state);
 };
@@ -33581,7 +33609,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
   setup: {
-    selected: 0
+    selected: 0,
+    opacity: 0.5
   },
   data: [{
     name: "Fredy Enrique Andrade",
@@ -33792,6 +33821,133 @@ var Gallery = function (_React$Component) {
 }(React.Component);
 
 module.exports = Gallery;
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(6);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(8);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(10);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Courses = function (_React$Component) {
+  (0, _inherits3.default)(Courses, _React$Component);
+
+  function Courses() {
+    (0, _classCallCheck3.default)(this, Courses);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Courses.__proto__ || (0, _getPrototypeOf2.default)(Courses)).call(this));
+
+    _this.state = {};
+    return _this;
+  }
+
+  (0, _createClass3.default)(Courses, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "section",
+        { id: "Courses" },
+        _react2.default.createElement(
+          "article",
+          { className: "wrap-courses-aside" },
+          _react2.default.createElement(
+            "h1",
+            null,
+            "CURSOS Y BOOTCAMPS"
+          )
+        ),
+        _react2.default.createElement(
+          "article",
+          { className: "wrap-courses-content" },
+          _react2.default.createElement(
+            "div",
+            { className: "wrap-courses-content__active" },
+            _react2.default.createElement(
+              "h1",
+              { className: "wrap-courses-content__active-title" },
+              "ACTIVOS"
+            ),
+            _react2.default.createElement(
+              "h2",
+              { className: "wrap-courses-content__active-subtitle" },
+              "DESARROLLO DE PLATAFORMAS WEB."
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "wrap-courses-content__active-current" },
+              "BOOTCAMP"
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: "wrap-courses-content__active-current-text" },
+              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "wrap-courses-content__before" },
+            _react2.default.createElement(
+              "h1",
+              { className: "wrap-courses-content__before-title" },
+              "ANTERIORES"
+            ),
+            _react2.default.createElement(
+              "ul",
+              { className: "wrap-courses-content__before-list" },
+              _react2.default.createElement(
+                "li",
+                { className: "wrap-courses-content__before-list__item" },
+                _react2.default.createElement("div", { className: "wrap-courses-content__before-list__item-image" }),
+                _react2.default.createElement(
+                  "div",
+                  { className: "wrap-courses-content__before-list__item-text" },
+                  _react2.default.createElement(
+                    "p",
+                    null,
+                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?"
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+  return Courses;
+}(_react2.default.Component);
+
+exports.default = Courses;
 
 /***/ })
 /******/ ]);

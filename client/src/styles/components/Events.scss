@@ -35,6 +35,8 @@
       display: grid;
       grid-auto-columns: 0fr 1fr;
       padding: 20px;
+      padding-left: 30px;
+      padding-top: 30px;
       .wrap-events__content__about {
         grid-area: 1/2;
         .wrap-events__content__about__register {
@@ -68,21 +70,19 @@
           color: black;
         }
         .wrap-events__content__speaker__next {
-          font-size: 20px;
+          font-size: 30px;
           font-family: $global-font-title;
           background: $fifth;
           color: $primary;
           width: 80%;
-          height: 25px;
           padding: 8px;
         }
         .wrap-events__content__speaker__ponente {
-          font-size: 20px;
+          font-size: 30px;
           font-family: $global-font-title;
           background: $fifth;
           color: $primary;
           width: 80%;
-          height: 25px;
           padding: 8px;
           margin-top: 8px;
         }
@@ -111,19 +111,17 @@
 
 .wrap-events__content-before {
   background: white;
-  width: 850px;
+  width: 840px;
   height: 100%;
   grid-area: 1/2;
   padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 30px;
   .wrap-events__content-before-title {
-    font-size: 20px;
+    font-size: 30px;
     font-family: $global-font-title;
     background: $fifth;
     color: $primary;
     width: 240px;
-    height: 25px;
     padding: 8px;
     margin-top: 8px;
     margin-bottom: 20px;

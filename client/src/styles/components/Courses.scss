@@ -1,0 +1,97 @@
+#Courses {
+  display: grid;
+  grid-auto-columns: 0fr 1fr;
+  grid-auto-rows: 1fr;
+  .wrap-courses-aside {
+    grid-area: 1/1;
+    width: 400px;
+    background: $fourth;
+    h1 {
+      color: $third;
+      text-align: left;
+      font-size: 57px;
+      font-family: $global-font-title;
+      font-weight: 700;
+      margin: 0;
+      padding: 20px;
+      padding-top: 30px;
+    }
+  }
+  .wrap-courses-content {
+    width: 840px;
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: left;
+    display: grid;
+    grid-area: 1/2;
+    grid-gap: 20px;
+    grid-auto-columns: 0fr 1fr;
+    grid-auto-rows: 1fr;
+    .wrap-courses-content__active {
+      grid-area: 1/1;
+      width: 300px;
+      .wrap-courses-content__active-title {
+        margin: 0px;
+        background: $primary;
+        width: auto;
+        padding-left: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: white;
+        font-size: 28px;
+        font-family: $global-font-title;
+      }
+      .wrap-courses-content__active-subtitle {
+        font-size: 40px;
+        font-family: $global-font-title;
+        color: $primary;
+        margin: 0px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      .wrap-courses-content__active-current {
+        display: block;
+        background: $fourth;
+        padding: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 24px;
+        font-family: $global-font-title;
+        color: $primary;
+        font-size: 34px;
+      }
+      .wrap-courses-content__active-current-text {
+        font-family: $global-font-family;
+        text-align: left;
+        color: $primary;
+        margin-top: 10px;
+        color: #000;
+        font-size: 18px;
+      }
+    }
+    .wrap-courses-content__before {
+      grid-area: 1/2;
+      .wrap-courses-content__before-title {
+        margin: 0px;
+        background: $primary;
+        width: 300px;
+        padding-left: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: white;
+        font-size: 28px;
+        font-family: $global-font-title;
+      }
+    }
+    .wrap-courses-content__before-list {
+      .wrap-courses-content__before-list__item {
+        display: grid;
+        .wrap-courses-content__before-list__item-image {
+          width: 200px;
+          height: 150px;
+        }
+      }
+    }
+  }
+}

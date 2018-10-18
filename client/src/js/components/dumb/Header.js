@@ -66,32 +66,32 @@ class Header extends React.Component {
                 <ul>
                   <li className="appear-bottom" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
                     <span>
-                      <div className="menu-text">Articulos</div>
+                      <div className="menu-text">ARTICULOS</div>
                       <div className="bottom-mark"></div>
                     </span>
 
                   </li>
                   <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#KnowUs', this.closeMenu.bind(this))}>
                     <span>
-                      <div className="menu-text">Equipo</div>
+                      <div className="menu-text">EQUIPO</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Cursos/Bootcamps</div>
+                      <div className="menu-text">CURSOS/BOOTCAMPS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Eventos</div>
+                      <div className="menu-text">EVENTOS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
                   <li className="appear-bottom">
                     <span>
-                      <div className="menu-text">Proyectos</div>
+                      <div className="menu-text">PROYECTOS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
@@ -101,23 +101,23 @@ class Header extends React.Component {
               <nav className="main-header__desktop">
                 <ul>
                   <li className="appear-left" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
-                    <span>Articulos</span>
+                    <span>ARTICULOS</span>
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left" onClick={this.props.onSelect.bind(this, '#KnowUs')}>
-                    <span>Equipo</span>
+                    <span>EQUIPO</span>
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
-                    <span>Cursos/Bootcamps</span>
+                    <span>CURSOS/BOOTCAMPS</span>
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Events')}>
-                    <span>Eventos</span>
+                    <span>EVENTOS</span>
                     <div className="bottom-mark"></div>
                   </li>
                   <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
-                    <span>Proyectos</span>
+                    <span>PROYECTOS</span>
                     <div className="bottom-mark"></div>
                   </li>
                 </ul>

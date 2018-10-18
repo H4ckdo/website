@@ -58,7 +58,7 @@ class About extends React.Component {
   render() {
     let isOpen = false;
     return (
-      <div className="about-container">
+      <div className="about-container" id="About">
         <div className="about-container-filter"></div>
         <Header onScroll={this.changeLogoState.bind(this)} onSelect={this.props.onSelect} />
         <div className="wrap-section-about">
@@ -89,6 +89,9 @@ class About extends React.Component {
               </div>
             </article>
           </section>
+          <div className="wrap-indicator-bottom">
+            <i className="material-icons">keyboard_arrow_down</i>
+          </div>
         </div>
       </div>
     )

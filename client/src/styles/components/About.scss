@@ -4,7 +4,7 @@
   grid-template-columns: 0.25fr 1fr;
   grid-gap: 10px;
   position: relative;
-  top: 130px;
+  top: 150px;
   margin: 0px auto;
   .wrap-logo {
     text-align: center;
@@ -26,14 +26,13 @@
   background-size: cover;
   background-position: bottom center;
   width: 100%;
-  height: 450px;
+  height: 100%;
   margin: 0px auto;
   padding-top: 30px;
-  padding-bottom: 30px;
   .about-container-filter{
     background-color: $primary;
     mix-blend-mode: multiply;
-    height: 480px;
+    height: 100%;
   }
   .wrap-section-about {
     position: absolute;
@@ -114,8 +113,21 @@
   }
 }
 
+.wrap-indicator-bottom {
+  text-align: center;
+  padding: 20px;
+  padding-top: 0px;
+  position: relative;
+  bottom: 30px;
+  transition: all 0.25s ease-in-out;
+  i {
+    color: white;
+    font-size: 60px;
+  }
+}
+
 .hide-logo {
-  padding-top: 80px;
+  padding-top: 20px;
   position: relative;
   animation-name: disappear-smoothly;
   animation-duration: 1s;

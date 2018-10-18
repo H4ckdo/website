@@ -29,7 +29,7 @@ class Team extends React.Component {
           </div>
 
         </article>
-        <article className="team-container">
+        <article className="team-container team-push-down">
           <div className="team-container__wrap-list">
             <div className="team-container__wrap-list__main">
               <div className="wrap-member-selected">

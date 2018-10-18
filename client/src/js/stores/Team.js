@@ -1,6 +1,7 @@
 export default {
   setup: {
-    selected: 0
+    selected: 0,
+    opacity: 0.5
   },
   data: [
     {

@@ -14,16 +14,12 @@ class Projects extends React.Component {
           <h1 className="wrap-project-aside__title">PROYECTOS</h1>
         </article>
         <article className="wrap-projects">
-          <div className="wrap-projects__active">
-            <h1 className="wrap-projects__active-title">EN CURSO</h1>
-            <h2 className="wrap-projects__active-subtitle">DESARROLLO DE PLATAFORMAS WEB.</h2>
-            <span className="wrap-projects__active-current">BOOTCAMP</span>
-            <p className="wrap-projects__active-current-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?
-            </p>
-          </div>
+          {
+            /*
+            */
+          }
           <div className="wrap-projects__unactive">
-            <h1 className="wrap-projects__unactive-title">OTROS</h1>
+            {/*<h1 className="wrap-projects__unactive-title">OTROS</h1>*/}
             <ul>
               <li className="wrap-projects__unactive-item">
                 <div className="wrap-projects__unactive-item-image">
