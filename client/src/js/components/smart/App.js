@@ -16,7 +16,9 @@ import scrollToElement from 'scroll-to-element'
   return {
     MainStore: Object.assign(store.Main, {}),
     TeamStore: Object.assign(store.Team, {}),
-    EventsStore: Object.assign(store.Events, {})
+    EventsStore: Object.assign(store.Events, {}),
+    CoursesStore: Object.assign(store.Courses, {}),
+    ProjectsStore: Object.assign(store.Projects, {}),
   }
 })
 class App extends React.Component {
@@ -25,76 +27,34 @@ class App extends React.Component {
   }
 
   setSelected(index) {
-    let payload = { selected: index };
-    this.props.dispatch({ type: "SETUP_TEAM", payload })
+    this.props.dispatch({ type: "SETUP_TEAM", payload: { selected: index } });
+    let payload = this.props.TeamStore.data.map(item => item);
+    payload[index].displayed = true;
+    this.props.dispatch({ type: "SET_DATA_TEAM", payload })
   }
 
   componentDidMount() {
-    if (window.location.hash === "#knowus") {
-      scrollToElement("#KnowUs", {
-        duration: 200
-      });
-    }
-
-    let TEAM = new ScrollMagic.Controller();
-    let PORTADA = new ScrollMagic.Controller();
-    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 250, offset: 200 })
-      .setPin("#sectionAbout")
-      .on("enter", () => {
-        //console.log("enter");
-        let container = document.querySelector(".wrap-indicator-bottom");
-        if (container) {
-          container.classList.toggle("hidden");
-        }
-      })
-      .on("leave", () => {
-        //console.log("enter");
-        let container = document.querySelector(".wrap-indicator-bottom");
-        if (container) {
-          //container.classList.toggle("hidden");
-        }
-      })
-      //.addIndicators() // add indicators (requires plugin)
-      .addTo(PORTADA)
-
-    new ScrollMagic.Scene({ triggerElement: "#Team", duration: 450, offset: 0 })
-      //.setClassToggle(".team-container", "team-push-down")
-      .on("enter", () => {
-        //console.log("enter");
-        let container = document.querySelector(".team-container");
-        if(container) {
-          container.classList.add("push-up");
-        }
-      })
-      .on("leave", () => {
-        //console.log("leave")
-        let container = document.querySelector(".team-container");
-        if (container) {
-          container.classList.remove("push-up");
-        }
-      })
-      //.addIndicators() // add indicators (requires plugin)
-      .addTo(TEAM)
-
-
+    let duration = 500;
+    if (window.location.hash === "#Team") scrollToElement("#Team", { duration });
+    if (window.location.hash === "#Courses") scrollToElement("#Courses", { duration });
+    if (window.location.hash === "#Events") scrollToElement("#Events", { duration });
+    if (window.location.hash === "#Projects") scrollToElement("#Projects", { duration });
   }
 
   goTo(id, done) {
     //console.log('id ', id);
-    scrollToElement(id, {
-      duration: 200
-    });
-    if (done) setTimeout(done, 300);
+    scrollToElement(id, {duration: 500});
+    if (done) setTimeout(done, 700);
   }
 
   render() {
-    let { TeamStore, EventsStore } = this.props;
+    let { TeamStore, EventsStore, CoursesStore, ProjectsStore } = this.props;
     return (
       <div id="main-content">
-        <About onSelect={this.goTo.bind(this)} />
+        <About hoveIndicator={this.goTo.bind(this)} onSelect={this.goTo.bind(this)} />
         <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
-        <Projects />
-        <Courses />
+        <Projects setup={ProjectsStore.setup} data={ProjectsStore.data} />
+        <Courses setup={CoursesStore.setup} data={CoursesStore.data} />
         <Events setup={EventsStore.setup} data={EventsStore.data} />
       </div>
 

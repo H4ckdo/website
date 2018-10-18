@@ -79,6 +79,12 @@ class Header extends React.Component {
                   </li>
                   <li className="appear-bottom">
                     <span>
+                      <div className="menu-text">PROYECTOS</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom">
+                    <span>
                       <div className="menu-text">CURSOS/BOOTCAMPS</div>
                       <div className="bottom-mark"></div>
                     </span>
@@ -89,35 +95,29 @@ class Header extends React.Component {
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom">
-                    <span>
-                      <div className="menu-text">PROYECTOS</div>
-                      <div className="bottom-mark"></div>
-                    </span>
-                  </li>
                 </ul>
               </nav>
 
               <nav className="main-header__desktop">
                 <ul>
-                  <li className="appear-left" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
+                  <li className="" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
                     <span>ARTICULOS</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#KnowUs')}>
+                  <li className="" onClick={this.props.onSelect.bind(this, '#Team')}>
                     <span>EQUIPO</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
+                  <li className="" onClick={this.props.onSelect.bind(this, '#Projects')}>
+                    <span>PROYECTOS</span>
+                    <div className="bottom-mark"></div>
+                  </li>
+                  <li className="" onClick={this.props.onSelect.bind(this, '#Courses')}>
                     <span>CURSOS/BOOTCAMPS</span>
                     <div className="bottom-mark"></div>
                   </li>
-                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Events')}>
+                  <li className="" onClick={this.props.onSelect.bind(this, '#Events')}>
                     <span>EVENTOS</span>
-                    <div className="bottom-mark"></div>
-                  </li>
-                  <li className="appear-left" onClick={this.props.onSelect.bind(this, '#Projects')}>
-                    <span>PROYECTOS</span>
                     <div className="bottom-mark"></div>
                   </li>
                 </ul>

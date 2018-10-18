@@ -5,7 +5,7 @@
   grid-auto-rows: 1fr;
   width: 100%;
   display: grid;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
   .team-title {
     width: 400px;
     height: 100%;
@@ -76,7 +76,8 @@
     margin: 0px;
     padding-top: 30px;
     padding-bottom: 0px;
-    transition: all 0.35s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    transition-delay: 0.5s;
   }
   .team-container__wrap-list {
     display: grid;

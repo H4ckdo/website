@@ -18,7 +18,8 @@ const Team = (state, action = {}) => {
   }
 
   if (type === "SET_DATA_TEAM") {
-    let snapshot = { ...takeSnapshot(state), ...payload  };
+    let snapshot = { ...takeSnapshot(state) };
+    snapshot.data = payload;
     //console.log('snapshot ', snapshot);
     return { ...state, ...snapshot };
   }

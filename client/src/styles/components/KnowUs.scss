@@ -45,11 +45,10 @@
       .member {
         display: grid;
         grid-auto-columns: 1fr;
-        grid-row: 1fr 1fr;
         text-align: center;
         transition: all 0.5s ease-in-out;
-        opacity: 0.5;
         width: 150px;
+        opacity: 0;
         cursor: pointer;
         &:hover {
           opacity: 1;

@@ -5519,7 +5519,9 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   return {
     MainStore: (0, _assign2.default)(store.Main, {}),
     TeamStore: (0, _assign2.default)(store.Team, {}),
-    EventsStore: (0, _assign2.default)(store.Events, {})
+    EventsStore: (0, _assign2.default)(store.Events, {}),
+    CoursesStore: (0, _assign2.default)(store.Courses, {}),
+    ProjectsStore: (0, _assign2.default)(store.Projects, {})
   };
 }), _dec(_class = function (_React$Component) {
   (0, _inherits3.default)(App, _React$Component);
@@ -5532,77 +5534,45 @@ var App = (_dec = (0, _reactRedux.connect)(function (store) {
   (0, _createClass3.default)(App, [{
     key: 'setSelected',
     value: function setSelected(index) {
-      var payload = { selected: index };
-      this.props.dispatch({ type: "SETUP_TEAM", payload: payload });
+      this.props.dispatch({ type: "SETUP_TEAM", payload: { selected: index } });
+      var payload = this.props.TeamStore.data.map(function (item) {
+        return item;
+      });
+      payload[index].displayed = true;
+      this.props.dispatch({ type: "SET_DATA_TEAM", payload: payload });
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (window.location.hash === "#knowus") {
-        (0, _scrollToElement2.default)("#KnowUs", {
-          duration: 200
-        });
-      }
-
-      var TEAM = new ScrollMagic.Controller();
-      var PORTADA = new ScrollMagic.Controller();
-      new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 250, offset: 200 }).setPin("#sectionAbout").on("enter", function () {
-        //console.log("enter");
-        var container = document.querySelector(".wrap-indicator-bottom");
-        if (container) {
-          container.classList.toggle("hidden");
-        }
-      }).on("leave", function () {
-        //console.log("enter");
-        var container = document.querySelector(".wrap-indicator-bottom");
-        if (container) {
-          //container.classList.toggle("hidden");
-        }
-      })
-      //.addIndicators() // add indicators (requires plugin)
-      .addTo(PORTADA);
-
-      new ScrollMagic.Scene({ triggerElement: "#Team", duration: 450, offset: 0 })
-      //.setClassToggle(".team-container", "team-push-down")
-      .on("enter", function () {
-        //console.log("enter");
-        var container = document.querySelector(".team-container");
-        if (container) {
-          container.classList.add("push-up");
-        }
-      }).on("leave", function () {
-        //console.log("leave")
-        var container = document.querySelector(".team-container");
-        if (container) {
-          container.classList.remove("push-up");
-        }
-      })
-      //.addIndicators() // add indicators (requires plugin)
-      .addTo(TEAM);
+      var duration = 500;
+      if (window.location.hash === "#Team") (0, _scrollToElement2.default)("#Team", { duration: duration });
+      if (window.location.hash === "#Courses") (0, _scrollToElement2.default)("#Courses", { duration: duration });
+      if (window.location.hash === "#Events") (0, _scrollToElement2.default)("#Events", { duration: duration });
+      if (window.location.hash === "#Projects") (0, _scrollToElement2.default)("#Projects", { duration: duration });
     }
   }, {
     key: 'goTo',
     value: function goTo(id, done) {
       //console.log('id ', id);
-      (0, _scrollToElement2.default)(id, {
-        duration: 200
-      });
-      if (done) setTimeout(done, 300);
+      (0, _scrollToElement2.default)(id, { duration: 500 });
+      if (done) setTimeout(done, 700);
     }
   }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           TeamStore = _props.TeamStore,
-          EventsStore = _props.EventsStore;
+          EventsStore = _props.EventsStore,
+          CoursesStore = _props.CoursesStore,
+          ProjectsStore = _props.ProjectsStore;
 
       return _react2.default.createElement(
         'div',
         { id: 'main-content' },
-        _react2.default.createElement(_About2.default, { onSelect: this.goTo.bind(this) }),
+        _react2.default.createElement(_About2.default, { hoveIndicator: this.goTo.bind(this), onSelect: this.goTo.bind(this) }),
         _react2.default.createElement(_Team2.default, { setup: TeamStore.setup, data: TeamStore.data, onSelect: this.setSelected.bind(this) }),
-        _react2.default.createElement(_Projects2.default, null),
-        _react2.default.createElement(_Courses2.default, null),
+        _react2.default.createElement(_Projects2.default, { setup: ProjectsStore.setup, data: ProjectsStore.data }),
+        _react2.default.createElement(_Courses2.default, { setup: CoursesStore.setup, data: CoursesStore.data }),
         _react2.default.createElement(_Events2.default, { setup: EventsStore.setup, data: EventsStore.data })
       );
     }
@@ -6032,6 +6002,20 @@ var Header = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'menu-text' },
+                        'PROYECTOS'
+                      ),
+                      _react2.default.createElement('div', { className: 'bottom-mark' })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    { className: 'appear-bottom' },
+                    _react2.default.createElement(
+                      'span',
+                      null,
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'menu-text' },
                         'CURSOS/BOOTCAMPS'
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
@@ -6050,20 +6034,6 @@ var Header = function (_React$Component) {
                       ),
                       _react2.default.createElement('div', { className: 'bottom-mark' })
                     )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    { className: 'appear-bottom' },
-                    _react2.default.createElement(
-                      'span',
-                      null,
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'menu-text' },
-                        'PROYECTOS'
-                      ),
-                      _react2.default.createElement('div', { className: 'bottom-mark' })
-                    )
                   )
                 )
               ),
@@ -6075,7 +6045,7 @@ var Header = function (_React$Component) {
                   null,
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left', onClick: this.goTo.bind(this, "https://medium.com/@Hackdo") },
+                    { className: '', onClick: this.goTo.bind(this, "https://medium.com/@Hackdo") },
                     _react2.default.createElement(
                       'span',
                       null,
@@ -6085,7 +6055,7 @@ var Header = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#KnowUs') },
+                    { className: '', onClick: this.props.onSelect.bind(this, '#Team') },
                     _react2.default.createElement(
                       'span',
                       null,
@@ -6095,7 +6065,17 @@ var Header = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#Projects') },
+                    { className: '', onClick: this.props.onSelect.bind(this, '#Projects') },
+                    _react2.default.createElement(
+                      'span',
+                      null,
+                      'PROYECTOS'
+                    ),
+                    _react2.default.createElement('div', { className: 'bottom-mark' })
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    { className: '', onClick: this.props.onSelect.bind(this, '#Courses') },
                     _react2.default.createElement(
                       'span',
                       null,
@@ -6105,21 +6085,11 @@ var Header = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'li',
-                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#Events') },
+                    { className: '', onClick: this.props.onSelect.bind(this, '#Events') },
                     _react2.default.createElement(
                       'span',
                       null,
                       'EVENTOS'
-                    ),
-                    _react2.default.createElement('div', { className: 'bottom-mark' })
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    { className: 'appear-left', onClick: this.props.onSelect.bind(this, '#Projects') },
-                    _react2.default.createElement(
-                      'span',
-                      null,
-                      'PROYECTOS'
                     ),
                     _react2.default.createElement('div', { className: 'bottom-mark' })
                   )
@@ -6242,9 +6212,19 @@ var About = function (_React$Component) {
       }, 4000);
     }
   }, {
+    key: 'scrollAnimation',
+    value: function scrollAnimation() {
+      var PORTADA = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 100, offset: 200 }).setPin("#sectionAbout")
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(PORTADA);
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.playAnimation();
+      this.scrollAnimation();
     }
   }, {
     key: 'changeLogoState',
@@ -6331,16 +6311,16 @@ var About = function (_React$Component) {
                     )
                   )
                 )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'wrap-indicator-bottom' },
+                _react2.default.createElement(
+                  'i',
+                  { onMouseEnter: this.props.hoveIndicator.bind(this, "#Team"), className: 'material-icons' },
+                  'keyboard_arrow_down'
+                )
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'wrap-indicator-bottom' },
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons' },
-              'keyboard_arrow_down'
             )
           )
         )
@@ -30695,7 +30675,7 @@ var KnowUs = function (_React$Component) {
                 { onMouseEnter: _this2.props.onSelect.bind(_this2, index), key: index },
                 _react2.default.createElement(
                   "div",
-                  { className: "member " + (index === selected ? "member-selected" : "") + " " },
+                  { style: { animationDelay: index / 2 + "s", opacity: item.displayed ? 1 : 0 }, className: "member " + (index === selected ? "member-selected" : "") + " " },
                   _react2.default.createElement("div", { className: "member-image", style: { backgroundImage: "url(" + item.image + ")" } }),
                   _react2.default.createElement(
                     "div",
@@ -30759,9 +30739,17 @@ var _Events = __webpack_require__(250);
 
 var _Events2 = _interopRequireDefault(_Events);
 
+var _Courses = __webpack_require__(254);
+
+var _Courses2 = _interopRequireDefault(_Courses);
+
+var _Projects = __webpack_require__(256);
+
+var _Projects2 = _interopRequireDefault(_Projects);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var initialState = { Main: _Main2.default, Team: _Team2.default, Events: _Events2.default };
+var initialState = { Main: _Main2.default, Team: _Team2.default, Events: _Events2.default, Courses: _Courses2.default, Projects: _Projects2.default };
 
 function generateStore() {
   var preloadState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30803,12 +30791,22 @@ var _Events = __webpack_require__(249);
 
 var _Events2 = _interopRequireDefault(_Events);
 
+var _Courses = __webpack_require__(253);
+
+var _Courses2 = _interopRequireDefault(_Courses);
+
+var _Projects = __webpack_require__(255);
+
+var _Projects2 = _interopRequireDefault(_Projects);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
   Main: _Main2.default,
-  Team: _Team2.default,
-  Events: _Events2.default
+  Courses: _Courses2.default,
+  Projects: _Projects2.default,
+  Events: _Events2.default,
+  Team: _Team2.default
 });
 
 /***/ }),
@@ -33119,6 +33117,44 @@ var Team = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Team, [{
+    key: 'scrollAnimation',
+    value: function scrollAnimation() {
+      var displayed = false;
+      var TEAM = new ScrollMagic.Controller();
+      new ScrollMagic.Scene({ triggerElement: "#Team", duration: "#Projects", offset: -150 })
+      //.setClassToggle("#Team", "hidden")
+      .on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Team").classList.remove("hidden");
+        var container = document.querySelector(".know-us-container");
+        var teamContainer = document.querySelector(".team-container");
+        if (container && teamContainer) {
+          teamContainer.classList.add("push-up");
+          if (displayed) return;
+          container.querySelectorAll(".member").forEach(function (item, index) {
+            if (index === 0) return;
+            item.classList.add("appear");
+          });
+          displayed = true;
+        }
+      }).on("leave", function () {
+        document.getElementById("Team").classList.add("hidden");
+        //console.log("leave")
+        var container = document.querySelector(".know-us-container");
+        var teamContainer = document.querySelector(".team-container");
+        if (container && teamContainer) {
+          teamContainer.classList.remove("push-up");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(TEAM);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -33128,7 +33164,7 @@ var Team = function (_React$Component) {
       var selected = data[setup.selected];
       return _react2.default.createElement(
         'section',
-        { id: 'Team' },
+        { id: 'Team', className: 'hidden' },
         _react2.default.createElement(
           'article',
           { className: 'team-title' },
@@ -33168,7 +33204,7 @@ var Team = function (_React$Component) {
         ),
         _react2.default.createElement(
           'article',
-          { className: 'team-container team-push-down' },
+          { className: 'team-container' },
           _react2.default.createElement(
             'div',
             { className: 'team-container__wrap-list' },
@@ -33266,13 +33302,43 @@ var Projects = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Projects, [{
+    key: "scrollAnimation",
+    value: function scrollAnimation() {
+      var PROYECT = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#Projects", duration: "#Courses", offset: -200 }).on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Projects").classList.remove("hidden");
+        var container = document.querySelector(".wrap-projects__unactive");
+        if (container) {
+          container.classList.add("push-up");
+        }
+      }).on("leave", function () {
+        //console.log("leave")
+        document.getElementById("Projects").classList.add("hidden");
+        var container = document.querySelector(".wrap-projects__unactive");
+        if (container) {
+          container.classList.remove("push-up");
+        }
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(PROYECT);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: "render",
     value: function render() {
-      var data = this.state.data;
+      var _props = this.props,
+          data = _props.data,
+          setup = _props.setup;
 
       return _react2.default.createElement(
         "section",
-        { id: "Projects" },
+        { id: "Projects", className: "hidden" },
         _react2.default.createElement(
           "article",
           { className: "wrap-project-aside" },
@@ -33291,60 +33357,35 @@ var Projects = function (_React$Component) {
             _react2.default.createElement(
               "ul",
               null,
-              _react2.default.createElement(
-                "li",
-                { className: "wrap-projects__unactive-item" },
-                _react2.default.createElement(
-                  "div",
-                  { className: "wrap-projects__unactive-item-image" },
+              data.map(function (project, index) {
+                return _react2.default.createElement(
+                  "li",
+                  { className: "wrap-projects__unactive-item", key: index },
                   _react2.default.createElement(
-                    "span",
-                    { className: "wrap-projects__unactive-item-image__tag" },
-                    "CURSO"
-                  )
-                ),
-                _react2.default.createElement(
-                  "div",
-                  { className: "wrap-projects__unactive-item-content" },
-                  _react2.default.createElement(
-                    "span",
-                    { className: "wrap-projects__unactive-item-name" },
-                    "SEMANA DE JAVASCRIPT"
+                    "div",
+                    { className: "wrap-projects__unactive-item-image" },
+                    _react2.default.createElement(
+                      "span",
+                      { className: "wrap-projects__unactive-item-image__tag" },
+                      project.type
+                    )
                   ),
                   _react2.default.createElement(
-                    "p",
-                    { className: "wrap-projects__unactive-item-text" },
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur"
+                    "div",
+                    { className: "wrap-projects__unactive-item-content" },
+                    _react2.default.createElement(
+                      "span",
+                      { className: "wrap-projects__unactive-item-name" },
+                      project.title
+                    ),
+                    _react2.default.createElement(
+                      "p",
+                      { className: "wrap-projects__unactive-item-text" },
+                      project.text
+                    )
                   )
-                )
-              ),
-              _react2.default.createElement(
-                "li",
-                { className: "wrap-projects__unactive-item" },
-                _react2.default.createElement(
-                  "div",
-                  { className: "wrap-projects__unactive-item-image" },
-                  _react2.default.createElement(
-                    "span",
-                    { className: "wrap-projects__unactive-item-image__tag" },
-                    "MVP"
-                  )
-                ),
-                _react2.default.createElement(
-                  "div",
-                  { className: "wrap-projects__unactive-item-content" },
-                  _react2.default.createElement(
-                    "span",
-                    { className: "wrap-projects__unactive-item-name" },
-                    "OHSENSE"
-                  ),
-                  _react2.default.createElement(
-                    "p",
-                    { className: "wrap-projects__unactive-item-text" },
-                    "Aplicaci\xF3n de comunicaci\xF3n en tiempo para sordos y el resto de la humanidad."
-                  )
-                )
-              )
+                );
+              })
             )
           )
         )
@@ -33414,6 +33455,26 @@ var Events = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Events, [{
+    key: 'scrollAnimation',
+    value: function scrollAnimation() {
+      var EVENTS = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#Events", duration: 600, offset: -200 }).on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Events").classList.remove("hidden");
+      }).on("leave", function () {
+        //console.log("leave")
+        document.getElementById("Events").classList.add("hidden");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(EVENTS);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -33429,7 +33490,7 @@ var Events = function (_React$Component) {
 
       return _react2.default.createElement(
         'section',
-        { id: 'Events' },
+        { id: 'Events', className: 'hidden' },
         _react2.default.createElement(
           'article',
           { className: 'wrap-events-aside' },
@@ -33588,7 +33649,8 @@ var Team = function Team(state) {
   }
 
   if (type === "SET_DATA_TEAM") {
-    var _snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    var _snapshot = (0, _assign2.default)({}, takeSnapshot(state));
+    _snapshot.data = payload;
     //console.log('snapshot ', snapshot);
     return (0, _assign2.default)({}, state, _snapshot);
   }
@@ -33616,32 +33678,38 @@ exports.default = {
     name: "Fredy Enrique Andrade",
     status: "PRESIDENTE",
     image: "/assets/images/member_5.jpg",
-    bio: "Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor"
+    bio: "Founder of @H4ckdo + @Quibdojs Javascript full stack developer. I write about programming, art, Traditional Animation and Watercolor",
+    displayed: true
   }, {
     name: "Luis Fernando Moreno",
     status: "LÍDER ACADÉMICO Y DE DESARROLLO DE CONTENIDOS.",
     image: "/assets/images/member_6.jpg",
-    bio: "#Researcher | #Engineer | #SoftwareDeveloper | #Teacher | fdomoreno.com"
+    bio: "#Researcher | #Engineer | #SoftwareDeveloper | #Teacher | fdomoreno.com",
+    displayed: false
   }, {
     name: "Miguel Casas Perea",
     status: "VOCAL",
     bio: "DEVELOPER POR PASION #Researcher | #Engineer | #SoftwareDeveloper | #HackerPorPasion",
-    image: "/assets/images/member_2.jpeg"
+    image: "/assets/images/member_2.jpeg",
+    displayed: false
   }, {
     name: "Luis Delaskar",
     status: "LÍDER SEGURIDAD & BIG DATA",
     image: "/assets/images/member_3.jpeg",
-    bio: "Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática"
+    bio: "Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática",
+    displayed: false
   }, {
     name: "Yerlin Matu",
     status: "VOCAL",
     image: "/assets/images/member_4.jpeg",
-    bio: "👨🏾‍💻 I'm a cool software developer, Multitalented, self-taught and passionate about technology, graphic arts and free knowledge."
+    bio: "👨🏾‍💻 I'm a cool software developer, Multitalented, self-taught and passionate about technology, graphic arts and free knowledge.",
+    displayed: false
   }, {
     name: "Esneyder Amin Palacios Mena",
     status: "VOCAL",
     image: "/assets/images/member_1.jpeg",
-    bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs"
+    bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs",
+    displayed: false
   }]
 };
 
@@ -33872,11 +33940,39 @@ var Courses = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Courses, [{
+    key: "scrollAnimation",
+    value: function scrollAnimation() {
+      var COURSES = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#Courses", duration: "#Events", offset: -200 }).on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Courses").classList.remove("hidden");
+        document.querySelector(".wrap-courses-content__active").classList.add("push-up");
+        document.querySelector(".wrap-courses-content__before").classList.add("push-up");
+      }).on("leave", function () {
+        //console.log("leave")
+        document.getElementById("Courses").classList.add("hidden");
+        document.querySelector(".wrap-courses-content__active").classList.remove("push-up");
+        document.querySelector(".wrap-courses-content__before").classList.remove("push-up");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(COURSES);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _props = this.props,
+          setup = _props.setup,
+          data = _props.data;
+
       return _react2.default.createElement(
         "section",
-        { id: "Courses" },
+        { id: "Courses", className: "hidden" },
         _react2.default.createElement(
           "article",
           { className: "wrap-courses-aside" },
@@ -33897,21 +33993,31 @@ var Courses = function (_React$Component) {
               { className: "wrap-courses-content__active-title" },
               "ACTIVOS"
             ),
-            _react2.default.createElement(
-              "h2",
-              { className: "wrap-courses-content__active-subtitle" },
-              "DESARROLLO DE PLATAFORMAS WEB."
-            ),
-            _react2.default.createElement(
-              "span",
-              { className: "wrap-courses-content__active-current" },
-              "BOOTCAMP"
-            ),
-            _react2.default.createElement(
-              "p",
-              { className: "wrap-courses-content__active-current-text" },
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?"
-            )
+            data.filter(function (item) {
+              return item.status === "active";
+            }).map(function (course, index) {
+              return _react2.default.createElement(
+                "div",
+                { key: index },
+                _react2.default.createElement(
+                  "h2",
+                  { className: "wrap-courses-content__active-subtitle" },
+                  course.title
+                ),
+                _react2.default.createElement(
+                  "span",
+                  { className: "wrap-courses-content__active-current" },
+                  " ",
+                  course.type === "bootcamp" ? "BOOTCAMP" : "CURSO",
+                  " "
+                ),
+                _react2.default.createElement(
+                  "p",
+                  { className: "wrap-courses-content__active-current-text" },
+                  course.text
+                )
+              );
+            })
           ),
           _react2.default.createElement(
             "div",
@@ -33924,20 +34030,29 @@ var Courses = function (_React$Component) {
             _react2.default.createElement(
               "ul",
               { className: "wrap-courses-content__before-list" },
-              _react2.default.createElement(
-                "li",
-                { className: "wrap-courses-content__before-list__item" },
-                _react2.default.createElement("div", { className: "wrap-courses-content__before-list__item-image" }),
-                _react2.default.createElement(
-                  "div",
-                  { className: "wrap-courses-content__before-list__item-text" },
+              data.filter(function (item) {
+                return item.status === "before";
+              }).map(function (course, index) {
+                return _react2.default.createElement(
+                  "li",
+                  { className: "wrap-courses-content__before-list__item", key: index },
+                  _react2.default.createElement("div", { className: "wrap-courses-content__before-list__item-image" }),
                   _react2.default.createElement(
-                    "p",
-                    null,
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?"
+                    "div",
+                    { className: "wrap-courses-content__before-list__item-text" },
+                    _react2.default.createElement(
+                      "span",
+                      { className: "wrap-courses-content__before-list__item-text__title" },
+                      course.title
+                    ),
+                    _react2.default.createElement(
+                      "p",
+                      null,
+                      course.text
+                    )
                   )
-                )
-              )
+                );
+              })
             )
           )
         )
@@ -33948,6 +34063,138 @@ var Courses = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Courses;
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(62);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var takeSnapshot = function takeSnapshot(state) {
+  return (0, _assign2.default)({}, state);
+};
+
+/**
+ * @function Courses
+ * @param  {type} state   {description}
+ * @param  {type} options {description}
+ * @return {type} {description}
+ */
+var Courses = function Courses(state) {
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var payload = action.payload,
+      type = action.type;
+
+  if (type === "SET_COURSES") {
+    var snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    //console.log('snapshot ', snapshot);
+    return (0, _assign2.default)({}, state, snapshot);
+  }
+  return (0, _assign2.default)({}, state);
+};
+
+exports.default = Courses;
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  setup: {},
+  data: [{
+    title: "SEMANA CSS",
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    status: "before",
+    type: "bootcamp"
+  }, {
+    title: "DESARROLLO DE PLATAFORMAS WEB.",
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    status: "active",
+    type: "course"
+  }]
+};
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(62);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var takeSnapshot = function takeSnapshot(state) {
+  return (0, _assign2.default)({}, state);
+};
+
+/**
+ * @function Projects
+ * @param  {type} state   {description}
+ * @param  {type} options {description}
+ * @return {type} {description}
+ */
+var Projects = function Projects(state) {
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var payload = action.payload,
+      type = action.type;
+
+  if (type === "SET_PROJECTS") {
+    var snapshot = (0, _assign2.default)({}, takeSnapshot(state), payload);
+    //console.log('snapshot ', snapshot);
+    return (0, _assign2.default)({}, state, snapshot);
+  }
+  return (0, _assign2.default)({}, state);
+};
+
+exports.default = Projects;
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  setup: {},
+  data: [{
+    title: "SEMANA DE JAVASCRIPT",
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    type: "CURSO"
+  }, {
+    title: "OHSENSE",
+    text: "Aplicación de comunicación en tiempo para sordos y el resto de la humanidad.",
+    type: "MVP"
+  }]
+};
 
 /***/ })
 /******/ ]);

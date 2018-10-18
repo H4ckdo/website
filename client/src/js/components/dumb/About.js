@@ -47,8 +47,18 @@ class About extends React.Component {
     }, 4000);
   }
 
+  scrollAnimation() {
+    let PORTADA = new ScrollMagic.Controller();
+    let displayed = false;
+    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 100, offset: 200 })
+      .setPin("#sectionAbout")
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(PORTADA)
+  }
+
   componentDidMount() {
     this.playAnimation();
+    this.scrollAnimation();
   }
 
   changeLogoState(hideLogo) {
@@ -87,11 +97,11 @@ class About extends React.Component {
                   </div>
                 </h1>
               </div>
+              <div className="wrap-indicator-bottom" >
+                <i onMouseEnter={this.props.hoveIndicator.bind(this, "#Team")} className="material-icons">keyboard_arrow_down</i>
+              </div>
             </article>
           </section>
-          <div className="wrap-indicator-bottom">
-            <i className="material-icons">keyboard_arrow_down</i>
-          </div>
         </div>
       </div>
     )

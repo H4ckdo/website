@@ -7,6 +7,17 @@
   }
 }
 
+@keyframes disappear-smoothly {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none !important;
+  }
+}
+
+
 @keyframes appear-smoothly-top {
   from {
     top: 20px;
@@ -20,14 +31,26 @@
 
 @keyframes appear-smoothly-bottom {
   from {
-    padding-bottom: 20px;
+    padding-top: 20px;
     opacity: 0;
   }
   to {
-    padding-bottom: 0px;
+    padding-top: 0px;
     opacity: 1;
   }
 }
+
+@keyframes appear-smoothly-top {
+  from {
+    padding-bottom: 0px;
+    opacity: 1;
+  }
+  to {
+    padding-top: 20px;
+    opacity: 0;
+  }
+}
+
 
 @keyframes appear-smoothly-left {
   0% {
@@ -120,20 +143,11 @@
 }
 
 
-@keyframes disappear-smoothly {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    display: none !important;
-  }
-}
 
 .appear {
   animation-name: appear-smoothly;
   animation-duration: .4s;
-  animation-timing-function: ease;
+  animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   opacity: 0;
 }
@@ -147,6 +161,15 @@
 }
 .appear-bottom {
   animation-name: appear-smoothly-bottom;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+}
+
+.appear-top {
+  animation-name: appear-smoothly-top;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;

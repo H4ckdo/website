@@ -8,6 +8,26 @@ class Events extends React.Component {
     this.state = {};
   }
 
+  scrollAnimation() {
+    let EVENTS = new ScrollMagic.Controller();
+    let displayed = false;
+    new ScrollMagic.Scene({ triggerElement: "#Events", duration: 600, offset: -200 })
+      .on("enter", () => {
+        //console.log("enter");
+        document.getElementById("Events").classList.remove("hidden");
+      })
+      .on("leave", () => {
+        //console.log("leave")
+        document.getElementById("Events").classList.add("hidden");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(EVENTS)
+  }
+
+  componentDidMount() {
+    this.scrollAnimation();
+  }
+
   render() {
     let { data, setup } = this.props;
     let current = data[setup.current];
@@ -18,7 +38,7 @@ class Events extends React.Component {
     }
 
     return (
-      <section id="Events">
+      <section id="Events" className="hidden">
         <article className="wrap-events-aside">
           <h1 className="wrap-events-aside__title">EVENTOS</h1>
         </article>

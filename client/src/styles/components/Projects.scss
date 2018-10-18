@@ -4,6 +4,7 @@
   grid-auto-columns: 0fr 1fr;
   grid-auto-rows: 1fr;
   padding: 0px;
+  transition: all 0.25s ease-in-out;
   .wrap-project-aside {
     width: 400px;
     height: 100%;
@@ -43,8 +44,9 @@
       grid-area: 1/1;
       padding-top: 0px;
       padding-left: 30px;
-      padding-top: 20px;
+      padding-top: 25px;
       padding-bottom: 20px;
+      transition: all 0.25s ease-in-out;
       .wrap-projects__unactive-title {
         color: white;
         background: $primary;
@@ -58,7 +60,8 @@
       ul {
         list-style: none;
         margin: 0px;
-        padding: 0px
+        padding: 0px;
+        padding-top: 20px;
       }
       .wrap-projects__unactive-item {
         margin-top: 20px;

@@ -21,7 +21,7 @@ class KnowUs extends React.Component {
               data.map((item, index) => {
                 return (
                   <li onMouseEnter={this.props.onSelect.bind(this, index)} key={index}>
-                    <div className={`member ${index === selected ? "member-selected" : ""} `}>
+                    <div style={{ animationDelay: `${index / 2}s`, opacity: item.displayed ? 1 : 0 }} className={`member ${index === selected ? "member-selected" : ""} `}>
                       <div className="member-image" style={{ backgroundImage: `url(${item.image})` }} ></div>
                       <div className="member-bio">
                         <span className="member-name">{item.name}</span>
