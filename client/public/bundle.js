@@ -33464,7 +33464,7 @@ var Events = function (_React$Component) {
         document.getElementById("Events").classList.remove("hidden");
       }).on("leave", function () {
         //console.log("leave")
-        document.getElementById("Events").classList.add("hidden");
+        //document.getElementById("Events").classList.add("hidden");
       })
       //.addIndicators() // add indicators (requires plugin)
       .addTo(EVENTS);
@@ -34186,6 +34186,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   setup: {},
   data: [{
+    title: "Hackdó Conf 2018",
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    type: "EVENTO"
+  }, {
     title: "SEMANA DE JAVASCRIPT",
     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
     type: "CURSO"
