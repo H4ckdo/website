@@ -44,7 +44,7 @@ class About extends React.Component {
           if (counter === $titles.length - 1) reset = true;
         }, 1000);
       }
-    }, 4000);
+    }, 8000);
   }
 
   scrollAnimation() {
