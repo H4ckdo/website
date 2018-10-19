@@ -4,6 +4,6 @@ module.exports = {
   HOST: 'localhost'/*ip.address()*/,
   URI: false,
   MODEL_START: 'safe',
-  FIXTURES: true,
+  FIXTURES: false,
   SECRET_PUSH_KEY: local.SECRET_PUSH_KEY
 }

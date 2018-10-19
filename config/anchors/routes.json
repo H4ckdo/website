@@ -2,18 +2,8 @@
   "RootController": {
     "GET": [
       {
-        "route": "/sw.js",
-        "handler": "sw"
-      },
-      {
         "route": "/*",
         "handler": "main"
-      }
-    ],
-    "POST": [
-      {
-        "route": "/suscribe",
-        "handler": "suscribe"
       }
     ]
   }
