@@ -20,13 +20,13 @@
   }
   .wrap-courses-content {
     width: 840px;
-    padding-left: 30px;
-    padding-top: 30px;
+    padding-left: 40px;
+    padding-top: 40px;
     padding-bottom: 30px;
     text-align: left;
     display: grid;
     grid-area: 1/2;
-    grid-gap: 20px;
+    grid-gap: 40px;
     grid-auto-columns: 0fr 1fr;
     grid-auto-rows: 1fr;
     .wrap-courses-content__active {

@@ -36,7 +36,7 @@
   transition: all 0.25s ease-in-out;
 }
 .wrap-header {
-  max-width: $large;
+  max-width: $large+100px;
   display: grid;
   grid-template-columns: 0fr 1fr;
   margin: 0 auto;
@@ -75,11 +75,12 @@
           list-style: none;
           display: block;
           margin-right: 0px;
-          font-size: 25px;
+          font-size: 14px;
           border: none;
           font-family: $global-font-title;
-          margin-bottom: 25px;
-          margin-left: 25px;
+          margin-bottom: 0px;
+          margin-top: 25px;
+          margin-left: 12px;
           text-align: left;
           cursor: pointer;
           transition: all 0.25s ease-in-out;
@@ -87,7 +88,7 @@
           top: 0px;
           color: $primary;
           .menu-text {
-            z-index: 100;
+            z-index: 10000 !important;
             position: relative;
           }
           &:hover span {
@@ -114,11 +115,12 @@
         li {
           list-style: none;
           display: inline-block;
-          margin-right: 0px;
-          font-size: 18px;
+          font-size: 14px;
           border: none;
           font-family: $global-font-title;
-          margin-right: 25px;
+          margin-right: 15px;
+          margin-bottom: 0px;
+          margin-top: 25px;
           cursor: pointer;
           transition: all 0.25s ease-in-out;
           position: relative;
@@ -133,13 +135,14 @@
           &:hover span {
             color: $third;
             position: relative;
-            z-index: 1;
+            z-index: 10000;
           }
           &:hover .bottom-mark {
             width: 80%;
             height: 8px;
             top: -5px !important;
             background: transparent;
+            z-index: -1;
           }
         }
       }

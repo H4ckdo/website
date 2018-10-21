@@ -16,14 +16,15 @@
   top: 0px;
   margin: 0px auto;
   padding: 20px;
+  padding-bottom: 50px;
   .wrap-gallery__tag {
     font-size: 30px;
     font-family: $global-font-title;
-    background: $primary;
-    color: #fff;
+    background: $fifth;
+    color: $primary;
     width: 250px;
     padding: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
   }
 }
 

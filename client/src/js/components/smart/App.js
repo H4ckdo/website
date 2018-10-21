@@ -10,6 +10,10 @@ import Team from '../dumb/Team.js'
 import Projects from '../dumb/Projects.js'
 import Events from '../dumb/Events.js'
 import Courses from '../dumb/Courses.js'
+import Foundation from '../dumb/Foundation.js'
+import Sponsors from '../dumb/Sponsors.js'
+import Thanks from '../dumb/Thanks.js'
+import Footer from '../dumb/Footer.js'
 import scrollToElement from 'scroll-to-element'
 
 @connect(store => {
@@ -52,10 +56,14 @@ class App extends React.Component {
     return (
       <div id="main-content">
         <About hoveIndicator={this.goTo.bind(this)} onSelect={this.goTo.bind(this)} />
-        <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
+        <Foundation/>
         <Projects setup={ProjectsStore.setup} data={ProjectsStore.data} />
         <Courses setup={CoursesStore.setup} data={CoursesStore.data} />
         <Events setup={EventsStore.setup} data={EventsStore.data} />
+        <Sponsors/>
+        <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
+        <Thanks/>
+        <Footer/>
       </div>
 
     )

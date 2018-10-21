@@ -73,7 +73,7 @@ class Header extends React.Component {
                   </li>
                   <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#KnowUs', this.closeMenu.bind(this))}>
                     <span>
-                      <div className="menu-text">EQUIPO</div>
+                      <div className="menu-text">FUNDACION</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
@@ -95,30 +95,83 @@ class Header extends React.Component {
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
+                  <li className="appear-bottom">
+                    <span>
+                      <div className="menu-text">PATROCINADORES</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom">
+                    <span>
+                      <div className="menu-text">EQUIPO</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom">
+                    <span>
+                      <div className="menu-text">AGRADECIMIENTOS </div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
                 </ul>
               </nav>
 
               <nav className="main-header__desktop">
                 <ul>
-                  <li className="" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
-                    <span>ARTICULOS</span>
-                    <div className="bottom-mark"></div>
+                  <li className="appear-bottom" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
+                    <span>
+                      <div className="menu-text">ARTICULOS</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+
                   </li>
-                  <li className="" onClick={this.props.onSelect.bind(this, '#Team')}>
-                    <span>EQUIPO</span>
-                    <div className="bottom-mark"></div>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Foundation', this.closeMenu.bind(this))}>
+                    <span>
+                      <div className="menu-text">FUNDACIÓN</div>
+                      <div className="bottom-mark"></div>
+                    </span>
                   </li>
-                  <li className="" onClick={this.props.onSelect.bind(this, '#Projects')}>
-                    <span>PROYECTOS</span>
-                    <div className="bottom-mark"></div>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Projects')}>
+                    <span>
+                      <div className="menu-text">PROYECTOS</div>
+                      <div className="bottom-mark"></div>
+                    </span>
                   </li>
-                  <li className="" onClick={this.props.onSelect.bind(this, '#Courses')}>
-                    <span>CURSOS/BOOTCAMPS</span>
-                    <div className="bottom-mark"></div>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Courses')}>
+                    <span>
+                      <div className="menu-text">CURSOS</div>
+                      <div className="bottom-mark"></div>
+                    </span>
                   </li>
-                  <li className="" onClick={this.props.onSelect.bind(this, '#Events')}>
-                    <span>EVENTOS</span>
-                    <div className="bottom-mark"></div>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Events')}>
+                    <span>
+                      <div className="menu-text">EVENTOS</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Sponsors')}>
+                    <span>
+                      <div className="menu-text">PATROCINADORES</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Team')}>
+                    <span>
+                      <div className="menu-text">EQUIPO</div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Thanks')}>
+                    <span>
+                      <div className="menu-text">AGRADECIMIENTOS </div>
+                      <div className="bottom-mark"></div>
+                    </span>
+                  </li>
+                  <li className="appear-bottom">
+                    <span>
+                      <div className="menu-text">LEGAL </div>
+                      <div className="bottom-mark"></div>
+                    </span>
                   </li>
                 </ul>
               </nav>

@@ -10,7 +10,7 @@ class Gallery extends React.Component {
   render() {
     const responsive = {
       1300: {
-        items: 3,
+        items: 2,
         stagePadding: {
           paddingLeft: 0,
           paddingRight: 0

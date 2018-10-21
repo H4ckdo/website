@@ -36,8 +36,8 @@
       display: grid;
       grid-auto-columns: 0fr 1fr;
       padding: 20px;
-      padding-left: 30px;
-      padding-top: 30px;
+      padding-left: 45px;
+      padding-top: 45px;
       .wrap-events__content__about {
         grid-area: 1/2;
         .wrap-events__content__about__register {
@@ -114,8 +114,8 @@
   width: 840px;
   height: 100%;
   grid-area: 1/2;
-  padding-top: 20px;
-  padding-left: 30px;
+  padding-top: 40px;
+  padding-left: 40px;
   .wrap-events__content-before-title {
     font-size: 30px;
     font-family: $global-font-title;
@@ -124,9 +124,10 @@
     width: 240px;
     padding: 8px;
     margin-top: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
   }
   .wrap-events__content-before__gallery {
+    width: 99%;
     .wrap-events__content-before__gallery__content {
       width: auto;
       height: auto;

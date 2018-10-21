@@ -98,7 +98,7 @@ class About extends React.Component {
                 </h1>
               </div>
               <div className="wrap-indicator-bottom" >
-                <i onMouseEnter={this.props.hoveIndicator.bind(this, "#Team")} className="material-icons">keyboard_arrow_down</i>
+                <i onMouseEnter={this.props.hoveIndicator.bind(this, "#Foundation")} className="material-icons">keyboard_arrow_down</i>
               </div>
             </article>
           </section>

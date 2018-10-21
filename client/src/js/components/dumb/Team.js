@@ -51,20 +51,6 @@ class Team extends React.Component {
       <section id="Team" className="hidden">
         <article className="team-title">
           <h1 className="team-container__title">EQUIPO HACKDÓ</h1>
-          <div className="wrap-mision">
-            <h1 className="wrap-mision__title">MISION</h1>
-            <p className="wrap-mision__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, beatae sequi ducimus distinctio ipsa consectetur, ipsum assumenda dolor aperiam iure nemo iste dicta corrupti eveniet quos laborum nisi tempora ad?
-            </p>
-          </div>
-
-          <div className="wrap-vision">
-            <h1 className="wrap-vision__title">VISION</h1>
-            <p className="wrap-vision__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, beatae sequi ducimus distinctio ipsa consectetur, ipsum assumenda dolor aperiam iure nemo iste dicta corrupti eveniet quos laborum nisi tempora ad?
-            </p>
-          </div>
-
         </article>
         <article className="team-container">
           <div className="team-container__wrap-list">
