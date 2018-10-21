@@ -19,3 +19,16 @@ yarn dev
 ``
 yarn dev:watch
 ``
+
+# Nota
+El codigo del frontend esta en la siguiente ruta:
+
+## javascript
+``
+/client/src/js
+``
+
+# Css
+``
+/client/src/styles
+``
