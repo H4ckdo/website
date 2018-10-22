@@ -29,7 +29,7 @@ export default {
       name: "Luis Delaskar",
       status: "LÍDER SEGURIDAD & BIG DATA",
       image: "/assets/images/member_3.jpeg",
-      bio: "Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática",
+      bio: "Ingeniero Teleinformático Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática",
       displayed: false
     },
     {
@@ -43,7 +43,7 @@ export default {
       name: "Esneyder Amin Palacios Mena",
       status: "VOCAL",
       image: "/assets/images/member_1.jpeg",
-      bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs",
+      bio: "Estudiante de ingenieria de sistemas, desarrollador full stack javascript ‍💻, miembro fundador y contribuidor en la fundación Hackdó y Quibdojs",
       displayed: false
     }
   ]

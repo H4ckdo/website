@@ -16,6 +16,28 @@ class Sponsors extends React.Component {
     super();
   }
 
+  scrollAnimation() {
+    let SPONSORS = new ScrollMagic.Controller();
+    let displayed = false;
+    new ScrollMagic.Scene({ triggerElement: "#Sponsors", duration: "#Team", offset: -200 })
+      .on("enter", () => {
+        //console.log("enter");
+        document.getElementById("Sponsors").classList.remove("hidden");
+        document.querySelector(".wrap-sponsors").classList.add("push-up");
+      })
+      .on("leave", () => {
+        //console.log("leave")
+        document.getElementById("Sponsors").classList.add("hidden");
+        document.querySelector(".wrap-sponsors").classList.remove("push-up");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(SPONSORS)
+  }
+
+  componentDidMount() {
+    this.scrollAnimation();
+  }
+
   join() {
     //window.location.href = 'https://goo.gl/forms/fABJGuh1bqm3Ua5g2';
     window.open("https://goo.gl/forms/fABJGuh1bqm3Ua5g2");
@@ -23,7 +45,7 @@ class Sponsors extends React.Component {
 
   render() {
     return (
-      <section id="Sponsors">
+      <section id="Sponsors" className="hidden">
         <aside className="sponsors_aside">
           <h1 >SPONSORS</h1>
         </aside>

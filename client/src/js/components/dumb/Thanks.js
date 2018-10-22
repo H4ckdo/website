@@ -177,10 +177,34 @@ class Thanks extends React.Component {
       ]
     }
   }
+
+
+  scrollAnimation() {
+    let SPONSORS = new ScrollMagic.Controller();
+    let displayed = false;
+    new ScrollMagic.Scene({ triggerElement: "#Thanks", duration: "#Footer", offset: -200 })
+      .on("enter", () => {
+        //console.log("enter");
+        document.getElementById("Thanks").classList.remove("hidden");
+        document.querySelector(".wrap-team").classList.add("push-up");
+      })
+      .on("leave", () => {
+        //console.log("leave")
+        document.getElementById("Thanks").classList.add("hidden");
+        document.querySelector(".wrap-team").classList.remove("push-up");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(SPONSORS)
+  }
+
+  componentDidMount() {
+    this.scrollAnimation();
+  }
+
   render() {
     let { heroes, voluntarios } = this.state;
     return (
-      <section id="Thanks">
+      <section id="Thanks" className="hidden">
         <aside className="thanks-aside">
           <h1>AGRADECIMIENTOS ESPECIALES</h1>
         </aside>
@@ -189,7 +213,7 @@ class Thanks extends React.Component {
           <section className="section-team">
             <article className="section-team__article">
               <p className="section-team__article__copy">
-                <b>Gracias</b> a estos héroes sin capa 💖.
+                <b>Muchas Gracias</b> a estos héroes por contribuir con a la causa de la fundación.
             </p>
               <div className="section-team__article__members">
                 <ol className="section-team__article__members__wrap-items">

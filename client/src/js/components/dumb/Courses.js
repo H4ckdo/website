@@ -61,7 +61,7 @@ class Courses extends React.Component {
                 data.filter(item => item.status === "before").map((course, index) => {
                   return (
                     <li className="wrap-courses-content__before-list__item" key={index}>
-                      <div className="wrap-courses-content__before-list__item-image"></div>
+                      <div className="wrap-courses-content__before-list__item-image" style={{backgroundImage: `url(${course.image})`}}></div>
                       <div className="wrap-courses-content__before-list__item-text">
                         <span className="wrap-courses-content__before-list__item-text__title">{course.title}</span>
                         <p>{course.text}</p>

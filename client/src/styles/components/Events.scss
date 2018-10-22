@@ -26,6 +26,8 @@
     height: auto;
     grid-area: 1/2;
     background: whitesmoke;
+    padding-top: 30px;
+    transition: all 0.25s ease-in-out;
     .wrap-events__title {
       font-size: 57px;
       font-family: $global-font-title;
@@ -154,8 +156,8 @@
         }
       }
       .wrap-events__content-before__gallery__content__image {
-        width: 150px;
-        height: 140px;
+        width: 200px;
+        height: 180px;
         background-size: cover;
         background-position: 50%;
         background-repeat: no-repeat;

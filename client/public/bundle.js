@@ -33472,12 +33472,16 @@ var Projects = function (_React$Component) {
                   "li",
                   { className: "wrap-projects__unactive-item", key: index },
                   _react2.default.createElement(
-                    "div",
-                    { className: "wrap-projects__unactive-item-image" },
+                    "a",
+                    { href: project.link || "#", target: "_blank" },
                     _react2.default.createElement(
-                      "span",
-                      { className: "wrap-projects__unactive-item-image__tag" },
-                      project.type
+                      "div",
+                      { className: "wrap-projects__unactive-item-image", style: { backgroundImage: "url(" + project.image + ")" } },
+                      _react2.default.createElement(
+                        "span",
+                        { className: "wrap-projects__unactive-item-image__tag" },
+                        project.type
+                      )
                     )
                   ),
                   _react2.default.createElement(
@@ -33569,12 +33573,14 @@ var Events = function (_React$Component) {
     value: function scrollAnimation() {
       var EVENTS = new ScrollMagic.Controller();
       var displayed = false;
-      new ScrollMagic.Scene({ triggerElement: "#Events", duration: 600, offset: -200 }).on("enter", function () {
+      new ScrollMagic.Scene({ triggerElement: "#Events", duration: "#Sponsors", offset: -200 }).on("enter", function () {
         //console.log("enter");
         document.getElementById("Events").classList.remove("hidden");
+        document.querySelector(".wrap-events").classList.add("push-up");
       }).on("leave", function () {
         //console.log("leave")
-        //document.getElementById("Events").classList.add("hidden");
+        document.getElementById("Events").classList.add("hidden");
+        document.querySelector(".wrap-events").classList.remove("push-up");
       })
       //.addIndicators() // add indicators (requires plugin)
       .addTo(EVENTS);
@@ -33806,7 +33812,7 @@ exports.default = {
     name: "Luis Delaskar",
     status: "LÍDER SEGURIDAD & BIG DATA",
     image: "/assets/images/member_3.jpeg",
-    bio: "Ingeniero Teleinformático. Estudiante de Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática",
+    bio: "Ingeniero Teleinformático Máster en BigData Co-Autor proy. Sembrando Seguridad TIC. Amante al Ethical Hacking y Legislación informática",
     displayed: false
   }, {
     name: "Yerlin Matu",
@@ -33818,7 +33824,7 @@ exports.default = {
     name: "Esneyder Amin Palacios Mena",
     status: "VOCAL",
     image: "/assets/images/member_1.jpeg",
-    bio: "Full stack javascript developer ‍💻, member founder and contributor at @H4ckdo and @quibdojs",
+    bio: "Estudiante de ingenieria de sistemas, desarrollador full stack javascript ‍💻, miembro fundador y contribuidor en la fundación Hackdó y Quibdojs",
     displayed: false
   }]
 };
@@ -33885,15 +33891,13 @@ exports.default = {
     image: "/assets/images/member_5.jpg",
     text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus tenetur architecto"
   }, {
-    speaker: { name: "FREDY MENA ANDRADE", image: "/assets/images/member_5.jpg" },
     title: "HACKATHON DE ROBOTICA",
-    image: "/assets/images/member_5.jpg",
+    image: "/assets/images/robotica.jpg",
     text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus tenetur architecto"
   }, {
-    speaker: { name: "FREDY MENA ANDRADE", image: "/assets/images/member_5.jpg" },
     title: "HACKADÓ CONF",
-    image: "/assets/images/member_5.jpg",
-    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ducimus laboriosam ullam, minus"
+    image: "/assets/images/portada.webp",
+    text: "Hackdó Conf, es el evento gratuito anual llevado a cabo por la Hackdó Foundation y Partners, que reúne a entusiasta emprendedores y desarrolladores durante tres días en la ciudad de Quibdó."
   }]
 };
 
@@ -33984,12 +33988,32 @@ var Gallery = function (_React$Component) {
           React.createElement(
             'div',
             { className: 'wrap-image' },
-            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/bootcamp.jpg)' } })
           ),
           React.createElement(
             'div',
             { className: 'wrap-image' },
-            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/portada.jpg)' } })
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/hackdoconf.jpg)' } })
+          ),
+          React.createElement(
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/quibdojs.jpg)' } })
+          ),
+          React.createElement(
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/hackdoconf-2.jpg)' } })
+          ),
+          React.createElement(
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/hackdoconf-3.jpg)' } })
+          ),
+          React.createElement(
+            'div',
+            { className: 'wrap-image' },
+            React.createElement('div', { className: 'wrap-image__image', style: { backgroundImage: 'url(/assets/images/hackdoconf-4.jpg)' } })
           )
         )
       );
@@ -34146,7 +34170,7 @@ var Courses = function (_React$Component) {
                 return _react2.default.createElement(
                   "li",
                   { className: "wrap-courses-content__before-list__item", key: index },
-                  _react2.default.createElement("div", { className: "wrap-courses-content__before-list__item-image" }),
+                  _react2.default.createElement("div", { className: "wrap-courses-content__before-list__item-image", style: { backgroundImage: "url(" + course.image + ")" } }),
                   _react2.default.createElement(
                     "div",
                     { className: "wrap-courses-content__before-list__item-text" },
@@ -34230,12 +34254,13 @@ exports.default = {
   setup: {},
   data: [{
     title: "SEMANA CSS",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    text: "La semana css es una dinamica de enseñanza del lenguaje de estilos css en la ciudad de Quibdó.",
     status: "before",
-    type: "bootcamp"
+    type: "bootcamp",
+    image: "/assets/images/quibdojs.jpg"
   }, {
     title: "DESARROLLO DE PLATAFORMAS WEB.",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    text: "Our first Developer Bootcamp for free! It is focus in #Nodejs and #Reactjs and it will goes until January 2019. We will need a lot of help for communities aroud Colombia and the world. Soon we will telling you more about it.",
     status: "active",
     type: "course"
   }]
@@ -34297,16 +34322,22 @@ exports.default = {
   setup: {},
   data: [{
     title: "Hackdó Conf",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
-    type: "EVENTO"
+    image: "/assets/images/portada.webp",
+    text: "Hackdó Conf, es el evento gratuito anual llevado a cabo por la Hackdó Foundation y Partners, que reúne a entusiasta emprendedores y desarrolladores durante tres días en la ciudad de Quibdó.",
+    type: "EVENTO",
+    link: "https://www.hackdoconf.co/"
   }, {
     title: "SEMANA DE JAVASCRIPT",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid natus voluptates nihil voluptatum adipisci rerum, saepe voluptatibus, aut consectetur magnam nisi qui perspiciatis accusamus labore cupiditate sequi explicabo porro exercitationem?",
+    image: "/assets/images/semana-js.jpg",
+    text: "La semana Javascript con la comunidad @QuibdoJs esta es una dinamica de enseñanza del lenguaje de programacion javascript en la ciudad de Quibdó.",
+    link: "https://twitter.com/H4ckdo/status/1013880261791150081",
     type: "CURSO"
   }, {
     title: "OHSENSE",
+    image: "/assets/images/logo.png",
     text: "Aplicación de comunicación en tiempo para sordos y el resto de la humanidad.",
-    type: "MVP"
+    type: "MVP",
+    link: "#"
   }]
 };
 
@@ -34540,6 +34571,28 @@ var Sponsors = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Sponsors, [{
+    key: 'scrollAnimation',
+    value: function scrollAnimation() {
+      var SPONSORS = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#Sponsors", duration: "#Team", offset: -200 }).on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Sponsors").classList.remove("hidden");
+        document.querySelector(".wrap-sponsors").classList.add("push-up");
+      }).on("leave", function () {
+        //console.log("leave")
+        document.getElementById("Sponsors").classList.add("hidden");
+        document.querySelector(".wrap-sponsors").classList.remove("push-up");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(SPONSORS);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: 'join',
     value: function join() {
       //window.location.href = 'https://goo.gl/forms/fABJGuh1bqm3Ua5g2';
@@ -34550,7 +34603,7 @@ var Sponsors = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'section',
-        { id: 'Sponsors' },
+        { id: 'Sponsors', className: 'hidden' },
         _react2.default.createElement(
           'aside',
           { className: 'sponsors_aside' },
@@ -35093,6 +35146,28 @@ var Thanks = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Thanks, [{
+    key: 'scrollAnimation',
+    value: function scrollAnimation() {
+      var SPONSORS = new ScrollMagic.Controller();
+      var displayed = false;
+      new ScrollMagic.Scene({ triggerElement: "#Thanks", duration: "#Footer", offset: -200 }).on("enter", function () {
+        //console.log("enter");
+        document.getElementById("Thanks").classList.remove("hidden");
+        document.querySelector(".wrap-team").classList.add("push-up");
+      }).on("leave", function () {
+        //console.log("leave")
+        document.getElementById("Thanks").classList.add("hidden");
+        document.querySelector(".wrap-team").classList.remove("push-up");
+      })
+      //.addIndicators() // add indicators (requires plugin)
+      .addTo(SPONSORS);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollAnimation();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _state = this.state,
@@ -35101,7 +35176,7 @@ var Thanks = function (_React$Component) {
 
       return _react2.default.createElement(
         'section',
-        { id: 'Thanks' },
+        { id: 'Thanks', className: 'hidden' },
         _react2.default.createElement(
           'aside',
           { className: 'thanks-aside' },
@@ -35126,9 +35201,9 @@ var Thanks = function (_React$Component) {
                 _react2.default.createElement(
                   'b',
                   null,
-                  'Gracias'
+                  'Muchas Gracias'
                 ),
-                ' a estos h\xE9roes sin capa \uD83D\uDC96.'
+                ' a estos h\xE9roes por contribuir con a la causa de la fundaci\xF3n.'
               ),
               _react2.default.createElement(
                 'div',

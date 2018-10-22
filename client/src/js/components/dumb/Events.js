@@ -11,14 +11,16 @@ class Events extends React.Component {
   scrollAnimation() {
     let EVENTS = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#Events", duration: 600, offset: -200 })
+    new ScrollMagic.Scene({ triggerElement: "#Events", duration: "#Sponsors", offset: -200 })
       .on("enter", () => {
         //console.log("enter");
         document.getElementById("Events").classList.remove("hidden");
+        document.querySelector(".wrap-events").classList.add("push-up");
       })
       .on("leave", () => {
         //console.log("leave")
-        //document.getElementById("Events").classList.add("hidden");
+        document.getElementById("Events").classList.add("hidden");
+        document.querySelector(".wrap-events").classList.remove("push-up");
       })
       //.addIndicators() // add indicators (requires plugin)
       .addTo(EVENTS)

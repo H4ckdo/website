@@ -49,9 +49,11 @@ class Projects extends React.Component {
                 data.map((project, index) => {
                   return (
                     <li className="wrap-projects__unactive-item" key={index}>
-                      <div className="wrap-projects__unactive-item-image">
-                        <span className="wrap-projects__unactive-item-image__tag">{project.type}</span>
-                      </div>
+                      <a href={project.link || "#"} target="_blank">
+                        <div className="wrap-projects__unactive-item-image" style={{ backgroundImage: `url(${project.image})`}}>
+                          <span className="wrap-projects__unactive-item-image__tag">{project.type}</span>
+                        </div>
+                      </a>
                       <div className="wrap-projects__unactive-item-content">
                         <span className="wrap-projects__unactive-item-name">{project.title}</span>
                         <p className="wrap-projects__unactive-item-text">{project.text}</p>

@@ -98,7 +98,9 @@
         .wrap-courses-content__before-list__item-image {
           width: 200px;
           height: 150px;
-          background: $fourth;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           grid-area: 1/1;
         }
         .wrap-courses-content__before-list__item-text {
