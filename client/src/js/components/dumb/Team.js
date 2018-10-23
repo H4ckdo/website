@@ -10,7 +10,16 @@ class Team extends React.Component {
   scrollAnimation() {
     let displayed = false;
     let TEAM = new ScrollMagic.Controller();
-    new ScrollMagic.Scene({ triggerElement: "#Team", duration: "#Projects", offset: -150 })
+    new ScrollMagic.Scene({ triggerElement: "#Team", duration: "100%", offset: 0 })
+      .on("enter leave", (e) => {
+        if (e.type === "enter") {
+          this.props.selectHeader("Team");
+        }
+      })
+      //.addIndicators()
+      .addTo(TEAM)
+
+    new ScrollMagic.Scene({ triggerElement: "#Team", duration: "#Projects", offset: -290 })
       //.setClassToggle("#Team", "hidden")
       .on("enter", () => {
         //console.log("enter");
@@ -41,7 +50,7 @@ class Team extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollAnimation();
+    window.addEventListener("load", () => this.scrollAnimation());
   }
 
   render() {
@@ -51,6 +60,9 @@ class Team extends React.Component {
       <section id="Team" className="hidden">
         <article className="team-title">
           <h1 className="team-container__title">EQUIPO HACKDÓ</h1>
+          <p className="team-container__text">
+            Nuestro equipo suma más de 5 años de experiencia en proyectos TIC’s, con talentos en diversas disciplinas como: IOT(Internet de las cosas), Desarrollo de Software, creación de comunidades tecnológicas, construcción de MVP’s, Seguridad Informática, Inteligencia Artificial, Desarrollo de Videojuegos y Experiencias Interactivas.
+          </p>
         </article>
         <article className="team-container">
           <div className="team-container__wrap-list">

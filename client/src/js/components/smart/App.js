@@ -47,23 +47,23 @@ class App extends React.Component {
 
   goTo(id, done) {
     //console.log('id ', id);
-    scrollToElement(id, {duration: 500, offset: -92 });
+    scrollToElement(id, { duration: 500, offset: -92 });
     if (done) setTimeout(done, 700);
   }
 
   render() {
-    let { TeamStore, EventsStore, CoursesStore, ProjectsStore } = this.props;
+    let { TeamStore, EventsStore, MainStore, CoursesStore, ProjectsStore } = this.props;
     return (
       <div id="main-content">
-        <About hoveIndicator={this.goTo.bind(this)} onSelect={this.goTo.bind(this)} />
-        <Foundation/>
-        <Projects setup={ProjectsStore.setup} data={ProjectsStore.data} />
-        <Courses setup={CoursesStore.setup} data={CoursesStore.data} />
-        <Events setup={EventsStore.setup} data={EventsStore.data} />
-        <Sponsors/>
-        <Team setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
-        <Thanks/>
-        <Footer/>
+        <About selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} setup={MainStore.setup} hoveIndicator={this.goTo.bind(this)} onSelect={this.goTo.bind(this)} />
+        <Foundation selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} />
+        <Projects selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} setup={ProjectsStore.setup} data={ProjectsStore.data} />
+        <Courses selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} setup={CoursesStore.setup} data={CoursesStore.data} />
+        <Events selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} setup={EventsStore.setup} data={EventsStore.data} />
+        <Sponsors selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} />
+        <Team selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} setup={TeamStore.setup} data={TeamStore.data} onSelect={this.setSelected.bind(this)} />
+        <Thanks selectHeader={payload => this.props.dispatch({ type: "SET_HEADER", payload })} />
+        <Footer />
       </div>
 
     )

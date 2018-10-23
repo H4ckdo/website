@@ -11,7 +11,16 @@ class Events extends React.Component {
   scrollAnimation() {
     let EVENTS = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#Events", duration: "#Sponsors", offset: -200 })
+    new ScrollMagic.Scene({ triggerElement: "#Events", duration: document.getElementById("Events").offsetHeight, offset: 0 })
+      .on("enter leave", (e) => {
+        if (e.type === "enter") {
+          this.props.selectHeader("Events");
+        }
+      })
+      //.addIndicators()
+      .addTo(EVENTS)
+
+    new ScrollMagic.Scene({ triggerElement: "#Events", duration: "#Sponsors", offset: -300 })
       .on("enter", () => {
         //console.log("enter");
         document.getElementById("Events").classList.remove("hidden");
@@ -27,7 +36,7 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollAnimation();
+    window.addEventListener("load", () => this.scrollAnimation());
   }
 
   render() {

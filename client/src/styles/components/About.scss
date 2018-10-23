@@ -31,7 +31,7 @@
   margin: 0px auto;
   padding-top: 30px;
   .about-container-filter{
-    background-color: $primary;
+    background-color: $portada_filter;
     mix-blend-mode: multiply;
     height: 100%;
   }
@@ -64,17 +64,17 @@
       }
       .about-container-content__text__title {
         color: white;
-        font-size: 18px;
-        font-family: $global-font-family-light;
-        font-weight: 600;
+        font-size: 14px;
+        font-family: $global-font-family;
+        font-weight: 100;
         text-align: left;
         margin: 0px;
         line-height: 1.4;
         position: relative;
       }
       .about-container-content__text__subtitle {
-        color: $third;
-        font-size: 68px;
+        color: white;
+        font-size: 40px;
         font-family: $global-font-title;
         font-weight: bold;
         text-align: left;
@@ -85,6 +85,10 @@
         .portada-title {
           position: absolute;
           transition: all 3s ease-in-out;
+          .portada-title__mark {
+            display: block;
+            color: $fourth;
+          }
         }
       }
       .about-container-content__text__phrases {

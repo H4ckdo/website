@@ -50,7 +50,14 @@ class About extends React.Component {
   scrollAnimation() {
     let PORTADA = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 100, offset: 200 })
+    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: document.getElementById("sectionAbout").offsetHeight, offset: 0 })
+      .on("enter leave", (e) => {
+        this.props.selectHeader(" ");
+      })
+      //.addIndicators()
+      .addTo(PORTADA)
+
+    new ScrollMagic.Scene({ triggerElement: "#sectionAbout", duration: 250, offset: 200 })
       .setPin("#sectionAbout")
       //.addIndicators() // add indicators (requires plugin)
       .addTo(PORTADA)
@@ -67,10 +74,11 @@ class About extends React.Component {
 
   render() {
     let isOpen = false;
+    let { setup } = this.props;
     return (
       <div className="about-container" id="About">
         <div className="about-container-filter"></div>
-        <Header onScroll={this.changeLogoState.bind(this)} onSelect={this.props.onSelect} />
+        <Header setup={setup} onScroll={this.changeLogoState.bind(this)} onSelect={this.props.onSelect} />
         <div className="wrap-section-about">
           <section id="sectionAbout">
             <div className={`${this.state.hideLogo ? "hide-logo" : "appear"} wrap-logo`}>
@@ -81,19 +89,29 @@ class About extends React.Component {
                 <i className="about-container-content__text__title">TRABAJAMOS PARA CONSTRUIR</i>
                 <h1 className=" about-container-content__text__subtitle">
                   <div className="portada-title hidden">
-                    <span>COMUNIDADES & CONOCIMIENTO</span>
+                    <span>
+                      <div className="portada-title__mark">COMUNIDADES</div> & CONOCIMIENTO
+                    </span>
                   </div>
                   <div className="portada-title hidden">
-                    <span>ECOSISTEMAS TECNOLÓGICOS</span>
+                    <span>
+                      <div className="portada-title__mark">ECOSISTEMAS</div> TECNOLÓGICOS
+                    </span>
                   </div>
                   <div className="portada-title hidden">
-                    <span>PROYECTOS CON IMPACTO SOCIAL</span>
+                    <span>
+                      <div className="portada-title__mark">PROYECTOS</div> CON IMPACTO SOCIAL
+                    </span>
                   </div>
                   <div className="portada-title hidden">
-                    <span>PROYECTOS INTERACTIVOS (NARRATIVAS)</span>
+                    <span>
+                      <div className="portada-title__mark">PROYECTOS </div>INTERACTIVOS (NARRATIVAS)
+                    </span>
                   </div>
                   <div className="portada-title hidden">
-                    <span>INVESTIGACIÓN APLICADA</span>
+                    <span>
+                      <div className="portada-title__mark">INVESTIGACIÓN</div> APLICADA
+                    </span>
                   </div>
                 </h1>
               </div>

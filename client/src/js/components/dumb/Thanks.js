@@ -180,9 +180,18 @@ class Thanks extends React.Component {
 
 
   scrollAnimation() {
-    let SPONSORS = new ScrollMagic.Controller();
+    let THANKS = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#Thanks", duration: "#Footer", offset: -200 })
+    new ScrollMagic.Scene({ triggerElement: "#Thanks", duration: document.getElementById("Thanks").offsetHeight, offset: 0 })
+      .on("enter leave", (e) => {
+        if (e.type === "enter") {
+          this.props.selectHeader("Thanks");
+        }
+      })
+      //.addIndicators()
+      .addTo(THANKS)
+
+    new ScrollMagic.Scene({ triggerElement: "#Thanks", duration: "#Footer", offset: -290 })
       .on("enter", () => {
         //console.log("enter");
         document.getElementById("Thanks").classList.remove("hidden");
@@ -194,11 +203,11 @@ class Thanks extends React.Component {
         document.querySelector(".wrap-team").classList.remove("push-up");
       })
       //.addIndicators() // add indicators (requires plugin)
-      .addTo(SPONSORS)
+      .addTo(THANKS)
   }
 
   componentDidMount() {
-    this.scrollAnimation();
+    window.addEventListener("load", () => this.scrollAnimation());
   }
 
   render() {

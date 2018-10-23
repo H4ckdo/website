@@ -2,7 +2,8 @@ import React from 'react'
 import BottomMarker from '../components/dumb/BottomMarker'
 export default {
   setup: {
-    loadingNews: true
+    loadingNews: true,
+    selected: ""
   },
   data: {
     news: {

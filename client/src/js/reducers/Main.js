@@ -10,9 +10,14 @@ const takeSnapshot = (state) => {
  */
 const Main = (state, action = {}) => {
   let { payload, type } = action;
-  if(type === 'SET') {
+  if(type === "SET") {
     let snapshot = {...takeSnapshot(state), ...payload };
     //console.log('snapshot ', snapshot);
+    return { ...state, ...snapshot };
+  }
+  if (type === "SET_HEADER") {
+    let snapshot = { ...takeSnapshot(state)};
+    snapshot.setup.selected = payload;
     return { ...state, ...snapshot };
   }
   return { ...state };

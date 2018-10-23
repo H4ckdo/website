@@ -9,7 +9,16 @@ class Courses extends React.Component {
   scrollAnimation() {
     let COURSES = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#Courses", duration: "#Events", offset: -200 })
+    new ScrollMagic.Scene({ triggerElement: "#Courses", duration: "100%", offset: 0 })
+      .on("enter leave", (e) => {
+        if (e.type === "enter") {
+          this.props.selectHeader("Courses");
+        }
+      })
+      //.addIndicators()
+      .addTo(COURSES)
+
+    new ScrollMagic.Scene({ triggerElement: "#Courses", duration: "#Events", offset: -340 })
       .on("enter", () => {
         //console.log("enter");
         document.getElementById("Courses").classList.remove("hidden");

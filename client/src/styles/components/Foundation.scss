@@ -8,35 +8,55 @@
     width: 400px;
     height: 100%;
     grid-area: 1/1;
-    h1 {
-      color: $third_dark;
+    .foundation-aside__about {
+      width: 400px;
       background: $third;
-      text-align: left;
-      font-size: 57px;
-      font-family: $global-font-title;
-      font-weight: 700;
+      grid-area: 1/1;
+      grid-row: span 2;
+      padding-top: 30px;
+      padding-bottom: 30px;
       padding-left: 20px;
-      margin: 0px;
-      padding-top: 40px;
+      transition: all 0.5s ease-in-out;
+      h1 {
+        color: $third_dark;
+        background: $third;
+        text-align: left;
+        font-size: 40px;
+        font-family: $global-font-title;
+        font-weight: 700;
+        margin: 0px;
+      }
+      p {
+        text-align: left;
+        font-family: $global-font-family;
+        font-size: 14px;
+        line-height: 1.3;
+        margin: 0px;
+        margin-top: 5px;
+        width: 300px;
+        color: $third_dark;
+      }
     }
   }
   .foundation-content {
     background: white;
     grid-area: 1/2;
     display: grid;
-    grid-auto-columns: 0fr 1fr;
-    grid-auto-rows: 1fr 1fr;
-    padding-top: 25px;
+    grid-auto-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    padding-top: 30px;
     padding-bottom: 40px;
+    transition: all 0.5s ease-in-out;
     .foundation-content__mision {
       transition: all 0.5s ease-in-out;
-      padding-top: 40px;
-      padding-right: 20px;
-      grid-area: 1/2;
+      padding-top: 20px;
+      padding-right: 30px;
+      padding-left: 35px;
+      grid-area: 1/1;
       h1 {
         color: $primary;
         text-align: left;
-        font-size: 35px;
+        font-size: 33px;
         font-family: $global-font-title;
         font-weight: 700;
         margin: 0px;
@@ -45,20 +65,21 @@
       p {
         text-align: left;
         font-family: $global-font-family;
-        font-size: 20px;
+        font-size: 14px;
         line-height: 1.3;
         margin: 0px;
         margin-top: 5px;
       }
     }
     .foundation-content__vision {
-      grid-area: 2/2;
+      grid-area: 1/2;
+      padding-top: 20px;
       padding-right: 20px;
       margin-top: 15px;
       h1 {
         color: $primary;
         text-align: left;
-        font-size: 35px;
+        font-size: 33px;
         font-family: $global-font-title;
         font-weight: 700;
         margin: 0px;
@@ -67,36 +88,12 @@
       p {
         text-align: left;
         font-family: $global-font-family;
-        font-size: 20px;
+        font-size: 14px;
         line-height: 1.3;
         margin: 0px;
         margin-top: 5px;
       }
     }
-    .foundation-content__about {
-      width: 400px;
-      grid-area: 1/1;
-      grid-row: span 2;
-      padding: 30px;
-      padding-top: 40px;
-      transition: all 0.5s ease-in-out;
-      h1 {
-        color: $primary;
-        text-align: left;
-        font-size: 35px;
-        font-family: $global-font-title;
-        font-weight: 700;
-        margin: 0px;
-        padding-top: 20px;
-      }
-      p {
-        text-align: left;
-        font-family: $global-font-family;
-        font-size: 20px;
-        line-height: 1.3;
-        margin: 0px;
-        margin-top: 5px;
-      }
-    }
+
   }
 }

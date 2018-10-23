@@ -12,7 +12,7 @@
     .wrap-events-aside__title {
       color: $primary;
       text-align: left;
-      font-size: 57px;
+      font-size: 40px;
       font-family: $global-font-title;
       font-weight: 700;
       margin: 0;
@@ -43,21 +43,21 @@
       .wrap-events__content__about {
         grid-area: 1/2;
         .wrap-events__content__about__register {
-          font-size: 25px;
+          font-size: 14px;
           font-family: $global-font-title;
           color: $primary;
           margin: 0px;
           text-transform: uppercase;
         }
         .wrap-events__content__about__title {
-          font-size: 45px;
+          font-size: 33px;
           font-family: $global-font-title;
           color: $primary;
           margin: 0px;
           text-transform: uppercase;
         }
         .wrap-events__content__about__text {
-          font-size: 18px;
+          font-size: 14px;
           font-family: $global-font-family;
           margin-top: 8px;
           line-height: 1.4;
@@ -68,12 +68,12 @@
         grid-area: 1/1;
         text-align: left;
         .wrap-events__content__speaker__name {
-          font-size: 22px;
+          font-size: 14px;
           font-family: $global-font-family;
           color: black;
         }
         .wrap-events__content__speaker__next {
-          font-size: 30px;
+          font-size: 33px;
           font-family: $global-font-title;
           background: $fifth;
           color: $primary;
@@ -81,7 +81,7 @@
           padding: 8px;
         }
         .wrap-events__content__speaker__ponente {
-          font-size: 30px;
+          font-size: 33px;
           font-family: $global-font-title;
           background: $fifth;
           color: $primary;
@@ -103,10 +103,10 @@
   }
   .wrap-events__content-before__gallery {
     .alice-carousel__prev-btn {
-      left: -50px !important;
+      left: -30px !important;
     }
     .alice-carousel__next-btn {
-      right: -32px !important;
+      right: -30px !important;
     }
   }
 
@@ -119,7 +119,7 @@
   padding-top: 40px;
   padding-left: 40px;
   .wrap-events__content-before-title {
-    font-size: 30px;
+    font-size: 33px;
     font-family: $global-font-title;
     background: $fifth;
     color: $primary;
@@ -143,13 +143,13 @@
         display: inline-block;
         grid-area: 1/2;
         h1 {
-          font-size: 21px;
+          font-size: 33px;
           font-family: $global-font-title;
           color: $primary;
           margin: 0px;
         }
         p {
-          font-size: 18px;
+          font-size: 14px;
           font-family: $global-font-family;
           color: black;
           margin-top: 5px;

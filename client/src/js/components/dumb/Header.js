@@ -50,10 +50,11 @@ class Header extends React.Component {
 
   render(props) {
     let { isOpen, changeBackground } = this.state;
+    let { setup } = this.props;
     return (
       <div className={`header-background ${changeBackground ? "background-contrast" : ""}`}>
         <div className="wrap-header">
-          <div>
+          <div className="wrap-header__logo">
             <div className={`${changeBackground ? "appear-logo" : "hidden"} wrap-logo`}>
               <span className={`wrap-logo__menu-select ${isOpen ? "menu-active" : ""}`} onClick={this.handleMenu.bind(this)}><i ref="menuControl" className="material-icons">menu</i></span>
               <img id="logo" src="/assets/images/logo.webp" alt="" />
@@ -118,56 +119,56 @@ class Header extends React.Component {
 
               <nav className="main-header__desktop">
                 <ul>
-                  <li className="appear-bottom" onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
+                  <li className={`${ setup.selected === "Articles" ? "item-selected" : "" } `} onClick={this.goTo.bind(this, "https://medium.com/@Hackdo")}>
                     <span>
                       <div className="menu-text">ARTICULOS</div>
                       <div className="bottom-mark"></div>
                     </span>
 
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Foundation', this.closeMenu.bind(this))}>
+                  <li className={`${setup.selected === "Foundation" ? "item-selected" : "" } `} onClick={this.props.onSelect.bind(this, '#Foundation', this.closeMenu.bind(this))}>
                     <span>
                       <div className="menu-text">FUNDACIÓN</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Projects')}>
+                  <li className={`${setup.selected === "Projects" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Projects')}>
                     <span>
                       <div className="menu-text">PROYECTOS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Courses')}>
+                  <li className={`${setup.selected === "Courses" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Courses')}>
                     <span>
                       <div className="menu-text">CURSOS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Events')}>
+                  <li className={`${setup.selected === "Events" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Events')}>
                     <span>
                       <div className="menu-text">EVENTOS</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Sponsors')}>
+                  <li className={`${setup.selected === "Sponsors" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Sponsors')}>
                     <span>
                       <div className="menu-text">PATROCINADORES</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Team')}>
+                  <li className={`${setup.selected === "Team" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Team')}>
                     <span>
                       <div className="menu-text">EQUIPO</div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom" onClick={this.props.onSelect.bind(this, '#Thanks')}>
+                  <li className={`${setup.selected === "Thanks" ? "item-selected" : "" }`} onClick={this.props.onSelect.bind(this, '#Thanks')}>
                     <span>
                       <div className="menu-text">AGRADECIMIENTOS </div>
                       <div className="bottom-mark"></div>
                     </span>
                   </li>
-                  <li className="appear-bottom">
+                  <li className={`${setup.selected === "Legal" ? "item-selected" : "" }`}>
                     <span>
                       <div className="menu-text">LEGAL </div>
                       <div className="bottom-mark"></div>

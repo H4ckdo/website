@@ -19,7 +19,17 @@ class Sponsors extends React.Component {
   scrollAnimation() {
     let SPONSORS = new ScrollMagic.Controller();
     let displayed = false;
-    new ScrollMagic.Scene({ triggerElement: "#Sponsors", duration: "#Team", offset: -200 })
+
+    new ScrollMagic.Scene({ triggerElement: "#Sponsors", duration: document.getElementById("Sponsors").offsetHeight, offset: 0 })
+      .on("enter leave", (e) => {
+        if (e.type === "enter") {
+          this.props.selectHeader("Sponsors");
+        }
+      })
+      //.addIndicators()
+      .addTo(SPONSORS)
+
+    new ScrollMagic.Scene({ triggerElement: "#Sponsors", duration: "#Team", offset: -300 })
       .on("enter", () => {
         //console.log("enter");
         document.getElementById("Sponsors").classList.remove("hidden");
@@ -35,7 +45,7 @@ class Sponsors extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollAnimation();
+    window.addEventListener("load", () => this.scrollAnimation());
   }
 
   join() {
@@ -53,7 +63,7 @@ class Sponsors extends React.Component {
           <section className="section-sponsors">
             <article className="section-sponsors__article">
               <p className="section-sponsors__article__copy">
-                Gracias a estos patrocinadores la <b>Hackdó</b> es posible, ayúdanos y conviértete en un patrocinador tu también
+                <b>Gracias</b> a estos patrocinadores los proyectos de Hackdó son posibles, ayúdanos y conviértete en un patrocinador tu también.
                 <button className="section-sponsors__article__copy__join" onClick={this.join.bind()}>Unirse</button>
               </p>
             </article>
