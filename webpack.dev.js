@@ -9,7 +9,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = merge(common, {
   plugins: [
-    new BundleAnalyzerPlugin(),
+    //new BundleAnalyzerPlugin(),
     new LiveReloadPlugin(),
     new WebpackNotifierPlugin({ alwaysNotify: true }),
     new HardSourceWebpackPlugin()
