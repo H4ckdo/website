@@ -47,7 +47,7 @@ class App extends React.Component {
 
   goTo(id, done) {
     //console.log('id ', id);
-    scrollToElement(id, {duration: 500});
+    scrollToElement(id, {duration: 500, offset: -92 });
     if (done) setTimeout(done, 700);
   }
 
